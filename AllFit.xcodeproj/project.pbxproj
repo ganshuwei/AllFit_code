@@ -17,6 +17,8 @@
 		02A53EFE291731D1002574E5 /* AllFitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A53EFD291731D1002574E5 /* AllFitTests.swift */; };
 		02A53F08291731D2002574E5 /* AllFitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A53F07291731D2002574E5 /* AllFitUITests.swift */; };
 		02A53F0A291731D2002574E5 /* AllFitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A53F09291731D2002574E5 /* AllFitUITestsLaunchTests.swift */; };
+		02A53F172917325E002574E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02A53F162917325E002574E5 /* GoogleService-Info.plist */; };
+		02A53F1A29173358002574E5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 02A53F1929173358002574E5 /* FirebaseAnalytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,7 @@
 		02A53F03291731D2002574E5 /* AllFitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllFitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A53F07291731D2002574E5 /* AllFitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFitUITests.swift; sourceTree = "<group>"; };
 		02A53F09291731D2002574E5 /* AllFitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		02A53F162917325E002574E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A53F1A29173358002574E5 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +112,7 @@
 				02A53EEF291731D1002574E5 /* Assets.xcassets */,
 				02A53EF1291731D1002574E5 /* LaunchScreen.storyboard */,
 				02A53EF4291731D1002574E5 /* Info.plist */,
+				02A53F162917325E002574E5 /* GoogleService-Info.plist */,
 				02A53EEC291731D0002574E5 /* AllFit.xcdatamodeld */,
 			);
 			path = AllFit;
@@ -146,6 +151,9 @@
 			dependencies = (
 			);
 			name = AllFit;
+			packageProductDependencies = (
+				02A53F1929173358002574E5 /* FirebaseAnalytics */,
+			);
 			productName = AllFit;
 			productReference = 02A53EE0291731D0002574E5 /* AllFit.app */;
 			productType = "com.apple.product-type.application";
@@ -218,6 +226,9 @@
 				Base,
 			);
 			mainGroup = 02A53ED7291731CF002574E5;
+			packageReferences = (
+				02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 02A53EE1291731D0002574E5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -235,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A53EF3291731D1002574E5 /* LaunchScreen.storyboard in Resources */,
+				02A53F172917325E002574E5 /* GoogleService-Info.plist in Resources */,
 				02A53EF0291731D1002574E5 /* Assets.xcassets in Resources */,
 				02A53EEB291731D0002574E5 /* Main.storyboard in Resources */,
 			);
@@ -606,6 +618,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		02A53F1929173358002574E5 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		02A53EEC291731D0002574E5 /* AllFit.xcdatamodeld */ = {
