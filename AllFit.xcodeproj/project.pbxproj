@@ -17,12 +17,16 @@
 		02A53F0A291731D2002574E5 /* AllFitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A53F09291731D2002574E5 /* AllFitUITestsLaunchTests.swift */; };
 		02A53F172917325E002574E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02A53F162917325E002574E5 /* GoogleService-Info.plist */; };
 		02A53F1A29173358002574E5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 02A53F1929173358002574E5 /* FirebaseAnalytics */; };
-		02B21ABE291DC96F0052A10C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B21ABD291DC96F0052A10C /* ViewController.swift */; };
-		02B21AC0291DC97F0052A10C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02B21ABF291DC97F0052A10C /* Main.storyboard */; };
 		02B21AC2291DC98E0052A10C /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B21AC1291DC98E0052A10C /* loginViewController.swift */; };
 		02B21AC4291DC9940052A10C /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B21AC3291DC9940052A10C /* registerViewController.swift */; };
 		02B21AC7291DC9F60052A10C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 02B21AC6291DC9F60052A10C /* FirebaseAnalytics */; };
 		02B21AC9291DC9F60052A10C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 02B21AC8291DC9F60052A10C /* FirebaseAuth */; };
+		123170CC29215403008AD626 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 123170CB29215403008AD626 /* Main.storyboard */; };
+		123170CE2921544B008AD626 /* editProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170CD2921544B008AD626 /* editProfileController.swift */; };
+		123170D029215457008AD626 /* profileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170CF29215457008AD626 /* profileViewController.swift */; };
+		123170D22921545F008AD626 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170D12921545F008AD626 /* homeViewController.swift */; };
+		123170D429215465008AD626 /* workOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170D329215465008AD626 /* workOutCollectionViewCell.swift */; };
+		123170D629215532008AD626 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170D529215532008AD626 /* Data.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,10 +60,14 @@
 		02A53F07291731D2002574E5 /* AllFitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFitUITests.swift; sourceTree = "<group>"; };
 		02A53F09291731D2002574E5 /* AllFitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		02A53F162917325E002574E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		02B21ABD291DC96F0052A10C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "../../../../../AllFit的副本/AllFit/ViewController.swift"; sourceTree = "<group>"; };
-		02B21ABF291DC97F0052A10C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		02B21AC1291DC98E0052A10C /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		02B21AC3291DC9940052A10C /* registerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
+		123170CB29215403008AD626 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../test/test/Main.storyboard; sourceTree = "<group>"; };
+		123170CD2921544B008AD626 /* editProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editProfileController.swift; sourceTree = "<group>"; };
+		123170CF29215457008AD626 /* profileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileViewController.swift; sourceTree = "<group>"; };
+		123170D12921545F008AD626 /* homeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
+		123170D329215465008AD626 /* workOutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = workOutCollectionViewCell.swift; sourceTree = "<group>"; };
+		123170D529215532008AD626 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +123,14 @@
 			children = (
 				02A53EE3291731D0002574E5 /* AppDelegate.swift */,
 				02A53EE5291731D0002574E5 /* SceneDelegate.swift */,
-				02B21ABD291DC96F0052A10C /* ViewController.swift */,
 				02B21AC1291DC98E0052A10C /* loginViewController.swift */,
 				02B21AC3291DC9940052A10C /* registerViewController.swift */,
-				02B21ABF291DC97F0052A10C /* Main.storyboard */,
+				123170CD2921544B008AD626 /* editProfileController.swift */,
+				123170CF29215457008AD626 /* profileViewController.swift */,
+				123170D12921545F008AD626 /* homeViewController.swift */,
+				123170D329215465008AD626 /* workOutCollectionViewCell.swift */,
+				123170D529215532008AD626 /* Data.swift */,
+				123170CB29215403008AD626 /* Main.storyboard */,
 				02A53EEF291731D1002574E5 /* Assets.xcassets */,
 				02A53EF1291731D1002574E5 /* LaunchScreen.storyboard */,
 				02A53EF4291731D1002574E5 /* Info.plist */,
@@ -259,7 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A53EF3291731D1002574E5 /* LaunchScreen.storyboard in Resources */,
-				02B21AC0291DC97F0052A10C /* Main.storyboard in Resources */,
+				123170CC29215403008AD626 /* Main.storyboard in Resources */,
 				02A53F172917325E002574E5 /* GoogleService-Info.plist in Resources */,
 				02A53EF0291731D1002574E5 /* Assets.xcassets in Resources */,
 			);
@@ -286,8 +298,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02B21ABE291DC96F0052A10C /* ViewController.swift in Sources */,
 				02A53EE4291731D0002574E5 /* AppDelegate.swift in Sources */,
+				123170D629215532008AD626 /* Data.swift in Sources */,
+				123170CE2921544B008AD626 /* editProfileController.swift in Sources */,
+				123170D429215465008AD626 /* workOutCollectionViewCell.swift in Sources */,
+				123170D029215457008AD626 /* profileViewController.swift in Sources */,
+				123170D22921545F008AD626 /* homeViewController.swift in Sources */,
 				02A53EE6291731D0002574E5 /* SceneDelegate.swift in Sources */,
 				02B21AC4291DC9940052A10C /* registerViewController.swift in Sources */,
 				02A53EEE291731D0002574E5 /* AllFit.xcdatamodeld in Sources */,
@@ -460,7 +476,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W3T852AU7J;
+				DEVELOPMENT_TEAM = MDK9359XC2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AllFit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -473,7 +489,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = CSE438.AllFit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jiecheng.testForAllFit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -488,7 +504,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W3T852AU7J;
+				DEVELOPMENT_TEAM = MDK9359XC2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AllFit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -501,7 +517,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = CSE438.AllFit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jiecheng.testForAllFit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -30,21 +30,16 @@ class loginViewController: UIViewController {
             return
         }
         
-        Auth.auth().signIn(withEmail: email, password: pw)            {[weak self] authResult,err in
-            guard let strongSelf=self else{
-                return
-            }
+        Auth.auth().signIn(withEmail: email, password: pw){[weak self] authResult,err in
             if let e = err{
                 self?.errorLabel.text=e.localizedDescription
             }
         }
         if Auth.auth().currentUser != nil{
-            if let rootVC = navigationController?.viewControllers.first as? ViewController {
-                rootVC.userEmail = Auth.auth().currentUser?.email
-                rootVC.loginBtn.configuration?.title = "logout"
-                rootVC.ifLogin=true
-            }
-            navigationController?.popToRootViewController(animated: true)
+            print("log in successfully!")
+            let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserMain")
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true, completion: nil)
         }
     }
     

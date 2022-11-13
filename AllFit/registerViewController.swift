@@ -35,15 +35,30 @@ class registerViewController: UIViewController {
             errorText.text="Password doesn't match"
             return
         }
-        Auth.auth().createUser(withEmail: email, password: pw){
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pw){
             (authResult,error) in
-            guard let _ = authResult?.user,error == nil else{
-                print("Error")
+            guard let result = authResult,error == nil else{
+                print(error ?? "")
                 return
             }
+            
+            let user = result.user
+            print("Created User:\(user)")
+            
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: pw){[weak self] authResult,err in
+            if let e = err{
+                self?.errorText.text=e.localizedDescription
+            }
+        }
+        if Auth.auth().currentUser != nil{
+            print("log in successfully!")
+            let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserMain")
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true, completion: nil)
         }
         errorText.text=""
-        _=navigationController?.popViewController(animated: true)
     }
 
 
