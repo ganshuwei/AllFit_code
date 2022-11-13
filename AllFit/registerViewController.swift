@@ -35,6 +35,7 @@ class registerViewController: UIViewController {
             errorText.text="Password doesn't match"
             return
         }
+        // Create a new user account
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pw){
             (authResult,error) in
             guard let result = authResult,error == nil else{
@@ -48,17 +49,15 @@ class registerViewController: UIViewController {
         }
         
         Auth.auth().signIn(withEmail: email, password: pw){[weak self] authResult,err in
+            guard let strongSelf = self else{return}
+            // Fail to log in return and print the error
             if let e = err{
                 self?.errorText.text=e.localizedDescription
+                return
             }
+            // Suceessfully log in, go dismiss this view and go back to the home screen
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
-        if Auth.auth().currentUser != nil{
-            print("log in successfully!")
-            let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserMain")
-            navigationController.modalPresentationStyle = .fullScreen
-            self.present(navigationController, animated: true, completion: nil)
-        }
-        errorText.text=""
     }
 
 

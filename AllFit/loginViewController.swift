@@ -21,6 +21,8 @@ class loginViewController: UIViewController {
     }
     
     @IBAction func loginTapped(_ sender: Any) {
+        
+                
         guard let email=emailText.text,!email.isEmpty else{
             errorLabel.text="You don't input email"
             return
@@ -31,15 +33,14 @@ class loginViewController: UIViewController {
         }
         
         Auth.auth().signIn(withEmail: email, password: pw){[weak self] authResult,err in
+            guard let strongSelf = self else{return}
+            // Fail to log in return and print the error
             if let e = err{
                 self?.errorLabel.text=e.localizedDescription
+                return
             }
-        }
-        if Auth.auth().currentUser != nil{
-            print("log in successfully!")
-            let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserMain")
-            navigationController.modalPresentationStyle = .fullScreen
-            self.present(navigationController, animated: true, completion: nil)
+            // Suceessfully log in, go dismiss this view and go back to the home screen
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
     

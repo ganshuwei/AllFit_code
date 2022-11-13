@@ -28,6 +28,10 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         super.viewDidLoad()
         usernameLabel.text = Auth.auth().currentUser?.email
         // Do any additional setup after loading the view.
+        profilePhoto.layer.masksToBounds = true
+        profilePhoto.layer.borderWidth = 2
+        profilePhoto.layer.borderColor = UIColor.lightGray.cgColor
+        profilePhoto.layer.cornerRadius = profilePhoto.frame.width/2.0
     }
 
     
@@ -35,10 +39,18 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         let logOutAlert = UIAlertController(title: "Log Out", message: "Do you want to log out your account?", preferredStyle: UIAlertController.Style.alert)
 
         logOutAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            self.ifLogin = false
-            let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LogAndSign")
-            navigationController.modalPresentationStyle = .fullScreen
-            self.present(navigationController, animated: true, completion: nil)
+            do{
+                try Auth.auth().signOut()
+                self.ifLogin = false
+                let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LogAndSign")
+                navigationController.modalPresentationStyle = .fullScreen
+                self.present(navigationController, animated: true, completion: nil)
+            }catch let logOutError{
+                let alert = UIAlertController(title: "Attention", message: logOutError.localizedDescription, preferredStyle: .alert)
+                self.present(alert, animated: true)
+            }
+            
+
         }))
 
         logOutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
