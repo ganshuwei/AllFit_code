@@ -28,6 +28,8 @@
 		123170D82921B358008AD626 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 123170D72921B358008AD626 /* GoogleService-Info.plist */; };
 		123170DA2921B7D2008AD626 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170D92921B7D2008AD626 /* DatabaseManager.swift */; };
 		123170DC2921BE4F008AD626 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 123170DB2921BE4F008AD626 /* Main.storyboard */; };
+		123170DE29221315008AD626 /* favouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170DD29221315008AD626 /* favouriteViewController.swift */; };
+		123170E2292215E8008AD626 /* personalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170E1292215E8008AD626 /* personalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,8 @@
 		123170D72921B358008AD626 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		123170D92921B7D2008AD626 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		123170DB2921BE4F008AD626 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		123170DD29221315008AD626 /* favouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteViewController.swift; sourceTree = "<group>"; };
+		123170E1292215E8008AD626 /* personalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,8 @@
 				123170CD2921544B008AD626 /* editProfileController.swift */,
 				123170CF29215457008AD626 /* profileViewController.swift */,
 				123170D12921545F008AD626 /* homeViewController.swift */,
+				123170DD29221315008AD626 /* favouriteViewController.swift */,
+				123170E1292215E8008AD626 /* personalViewController.swift */,
 				123170D329215465008AD626 /* workOutCollectionViewCell.swift */,
 				123170D529215532008AD626 /* Data.swift */,
 				123170DB2921BE4F008AD626 /* Main.storyboard */,
@@ -305,9 +311,11 @@
 				123170DA2921B7D2008AD626 /* DatabaseManager.swift in Sources */,
 				123170D629215532008AD626 /* Data.swift in Sources */,
 				123170CE2921544B008AD626 /* editProfileController.swift in Sources */,
+				123170DE29221315008AD626 /* favouriteViewController.swift in Sources */,
 				123170D429215465008AD626 /* workOutCollectionViewCell.swift in Sources */,
 				123170D029215457008AD626 /* profileViewController.swift in Sources */,
 				123170D22921545F008AD626 /* homeViewController.swift in Sources */,
+				123170E2292215E8008AD626 /* personalViewController.swift in Sources */,
 				02A53EE6291731D0002574E5 /* SceneDelegate.swift in Sources */,
 				02B21AC4291DC9940052A10C /* registerViewController.swift in Sources */,
 				02A53EEE291731D0002574E5 /* AllFit.xcdatamodeld in Sources */,

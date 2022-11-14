@@ -1,11 +1,13 @@
+//
+//  favouriteViewController.swift
+//  AllFit
+//
+//  Created by Jiecheng on 11/14/22.
+//
+
 import UIKit
-import FirebaseAuth
 
-class homeViewController: UIViewController {
-
-    
-
-    @IBOutlet weak var searchBtn: UIBarButtonItem!
+class personalViewController: UIViewController{
     
     @IBOutlet weak var collection: UICollectionView!
     
@@ -16,50 +18,30 @@ class homeViewController: UIViewController {
         collection.delegate = self
         collection.collectionViewLayout = UICollectionViewFlowLayout()
         
-        print(workOuts.count)
+        print(personal.count)
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        validateLogIn()
-    }
-
-    private func validateLogIn(){
-        if FirebaseAuth.Auth.auth().currentUser == nil{
-            let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LogAndSign")
-            navigationController.modalPresentationStyle = .fullScreen
-            self.present(navigationController, animated: true, completion: nil)
-        }
-    }
-    
-    @IBAction func searchAction(_ sender: UIBarButtonItem) {
-        
-    }
-    
-    
-    
-
 }
 
-extension homeViewController: UICollectionViewDataSource {
+extension personalViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(workOuts.count)
-        return workOuts.count
+        print(personal.count)
+        return personal.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
         
-        cell.setUp(with: workOuts[indexPath.row])
+        cell.setUp(with: personal[indexPath.row])
         
-        print(workOuts[indexPath.row].workOutName)
+        print(personal[indexPath.row].workOutName)
         
         return cell
     }
 }
 
-extension homeViewController: UICollectionViewDelegateFlowLayout {
+extension personalViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 194, height: 300)
     }
@@ -73,8 +55,9 @@ extension homeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension homeViewController: UICollectionViewDelegate {
+extension personalViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(workOuts[indexPath.row].workOutName)
+        print(personal[indexPath.row].workOutName)
     }
 }
+
