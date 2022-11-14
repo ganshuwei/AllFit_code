@@ -23,8 +23,6 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
               let idx = theItems.firstIndex(of: item),
               let controllers = self.viewControllers
         else { return }
-        
-        print("controller is ",controllers[idx])
         if let vc = controllers[idx] as? homeViewController {
             vc.viewDidLoad()
             print("home")
@@ -43,21 +41,6 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             print("workout page")
         }
     }
-//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//
-//            if let firstVC = viewController as? ViewController {
-//                firstVC.viewDidLoad()
-//            }
-//            else if let secondVC = viewController as? FavoritesController {
-//                secondVC.viewDidLoad()
-//            }
-//            if viewController is ViewController {
-//                print("First tab")
-//            } else if viewController is FavoritesController {
-//                print("Second tab")
-//            }
-//    }
-    
     override func viewDidLoad() {
         print("in here 1")
          super.viewDidLoad()

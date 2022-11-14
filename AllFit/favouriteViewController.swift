@@ -21,7 +21,6 @@ class favouriteViewController: UIViewController{
         print(favourite.count)
         
     }
-    
 }
 
 extension favouriteViewController: UICollectionViewDataSource {
