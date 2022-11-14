@@ -44,6 +44,11 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        exerciseTable.reloadData()
+        setupTableView()
+    }
+    
     @IBAction func postWorkoutBtn(_ sender: Any) {
         let workoutInfo = Workout(
             workout_name: workoutName.text!, workout_difficulty: workoutDifficulty.text!, workout_exercises: exerciseArray
