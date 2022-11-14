@@ -828,6 +828,9 @@
                                 <buttonConfiguration key="configuration" style="filled" title="+">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="uploadWorkoutPhoto:" destination="LPF-ng-zyn" eventType="touchUpInside" id="Enb-HV-PVE"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEd-gz-Cza">
                                 <rect key="frame" x="161" y="280" width="210" height="34"/>
