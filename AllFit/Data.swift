@@ -40,4 +40,18 @@ var favourite: [WorkOut] = []
 
 var personal: [WorkOut] = []
 
+// ===== Mel code =====
 
+struct Exercise: Encodable, Decodable {
+ var exercise_name: String?
+ var exercise_type: String
+ var exercise_repOrTime: Int!
+ var exercise_equipment: [String]
+}
+struct Workout: Decodable {
+ let workout_name: String?
+ let workout_difficulty: String
+ let workout_exercises: [Exercise]
+}
+var exerciseArray: [Exercise] = []
+var workoutArray: [Workout] = []
