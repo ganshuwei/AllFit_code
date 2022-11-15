@@ -11,7 +11,7 @@ import FirebaseAuth
 
 class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
-    
+    @IBOutlet weak var workoutNameLabel: UILabel!
     @IBOutlet weak var workoutImage: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
     @IBOutlet weak var exerciseTable: UITableView!
@@ -47,6 +47,12 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     override func viewWillAppear(_ animated: Bool) {
         exerciseTable.reloadData()
         setupTableView()
+    }
+    
+    
+    @IBAction func enterWorkoutName(_ sender: Any) {
+        workoutNameLabel.text = workoutName.text
+
     }
     
     @IBAction func postWorkoutBtn(_ sender: Any) {

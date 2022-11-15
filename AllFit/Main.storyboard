@@ -837,6 +837,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="enterWorkoutName:" destination="LPF-ng-zyn" eventType="editingChanged" id="cXe-60-9Hn"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="krW-97-tgi">
                                 <rect key="frame" x="161" y="335" width="210" height="34"/>
@@ -911,6 +914,7 @@
                         <outlet property="workoutDifficulty" destination="krW-97-tgi" id="0gN-Rh-kCx"/>
                         <outlet property="workoutImage" destination="VE2-yo-j8e" id="egZ-sT-1DT"/>
                         <outlet property="workoutName" destination="dEd-gz-Cza" id="uq2-eN-yg1"/>
+                        <outlet property="workoutNameLabel" destination="078-iG-nkr" id="BFH-4F-O5F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fds-4w-jpT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -934,6 +938,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="enterExerciseName:" destination="wTp-rW-qJR" eventType="editingChanged" id="26q-p3-i3r"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exercise name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N67-ge-0kJ">
                                 <rect key="frame" x="26" y="275" width="110" height="21"/>
@@ -1041,6 +1048,7 @@
                         <outlet property="dumbellBtn" destination="ZQR-6C-nba" id="JqT-hy-BdU"/>
                         <outlet property="exerciseImage" destination="aop-ON-ObF" id="VtM-4X-tSr"/>
                         <outlet property="exerciseName" destination="raW-el-bQq" id="ahc-Fa-aCi"/>
+                        <outlet property="exerciseNameLabel" destination="GvC-6D-ynL" id="NgT-CD-c1t"/>
                         <outlet property="exerciseType" destination="6jR-1M-0jS" id="dsp-SZ-57C"/>
                         <outlet property="matBtn" destination="gLF-bL-Au1" id="Ap0-sa-VUf"/>
                         <outlet property="repsOrTime" destination="TLW-rv-PuP" id="FYS-6a-rIS"/>

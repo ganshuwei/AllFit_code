@@ -11,6 +11,8 @@ import FirebaseAuth
 
 class CreateExerciseView: UIViewController{
     
+    
+    @IBOutlet weak var exerciseNameLabel: UILabel!
     @IBOutlet weak var exerciseImage: UIImageView!
     @IBOutlet weak var exerciseName: UITextField!
     @IBOutlet weak var exerciseType: UISegmentedControl!
@@ -34,6 +36,7 @@ class CreateExerciseView: UIViewController{
         // Do any additional setup after loading the view.
 
     }
+    
     @IBAction func submitExerciseClick(_ sender: Any) {
         print("exercise submited")
         //get values from interface
@@ -60,8 +63,6 @@ class CreateExerciseView: UIViewController{
         exerciseArray.append(exerciseInfo)
         print("exercise array is ",exerciseArray)
         
-        
-
         //reload table
 //        CreateWorkoutView.exerciseTable.reloadData()
         
@@ -76,6 +77,13 @@ class CreateExerciseView: UIViewController{
 //            print("exercise array is ",exerciseArray)
 //        }
     }
+    
+    @IBAction func enterExerciseName(_ sender: Any) {
+        exerciseNameLabel.text = exerciseName.text
+    }
+    
+    
+    
     @IBAction func uploadExerciseImage(_ sender: Any) {
         presentPhotoActionSheet()
     }
