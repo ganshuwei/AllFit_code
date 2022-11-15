@@ -24,16 +24,18 @@ struct WorkOut {
     let userName:String
     let userPhoto: UIImage?
     let workoutId : Int
+    let workout_exercises: [Exercise]
+
 }
 
 // For test
-let workOuts : [WorkOut] = [
-    WorkOut(workOutStar: 4.8, workOutImage: UIImage(named: "workout1"), workOutName: "Run", userName: "Mike", userPhoto: UIImage(systemName:  "person.crop.circle"),workoutId: 1),
-    WorkOut(workOutStar: 4.3, workOutImage: UIImage(named: "workout2"), workOutName: "Pushups", userName: "David", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 2),
-    WorkOut(workOutStar: 4.2, workOutImage: UIImage(named: "workout3"), workOutName: "Core", userName: "Johnson", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 3),
-    WorkOut(workOutStar: 4.9, workOutImage: UIImage(named: "workout4"), workOutName: "Strong", userName: "Lucy", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 4),
-    WorkOut(workOutStar: 4.6, workOutImage: UIImage(named: "workout5"), workOutName: "Balance", userName: "Emma", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 5),
-    WorkOut(workOutStar: 4.4, workOutImage: UIImage(named: "workout6"), workOutName: "Keep", userName: "George", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 6)
+var workOuts : [WorkOut] = [
+//    WorkOut(workOutStar: 4.8, workOutImage: UIImage(named: "workout1"), workOutName: "Run", userName: "Mike", userPhoto: UIImage(systemName:  "person.crop.circle"),workoutId: 1),
+//    WorkOut(workOutStar: 4.3, workOutImage: UIImage(named: "workout2"), workOutName: "Pushups", userName: "David", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 2),
+//    WorkOut(workOutStar: 4.2, workOutImage: UIImage(named: "workout3"), workOutName: "Core", userName: "Johnson", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 3),
+//    WorkOut(workOutStar: 4.9, workOutImage: UIImage(named: "workout4"), workOutName: "Strong", userName: "Lucy", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 4),
+//    WorkOut(workOutStar: 4.6, workOutImage: UIImage(named: "workout5"), workOutName: "Balance", userName: "Emma", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 5),
+//    WorkOut(workOutStar: 4.4, workOutImage: UIImage(named: "workout6"), workOutName: "Keep", userName: "George", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 6)
 ]
 
 var favourite: [WorkOut] = []
@@ -48,7 +50,8 @@ struct Exercise: Encodable, Decodable {
  var exercise_repOrTime: Int!
  var exercise_equipment: [String]
 }
-struct Workout: Decodable {
+struct Workout {
+ let workout_image: UIImage?
  let workout_name: String?
  let workout_difficulty: String
  let workout_exercises: [Exercise]

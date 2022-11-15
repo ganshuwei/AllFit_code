@@ -19,6 +19,11 @@ class homeViewController: UIViewController {
         print(workOuts.count)
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.collection.reloadData()
+        self.viewDidLoad()
+        
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -38,8 +43,6 @@ class homeViewController: UIViewController {
     }
     
     
-    
-
 }
 
 extension homeViewController: UICollectionViewDataSource {

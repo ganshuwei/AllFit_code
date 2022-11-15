@@ -56,13 +56,22 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func postWorkoutBtn(_ sender: Any) {
-        let workoutInfo = Workout(
-            workout_name: workoutName.text!, workout_difficulty: workoutDifficulty.text!, workout_exercises: exerciseArray
-                            )
-        workoutArray.append(workoutInfo)
+//        let workoutInfo = Workout(workout_image:workoutImage.image,
+//            workout_name: workoutName.text!, workout_difficulty: workoutDifficulty.text!, workout_exercises: exerciseArray
+//                            )
+//        workoutArray.append(workoutInfo)
+        
+        let workoutInfo = WorkOut(workOutStar:5.0, workOutImage:workoutImage.image,
+                                  workOutName: workoutName.text!, userName:"mel",
+                                  userPhoto:UIImage(systemName: "person.crop.circle"),
+                                  workoutId:1,
+                                  workout_exercises: exerciseArray
+                                )
+            workOuts.append(workoutInfo)
         
         print("exercise array is ",exerciseArray)
-        print("workout array is ",workoutArray)
+        print("workout array is ",workOuts)
+
     }
     //create table view
     func setupTableView() {

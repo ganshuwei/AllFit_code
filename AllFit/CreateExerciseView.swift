@@ -100,7 +100,6 @@ extension CreateExerciseView: UIImagePickerControllerDelegate, UINavigationContr
         actionSheet.addAction(UIAlertAction(title: "Choose Photo", style: .default, handler: {[weak self] _ in
             self?.presentPhotoPicker()
         }))
-        
         present(actionSheet, animated: true)
     }
     
