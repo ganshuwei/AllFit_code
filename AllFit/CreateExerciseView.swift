@@ -59,6 +59,8 @@ class CreateExerciseView: UIViewController{
         //get list of exercises
         exerciseArray.append(exerciseInfo)
         print("exercise array is ",exerciseArray)
+        
+        
 
         //reload table
 //        CreateWorkoutView.exerciseTable.reloadData()

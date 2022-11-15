@@ -65,7 +65,28 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         exerciseTable.delegate = self
         exerciseTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
+        let editAction = UITableViewRowAction(style:.normal,title:"Edit"){_,indexPath in
+            //open edit view
+        }
+        let deleteAction=UITableViewRowAction(style:.destructive,title:"Delete"){_,indexPath in
+                exerciseArray.remove(at: indexPath.row)
+                self.exerciseTable.deleteRows(at: [indexPath], with: .fade)
+        }
+        return[deleteAction,editAction]
+    }
+
     
+    // Override to support editing the table view.
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+//    {
+//        if editingStyle == .delete {
+//            // Delete the row from the data source
+//            exerciseArray.remove(at: indexPath.row)
+//            // Then, delete the row from the table itself
+//            exerciseTable.deleteRows(at: [indexPath], with: .fade)
+//        }
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exerciseArray.count
     }
