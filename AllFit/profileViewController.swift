@@ -18,7 +18,8 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     
     @IBOutlet weak var savedWorkOutsBtn: UIButton!
     
-    var user = User(userEmail: "")
+    @IBOutlet weak var birthday: UILabel!
+    var user = testUser
     var savedWorkOuts : [WorkOut] = []
     var personalWorkOuts : [WorkOut] = []
     var option: Bool = true // true means personal; false means saved
@@ -32,6 +33,11 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         profilePhoto.layer.borderWidth = 2
         profilePhoto.layer.borderColor = UIColor.lightGray.cgColor
         profilePhoto.layer.cornerRadius = profilePhoto.frame.width/2.0
+        profilePhoto.image = testUser.profilePhoto
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewDidLoad()
     }
 
     

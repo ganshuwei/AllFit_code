@@ -1,6 +1,7 @@
 
 
 import UIKit
+import FirebaseAuth
 
 class editProfileViewController: UIViewController {
     
@@ -15,6 +16,8 @@ class editProfileViewController: UIViewController {
     
     @IBOutlet weak var bioField: UITextField!
     
+    @IBOutlet weak var submitBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,6 +29,17 @@ class editProfileViewController: UIViewController {
         let gesture = UITapGestureRecognizer(target: self,
                                                      action: #selector(didTapChangeProfilePic))
         profilePhoto.addGestureRecognizer(gesture)
+        BirthdayField.placeholder = testUser.birthday
+        bioField.placeholder = testUser.bio
+        userEmailField.placeholder = Auth.auth().currentUser?.email
+    }
+    
+    @IBAction func submitAction(_ sender: UIButton) {
+        testUser.profilePhoto = profilePhoto.image
+        testUser.birthday = BirthdayField.text!
+        testUser.bio = bioField.text!
+        testUser.userEmail = userEmailField.text!
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc private func didTapChangeProfilePic() {

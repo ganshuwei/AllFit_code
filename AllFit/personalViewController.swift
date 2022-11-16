@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class personalViewController: UIViewController{
     
     @IBOutlet weak var collection: UICollectionView!
+    
+    @IBOutlet weak var cleanBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,16 +20,30 @@ class personalViewController: UIViewController{
         collection.dataSource = self
         collection.delegate = self
         collection.collectionViewLayout = UICollectionViewFlowLayout()
-        
-        print(personal.count)
-        
     }
     
+    @IBAction func cleanAllAction(_ sender: UIButton) {
+        let cleanAllAlert = UIAlertController(title: "Clean All", message: "Do you want to clean all your created workouts?", preferredStyle: UIAlertController.Style.alert)
+
+        cleanAllAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            workOuts = workOuts.filter({ item in !personal.contains(where: { $0.workOutName == item.workOutName }) })
+            personal = []
+            self.collection.reloadData()
+            
+            //ToDo: clean the personal workouts in the Home Screen
+            
+        }))
+
+        cleanAllAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+
+        present(cleanAllAlert, animated: true, completion: nil)
+    }
 }
 
 extension personalViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(personal.count)
         return personal.count
     }
 
@@ -34,8 +51,7 @@ extension personalViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
         
         cell.setUp(with: personal[indexPath.row])
-        
-        print(personal[indexPath.row].workOutName)
+//        cell.addToFavouriteBtn.isEnabled = false
         
         return cell
     }

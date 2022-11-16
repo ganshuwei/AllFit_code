@@ -16,13 +16,9 @@ class homeViewController: UIViewController {
         collection.delegate = self
         collection.collectionViewLayout = UICollectionViewFlowLayout()
         
-        print(workOuts.count)
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         self.collection.reloadData()
-        self.viewDidLoad()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,7 +43,6 @@ class homeViewController: UIViewController {
 
 extension homeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(workOuts.count)
         return workOuts.count
     }
 
@@ -56,7 +51,7 @@ extension homeViewController: UICollectionViewDataSource {
         
         cell.setUp(with: workOuts[indexPath.row])
         
-        print(workOuts[indexPath.row].workOutName)
+        cell.index = indexPath.row
         
         return cell
     }

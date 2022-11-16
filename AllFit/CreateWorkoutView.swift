@@ -64,10 +64,11 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         let workoutInfo = WorkOut(workOutStar:5.0, workOutImage:workoutImage.image,
                                   workOutName: workoutName.text!, userName:"mel",
                                   userPhoto:UIImage(systemName: "person.crop.circle"),
-                                  workoutId:1,
+                                  workoutId:workOuts.count + 1,
                                   workout_exercises: exerciseArray
                                 )
             workOuts.append(workoutInfo)
+            personal.append(workoutInfo)
         
         print("exercise array is ",exerciseArray)
         print("workout array is ",workOuts)

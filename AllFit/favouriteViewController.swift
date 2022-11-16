@@ -11,21 +11,42 @@ class favouriteViewController: UIViewController{
     
     @IBOutlet weak var collection: UICollectionView!
     
+    @IBOutlet weak var cleanAllBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         collection.dataSource = self
         collection.delegate = self
         collection.collectionViewLayout = UICollectionViewFlowLayout()
-        
-        print(favourite.count)
-        
+    }
+    
+    
+    @IBAction func cleanAllAction(_ sender: UIButton) {
+        let cleanAllAlert = UIAlertController(title: "Clean All", message: "Do you want to clean all your favourite workouts?", preferredStyle: UIAlertController.Style.alert)
+
+        cleanAllAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            for i in workOuts.indices{
+                if(workOuts[i].favor){
+                    workOuts[i].favor = false
+                }
+            }
+            favourite = []
+            self.collection.reloadData()
+            
+            //ToDo: clean the personal workouts in the Home Screen
+            //workOuts.filter(){$0.userName != Auth.auth().currentUser?.email}
+        }))
+
+        cleanAllAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+
+        present(cleanAllAlert, animated: true, completion: nil)
     }
 }
 
 extension favouriteViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(favourite.count)
         return favourite.count
     }
 
@@ -34,7 +55,8 @@ extension favouriteViewController: UICollectionViewDataSource {
         
         cell.setUp(with: favourite[indexPath.row])
         
-        print(favourite[indexPath.row].workOutName)
+        cell.addToFavouriteBtn.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        cell.addToFavouriteBtn.tintColor = cell.starImage.tintColor
         
         return cell
     }

@@ -20,7 +20,8 @@ class registerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        passwordInput.isSecureTextEntry = true
+        confirmPwInput.isSecureTextEntry = true
         // Do any additional setup after loading the view.
     }
     

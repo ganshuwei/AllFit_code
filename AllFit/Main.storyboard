@@ -148,13 +148,13 @@
         <!--Profile View-->
         <scene sceneID="J9w-aP-jCG">
             <objects>
-                <viewController title="Profile View" id="xGn-mp-tDA" customClass="profileViewController" customModule="AllFit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profile" title="Profile View" id="xGn-mp-tDA" customClass="profileViewController" customModule="AllFit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JsU-MQ-2Yo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add your Personal Bio:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ja-Cq-jKk">
-                                <rect key="frame" x="79" y="244" width="257" height="70"/>
+                                <rect key="frame" x="78" y="281" width="257" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -204,6 +204,13 @@
                                 <rect key="frame" x="143" y="89.5" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Dp-Y9-iza">
+                                <rect key="frame" x="171" y="259" width="89" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hwG-D0-dpZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -238,6 +245,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bioLabel" destination="1ja-Cq-jKk" id="0VF-oL-PIT"/>
+                        <outlet property="birthday" destination="2Dp-Y9-iza" id="vAj-e0-CBG"/>
                         <outlet property="logOutButton" destination="RtK-O1-LJP" id="Q5i-Nh-mZt"/>
                         <outlet property="personalWorkOutsBtn" destination="gZ6-6Z-iXD" id="ZFa-68-pbI"/>
                         <outlet property="profilePhoto" destination="6ir-az-5GQ" id="ucH-IF-5eY"/>
@@ -341,8 +349,21 @@
                         <viewLayoutGuide key="safeArea" id="hr1-Jj-bY6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Personal Workouts" id="J38-K8-NLF"/>
+                    <navigationItem key="navigationItem" title="Personal Workouts" id="J38-K8-NLF">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="KV8-Wu-Xhp">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="VkD-aP-z3Y">
+                                <rect key="frame" x="302" y="5" width="92" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                                <connections>
+                                    <action selector="cleanAllAction:" destination="LrT-xX-MSM" eventType="touchUpInside" id="ZwM-hV-3Mb"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="cleanBtn" destination="VkD-aP-z3Y" id="PsD-NG-Bcs"/>
                         <outlet property="collection" destination="HZT-Yp-2sD" id="0jE-HY-I8l"/>
                     </connections>
                 </viewController>
@@ -441,8 +462,21 @@
                         <viewLayoutGuide key="safeArea" id="aAa-sj-Iro"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Favourite Workouts" id="jHR-vT-3aj"/>
+                    <navigationItem key="navigationItem" title="Favourite Workouts" id="jHR-vT-3aj">
+                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="2yT-qO-GrY">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="iJE-CE-o80">
+                                <rect key="frame" x="302" y="5" width="92" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                                <connections>
+                                    <action selector="cleanAllAction:" destination="Jue-dd-xa1" eventType="touchUpInside" id="vn9-4g-7g1"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="cleanAllBtn" destination="iJE-CE-o80" id="FWg-sD-G6v"/>
                         <outlet property="collection" destination="AMt-v9-iCd" id="cnr-2o-gG5"/>
                     </connections>
                 </viewController>
@@ -491,6 +525,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Submit"/>
+                                <connections>
+                                    <action selector="submitAction:" destination="2lu-BG-hVX" eventType="touchUpInside" id="pLO-fk-KSt"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dGU-wE-bD2"/>
@@ -501,6 +538,7 @@
                         <outlet property="BirthdayField" destination="IPB-in-U8F" id="Pjc-iW-vcO"/>
                         <outlet property="bioField" destination="cck-X2-sUz" id="kdd-pb-5eW"/>
                         <outlet property="profilePhoto" destination="0Fp-Hf-vnh" id="Hlz-9I-7zP"/>
+                        <outlet property="submitBtn" destination="p2k-vk-KIP" id="ryZ-wt-9DI"/>
                         <outlet property="userEmailField" destination="Y14-qH-xMl" id="YfB-GJ-oAt"/>
                         <outlet property="userNameField" destination="AZq-yD-Rbx" id="soV-Ue-tIP"/>
                     </connections>
@@ -580,7 +618,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM5-fo-VKB">
-                                <rect key="frame" x="119" y="428" width="177" height="43"/>
+                                <rect key="frame" x="119" y="428" width="78.5" height="43"/>
                                 <color key="backgroundColor" red="0.78039377929999998" green="0.92248517269999997" blue="0.76468163730000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="cUq-CQ-Bdu"/>
@@ -603,7 +641,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GgF-yl-rOZ">
-                                <rect key="frame" x="126.5" y="479" width="161" height="27"/>
+                                <rect key="frame" x="77.5" y="479" width="161" height="27"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <attributedString key="attributedTitle">
@@ -809,7 +847,7 @@
             </objects>
             <point key="canvasLocation" x="2174" y="-964"/>
         </scene>
-        <!--Create Workout View-->
+        <!--Create-->
         <scene sceneID="syL-hz-o1M">
             <objects>
                 <viewController id="LPF-ng-zyn" customClass="CreateWorkoutView" customModule="AllFit" customModuleProvider="target" sceneMemberID="viewController">
@@ -907,7 +945,7 @@
                         <viewLayoutGuide key="safeArea" id="dKj-UE-l3f"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="plus.app.fill" catalog="system" id="XLa-1X-KXg"/>
+                    <tabBarItem key="tabBarItem" title="Create" image="plus.app.fill" catalog="system" selectedImage="plus.app.fill" id="XLa-1X-KXg"/>
                     <navigationItem key="navigationItem" id="zc2-UH-vXS"/>
                     <connections>
                         <outlet property="exerciseTable" destination="ZWy-Ac-el4" id="Ke0-MG-aOC"/>
@@ -1075,6 +1113,7 @@
         <image name="plus.app.fill" catalog="system" width="128" height="114"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <image name="workout1" width="1500" height="1001"/>
         <namedColor name="AccentColor">
             <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
