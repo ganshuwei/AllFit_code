@@ -1247,7 +1247,7 @@
         <!--Create-->
         <scene sceneID="Czd-Pn-05F">
             <objects>
-                <viewController id="bi6-Ba-Bxi" customClass="CreateWorkoutView" customModule="AllFit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="playWorkoutVC" id="bi6-Ba-Bxi" customClass="playWorkoutController" customModule="AllFit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zax-Hr-uRD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1273,9 +1273,6 @@
                                 <buttonConfiguration key="configuration" style="filled">
                                     <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
                                 </buttonConfiguration>
-                                <connections>
-                                    <action selector="postWorkoutBtn:" destination="bi6-Ba-Bxi" eventType="touchUpInside" id="ztr-6Y-awk"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMu-Pp-0HA">
                                 <rect key="frame" x="255" y="662" width="72" height="74"/>
@@ -1283,7 +1280,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="forward.end.fill" catalog="system"/>
                                 <connections>
-                                    <action selector="postWorkoutBtn:" destination="bi6-Ba-Bxi" eventType="touchUpInside" id="Lxf-MH-IH8"/>
+                                    <action selector="nextExercise:" destination="bi6-Ba-Bxi" eventType="touchUpInside" id="aCH-Qy-KFK"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ui-tx-wQF">
@@ -1338,7 +1335,10 @@
                     <tabBarItem key="tabBarItem" title="Create" image="plus.app.fill" catalog="system" selectedImage="plus.app.fill" id="8be-qx-Nds"/>
                     <navigationItem key="navigationItem" id="B33-wW-Pdn"/>
                     <connections>
-                        <outlet property="workoutNameLabel" destination="aic-d3-Xb0" id="yVB-HP-i40"/>
+                        <outlet property="exerciseName" destination="mDC-hd-A6g" id="x1A-U9-kng"/>
+                        <outlet property="exerciseTime" destination="geL-YY-o6e" id="s6p-d5-giV"/>
+                        <outlet property="workoutName" destination="aic-d3-Xb0" id="AQj-4Q-WKM"/>
+                        <outlet property="workoutTime" destination="4ui-tx-wQF" id="6qq-39-2mm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7C-EX-NbN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

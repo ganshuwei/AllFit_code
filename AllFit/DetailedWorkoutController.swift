@@ -63,8 +63,8 @@ class DetailedWorkoutController : UIViewController,UIScrollViewDelegate{
         let theButtonFrame = CGRect(x: view.frame.width/4, y: wkoutImage.size.height/4 + 270 + titleView.frame.height, width: view.frame.width/2, height: 40)
         let startBtn = UIButton(frame: theButtonFrame)
         startBtn.backgroundColor=UIColor.systemBlue
-        startBtn.setTitle("Add to favorites", for: .normal)
-        startBtn.addTarget(self, action: #selector(openPlayWorkout), for: .touchUpInside)
+        startBtn.setTitle("Start", for: .normal)
+        startBtn.addTarget(self, action: #selector(openPlayWorkout(_:)), for: .touchUpInside)
         
         scrollView.addSubview(imageView)
         scrollView.addSubview(titleView)
@@ -78,10 +78,19 @@ class DetailedWorkoutController : UIViewController,UIScrollViewDelegate{
 //        workoutDescription.text=wkoutDescription
 //        setupTableView()
     }
-    @objc func openPlayWorkout(){
+    @objc func openPlayWorkout(_ sender: UIButton){
         print("in open play workout")
-        let playWorkoutVC = playWorkoutController()
+//        let playWorkoutVC = playWorkoutController()
+//
+//        navigationController?.pushViewController(playWorkoutVC, animated: true)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let playWorkoutVC = storyboard.instantiateViewController(withIdentifier: "playWorkoutVC") as! playWorkoutController
         
+        playWorkoutVC.wkoutName=wkoutName
+        playWorkoutVC.wkoutImage=wkoutImage
+        playWorkoutVC.wkoutExercises=wkoutExercises
+        
+//        present(playWorkoutVC, animated: true, completion: nil)
         navigationController?.pushViewController(playWorkoutVC, animated: true)
     }
     
