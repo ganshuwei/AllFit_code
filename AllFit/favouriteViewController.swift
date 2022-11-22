@@ -45,6 +45,7 @@ class favouriteViewController: UIViewController{
     }
 }
 
+
 extension favouriteViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return favourite.count
@@ -60,6 +61,8 @@ extension favouriteViewController: UICollectionViewDataSource {
         
         return cell
     }
+    
+    
 }
 
 extension favouriteViewController: UICollectionViewDelegateFlowLayout {
@@ -77,8 +80,23 @@ extension favouriteViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension favouriteViewController: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    }
+    //select item in collection view
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(favourite[indexPath.row].workOutName)
+//        print(favourite[indexPath.row].workOutName)
+//        print(favourite[indexPath.row].workOutImage)
+//        print(favourite[indexPath.row].workOutStar)
+//        print(favourite[indexPath.row].workout_exercises)
+
+        let detailedVC = DetailedWorkoutController()
+        detailedVC.wkoutImage = favourite[indexPath.row].workOutImage
+        detailedVC.wkoutName=favourite[indexPath.row].workOutName
+        detailedVC.wkoutRating=favourite[indexPath.row].workOutStar
+        detailedVC.wkoutExercises=favourite[indexPath.row].workout_exercises
+
+        //push nav controller
+        navigationController?.pushViewController(detailedVC, animated: true)
     }
 }
 
