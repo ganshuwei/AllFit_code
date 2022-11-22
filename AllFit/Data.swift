@@ -10,11 +10,16 @@ import UIKit
 
 struct User{
     var userEmail:String
-    var fullName:String = ""
-    var bio:String = "bio:"
+    var firstName: String = "firstName"
+    var lastName:String = "Last Name"
+    var bio:String = "bio"
     var birthday:String = "birthday"
-//    let password:Int
     var profilePhoto:UIImage?
+    var safeEmail:String{
+        var safeEmail = userEmail.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        return safeEmail
+    }
 }
 
 struct WorkOut {

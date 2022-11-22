@@ -5,6 +5,8 @@
 //  Created by 甘书玮 on 2022/11/5.
 //
 import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 import UIKit
 import CoreData
 
