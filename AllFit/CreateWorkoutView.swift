@@ -15,30 +15,16 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var workoutImage: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
     @IBOutlet weak var exerciseTable: UITableView!
-    @IBOutlet weak var workoutDifficulty: UITextField!
+    @IBOutlet weak var workoutDifficulty: UISegmentedControl!
+    @IBOutlet weak var workoutDescription: UITextField!
     
-//    struct Workout: Decodable {
-//     let workout_name: String?
-//     let workout_difficulty: String
-//     let workout_exercises: [Exercise]
-//    }
-//    struct Exercise: Decodable {
-//     let exercise_name: String?
-//     let exercise_type: String
-//     let exercise_repOrTime: Int!
-//     let exercise_equipment: [String]
-//    }
-//
+    var workoutDifficultyString=""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print("in workout load view")
         // Do any additional setup after loading the view.
         exerciseTable.reloadData()
-        //get list of exercises
-//        let defaults = UserDefaults.standard
-//        if let data = defaults.data(forKey: "MyExercises") {
-//            var exerciseArray = try! PropertyListDecoder().decode([Exercise].self, from: data)
-//        }
         print("exercise array is ",exerciseArray)
         //display them
         setupTableView()
@@ -49,20 +35,31 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         setupTableView()
     }
     
-    
     @IBAction func enterWorkoutName(_ sender: Any) {
         workoutNameLabel.text = workoutName.text
-
+    }
+    
+    
+    @IBAction func workoutDifficultyToggle(_ sender: Any) {
+        let workoutDifficultyIndex = workoutDifficulty.selectedSegmentIndex
+        
+        if workoutDifficultyIndex == 0{
+            workoutDifficultyString = "Easy"
+        }
+        else if workoutDifficultyIndex == 1{
+            workoutDifficultyString = "Medium"
+        }
+        else if workoutDifficultyIndex == 2{
+            workoutDifficultyString = "Hard"
+        }
     }
     
     @IBAction func postWorkoutBtn(_ sender: Any) {
-//        let workoutInfo = Workout(workout_image:workoutImage.image,
-//            workout_name: workoutName.text!, workout_difficulty: workoutDifficulty.text!, workout_exercises: exerciseArray
-//                            )
-//        workoutArray.append(workoutInfo)
-        
         let workoutInfo = WorkOut(workOutStar:5.0, workOutImage:workoutImage.image,
-                                  workOutName: workoutName.text!, userName:"mel",
+                                  workOutName: workoutName.text!,
+                                  workOutDifficulty: workoutDifficultyString,
+                                  workOutDescription:"blabla",
+                                  userName:"mel",
                                   userPhoto:UIImage(systemName: "person.crop.circle"),
                                   workoutId:workOuts.count + 1,
                                   workout_exercises: exerciseArray
@@ -92,17 +89,6 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         return[deleteAction,editAction]
     }
 
-    
-    // Override to support editing the table view.
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
-//    {
-//        if editingStyle == .delete {
-//            // Delete the row from the data source
-//            exerciseArray.remove(at: indexPath.row)
-//            // Then, delete the row from the table itself
-//            exerciseTable.deleteRows(at: [indexPath], with: .fade)
-//        }
-//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exerciseArray.count
     }

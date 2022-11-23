@@ -619,7 +619,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM5-fo-VKB">
-                                <rect key="frame" x="119" y="428" width="78.5" height="43"/>
+                                <rect key="frame" x="119" y="428" width="177" height="43"/>
                                 <color key="backgroundColor" red="0.78039377929999998" green="0.92248517269999997" blue="0.76468163730000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="cUq-CQ-Bdu"/>
@@ -642,7 +642,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GgF-yl-rOZ">
-                                <rect key="frame" x="77.5" y="479" width="161" height="27"/>
+                                <rect key="frame" x="126.5" y="479" width="161" height="27"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <attributedString key="attributedTitle">
@@ -880,12 +880,6 @@
                                     <action selector="enterWorkoutName:" destination="LPF-ng-zyn" eventType="editingChanged" id="cXe-60-9Hn"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="krW-97-tgi">
-                                <rect key="frame" x="161" y="329" width="210" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HJH-28-v9C">
                                 <rect key="frame" x="161" y="377" width="210" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -896,6 +890,13 @@
                                 <rect key="frame" x="118" y="44" width="154" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Difficulty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKu-WE-Lir">
+                                <rect key="frame" x="42" y="336" width="68" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -948,13 +949,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Difficulty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKu-WE-Lir">
-                                <rect key="frame" x="42" y="336" width="68" height="21"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pJV-Rc-xr9">
+                                <rect key="frame" x="161" y="331" width="213" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <segments>
+                                    <segment title="Easy"/>
+                                    <segment title="Medium"/>
+                                    <segment title="Hard"/>
+                                </segments>
+                                <connections>
+                                    <action selector="workoutDifficultyToggle:" destination="LPF-ng-zyn" eventType="valueChanged" id="qaJ-YQ-MGS"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dKj-UE-l3f"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -963,7 +969,8 @@
                     <navigationItem key="navigationItem" id="zc2-UH-vXS"/>
                     <connections>
                         <outlet property="exerciseTable" destination="ZWy-Ac-el4" id="Ke0-MG-aOC"/>
-                        <outlet property="workoutDifficulty" destination="krW-97-tgi" id="0gN-Rh-kCx"/>
+                        <outlet property="workoutDescription" destination="HJH-28-v9C" id="Fyc-ei-WEP"/>
+                        <outlet property="workoutDifficulty" destination="pJV-Rc-xr9" id="zu0-nf-QS4"/>
                         <outlet property="workoutImage" destination="VE2-yo-j8e" id="egZ-sT-1DT"/>
                         <outlet property="workoutName" destination="dEd-gz-Cza" id="uq2-eN-yg1"/>
                         <outlet property="workoutNameLabel" destination="078-iG-nkr" id="BFH-4F-O5F"/>
@@ -1049,7 +1056,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No. of reps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Of-lf-4Ck">
-                                        <rect key="frame" x="8" y="14" width="84" height="21"/>
+                                        <rect key="frame" x="8" y="14" width="122" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -1082,6 +1089,9 @@
                                     <segment title="Reps"/>
                                     <segment title="Time"/>
                                 </segments>
+                                <connections>
+                                    <action selector="exerciseTypeChangeAction:" destination="wTp-rW-qJR" eventType="valueChanged" id="Jny-Wf-ik4"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exercise Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvC-6D-ynL">
                                 <rect key="frame" x="119" y="44" width="153" height="29"/>
@@ -1096,6 +1106,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="XaT-CR-44B"/>
                     <connections>
+                        <outlet property="amountLabel" destination="8Of-lf-4Ck" id="KCC-O7-bUD"/>
                         <outlet property="bikeBtn" destination="13e-BA-LFE" id="Qve-kf-Ggf"/>
                         <outlet property="dumbellBtn" destination="ZQR-6C-nba" id="JqT-hy-BdU"/>
                         <outlet property="exerciseImage" destination="aop-ON-ObF" id="VtM-4X-tSr"/>
@@ -1103,13 +1114,13 @@
                         <outlet property="exerciseNameLabel" destination="GvC-6D-ynL" id="NgT-CD-c1t"/>
                         <outlet property="exerciseType" destination="6jR-1M-0jS" id="dsp-SZ-57C"/>
                         <outlet property="matBtn" destination="gLF-bL-Au1" id="Ap0-sa-VUf"/>
-                        <outlet property="repsOrTime" destination="TLW-rv-PuP" id="FYS-6a-rIS"/>
+                        <outlet property="repOrTimeValue" destination="TLW-rv-PuP" id="i5v-cP-Yvn"/>
                         <outlet property="submitExercise" destination="y3x-Dd-cgx" id="sLM-S7-Qje"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ceZ-qU-TX3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1728" y="2106"/>
+            <point key="canvasLocation" x="1727.536231884058" y="2105.3571428571427"/>
         </scene>
         <!--Create-->
         <scene sceneID="ta9-6s-GeC">
@@ -1273,6 +1284,9 @@
                                 <buttonConfiguration key="configuration" style="filled">
                                     <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="playClick:" destination="bi6-Ba-Bxi" eventType="touchUpInside" id="nyD-AH-2kS"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMu-Pp-0HA">
                                 <rect key="frame" x="255" y="662" width="72" height="74"/>
@@ -1328,6 +1342,17 @@
                                     <action selector="postWorkoutBtn:" destination="k6d-ND-tB9" eventType="touchUpInside" id="I5i-wA-WaF"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkH-Qp-RNW">
+                                <rect key="frame" x="175" y="662" width="72" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled">
+                                    <imageReference key="image" image="pause.fill" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="pauseClick:" destination="bi6-Ba-Bxi" eventType="touchUpInside" id="RKD-Bl-6tb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bsW-kr-VtK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1337,6 +1362,8 @@
                     <connections>
                         <outlet property="exerciseName" destination="mDC-hd-A6g" id="x1A-U9-kng"/>
                         <outlet property="exerciseTime" destination="geL-YY-o6e" id="s6p-d5-giV"/>
+                        <outlet property="pauseBtn" destination="fkH-Qp-RNW" id="8YF-3B-s7d"/>
+                        <outlet property="playBtn" destination="LG5-pK-m9l" id="sLD-od-DGV"/>
                         <outlet property="workoutName" destination="aic-d3-Xb0" id="AQj-4Q-WKM"/>
                         <outlet property="workoutTime" destination="4ui-tx-wQF" id="6qq-39-2mm"/>
                     </connections>
@@ -1357,6 +1384,7 @@
         <image name="image_placeholder" width="612" height="612"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="mat" width="25" height="25"/>
+        <image name="pause.fill" catalog="system" width="116" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
