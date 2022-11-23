@@ -14,7 +14,6 @@ class registerViewController: UIViewController {
     @IBOutlet weak var passwordInput: UITextField!
     @IBOutlet weak var confirmPwInput: UITextField!
     @IBOutlet weak var signUpBtn: UIButton!
-    @IBOutlet weak var errorText: UILabel!
     
     
     
@@ -29,36 +28,47 @@ class registerViewController: UIViewController {
     
     @IBAction func didTapBtn(_ sender: Any) {
         guard let email = emailInput.text,!email.isEmpty else{
-            errorText.text="Please input correct email"
+            alertUserSignUp(message: "Please input correct email")
             return
         }
         guard let pw=passwordInput.text,let pwc=confirmPwInput.text,!pw.isEmpty,!pwc.isEmpty,pw==pwc else{
-            errorText.text="Password doesn't match"
+            alertUserSignUp(message: "Password doesn't match")
             return
         }
-        // Create a new user account
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pw){
-            (authResult,error) in
-            guard let result = authResult,error == nil else{
-                print(error ?? "")
-                return
-            }
-            
-            let user = result.user
-            print("Created User:\(user)")
-            
-        }
         
-        Auth.auth().signIn(withEmail: email, password: pw){[weak self] authResult,err in
+        // Check existing user
+        DatabaseManager.shared.checkExistUser(with: email, completion: {[weak self] exists in
             guard let strongSelf = self else{return}
-            // Fail to log in return and print the error
-            if let e = err{
-                self?.errorText.text=e.localizedDescription
+            guard !exists else{
+                // user already exist in the real database
+//                strongSelf.alertUserSignUp(message: "This user has already existed.")
+                print("This user has already existed.")
                 return
             }
-            // Suceessfully log in, go dismiss this view and go back to the home screen
-            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
-        }
+            // Create a new user account
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pw){
+                (authResult,error) in
+                guard error == nil, authResult != nil else{
+                    strongSelf.alertUserSignUp(message: error?.localizedDescription ?? "Unknown Error")
+                    return
+                }
+                
+                // Add the new user to the real database
+                let user = User(userEmail: email)
+                DatabaseManager.shared.addNewUser(with: user)
+                
+                // Suceessfully log in, go dismiss this view and go back to the home screen
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            }
+        })
+        
+    }
+    
+    func alertUserSignUp(message: String){
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 
 
