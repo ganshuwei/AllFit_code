@@ -93,6 +93,7 @@ extension favouriteViewController: UICollectionViewDelegate {
         detailedVC.wkoutImage = favourite[indexPath.row].workOutImage
         detailedVC.wkoutName=favourite[indexPath.row].workOutName
         detailedVC.wkoutRating=favourite[indexPath.row].workOutStar
+        detailedVC.wkoutRatingNum=favourite[indexPath.row].workOutStarNum
         detailedVC.wkoutExercises=favourite[indexPath.row].workout_exercises
 
         //push nav controller

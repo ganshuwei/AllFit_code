@@ -55,7 +55,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func postWorkoutBtn(_ sender: Any) {
-        let workoutInfo = WorkOut(workOutStar:5.0, workOutImage:workoutImage.image,
+        let workoutInfo = WorkOut(workOutStar:5.0,workOutStarNum: 0, workOutImage:workoutImage.image,
                                   workOutName: workoutName.text!,
                                   workOutDifficulty: workoutDifficultyString,
                                   workOutDescription:"blabla",

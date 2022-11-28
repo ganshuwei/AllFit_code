@@ -62,6 +62,7 @@
 		CEAE820D2922F4C30028E934 /* CreateWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE820C2922F4C30028E934 /* CreateWorkoutView.swift */; };
 		CEAE820F292D28CA0028E934 /* DetailedWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE820E292D28CA0028E934 /* DetailedWorkoutController.swift */; };
 		CEAE8211292D31C10028E934 /* playWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE8210292D31C10028E934 /* playWorkoutController.swift */; };
+		CEAE8213293420CB0028E934 /* ratingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE8212293420CB0028E934 /* ratingController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		CEAE820C2922F4C30028E934 /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
 		CEAE820E292D28CA0028E934 /* DetailedWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedWorkoutController.swift; sourceTree = "<group>"; };
 		CEAE8210292D31C10028E934 /* playWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playWorkoutController.swift; sourceTree = "<group>"; };
+		CEAE8212293420CB0028E934 /* ratingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ratingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 				123170D329215465008AD626 /* workOutCollectionViewCell.swift */,
 				CEAE820E292D28CA0028E934 /* DetailedWorkoutController.swift */,
 				CEAE8210292D31C10028E934 /* playWorkoutController.swift */,
+				CEAE8212293420CB0028E934 /* ratingController.swift */,
 				123170D529215532008AD626 /* Data.swift */,
 				123170DB2921BE4F008AD626 /* Main.storyboard */,
 				123170D92921B7D2008AD626 /* DatabaseManager.swift */,
@@ -414,6 +417,7 @@
 				123170DE29221315008AD626 /* favouriteViewController.swift in Sources */,
 				123170D429215465008AD626 /* workOutCollectionViewCell.swift in Sources */,
 				123170D029215457008AD626 /* profileViewController.swift in Sources */,
+				CEAE8213293420CB0028E934 /* ratingController.swift in Sources */,
 				123170D22921545F008AD626 /* homeViewController.swift in Sources */,
 				CEAE82092922D58E0028E934 /* CreateExerciseView.swift in Sources */,
 				123170E2292215E8008AD626 /* personalViewController.swift in Sources */,

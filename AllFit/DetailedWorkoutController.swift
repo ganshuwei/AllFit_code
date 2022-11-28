@@ -14,6 +14,8 @@ class DetailedWorkoutController : UIViewController,UIScrollViewDelegate{
     var wkoutName: String!
 //    var wkoutCreator: String!
     var wkoutRating: Double!
+    var wkoutRatingNum: Int!
+
 //    var wkoutDuration: String!
 //    var wkoutDifficulty: String!
 //    var wkoutEquipment: String!
@@ -89,7 +91,9 @@ class DetailedWorkoutController : UIViewController,UIScrollViewDelegate{
         playWorkoutVC.wkoutName=wkoutName
         playWorkoutVC.wkoutImage=wkoutImage
         playWorkoutVC.wkoutExercises=wkoutExercises
-        
+        playWorkoutVC.wkoutRating=wkoutRating
+        playWorkoutVC.wkoutRatingNum=wkoutRatingNum
+
 //        present(playWorkoutVC, animated: true, completion: nil)
         navigationController?.pushViewController(playWorkoutVC, animated: true)
     }

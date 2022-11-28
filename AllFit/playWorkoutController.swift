@@ -19,6 +19,9 @@ class playWorkoutController : UIViewController{
 //    var wkoutEquipment: String!
 //    var wkoutDescription: String!
     var wkoutExercises: [Exercise] = []
+    var wkoutRating: Double!
+    var wkoutRatingNum: Int!
+
     var exerciseIndex=0
     
     var totalWorkoutTime = 0
@@ -33,6 +36,7 @@ class playWorkoutController : UIViewController{
     @IBOutlet weak var exerciseTime: UILabel!
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var pauseBtn: UIButton!
+    @IBOutlet weak var nextBtn: UIButton!
     
     override func viewDidLoad() {
         print("in play workout view controller")
@@ -43,7 +47,7 @@ class playWorkoutController : UIViewController{
         exerciseName.text=wkoutExercises[exerciseIndex].exercise_name!
         
         //display playPause button based on exercise time
-        var exerciseType=wkoutExercises[exerciseIndex].exercise_type
+        let exerciseType=wkoutExercises[exerciseIndex].exercise_type
         
         if exerciseType == "time"{
             print("exercise type is time")
@@ -62,13 +66,13 @@ class playWorkoutController : UIViewController{
             //display timer count down
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.update), userInfo: nil, repeats: true)
 
+            nextBtn.isHidden=true
         }
         else if exerciseType == "rep"{
             //don't display timer
             workoutTime.isHidden = true
             exerciseTime.isHidden=true
         }
-        
         playBtn.isHidden=true
     }
     func getTime(seconds: Int) -> String{
@@ -100,13 +104,22 @@ class playWorkoutController : UIViewController{
                 exerciseTime.isHidden=true
             }
         }
+        // if workout is completed
+        if totalWorkoutTime == 0 {
+            finishWorkout()
+        }
     }
-    
+    //only for reps
     @IBAction func nextExercise(_ sender: Any) {
         exerciseIndex+=1
-        exerciseName.text=wkoutExercises[exerciseIndex].exercise_name
+        //if last exercise
+        if exerciseIndex == wkoutExercises.count {
+            finishWorkout()
+        }
+        else{
+            exerciseName.text=wkoutExercises[exerciseIndex].exercise_name
+        }
     }
-
     
     @IBAction func playClick(_ sender: Any) {
         print("in play click")
@@ -125,5 +138,26 @@ class playWorkoutController : UIViewController{
         timer.invalidate()
 
     }
+    
+    //display congratulations page
+    
+    //when time is up
+    
+    //or when finish the last exercise
+
+    
+    //
+    func finishWorkout(){
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let ratingVC = storyboard.instantiateViewController(withIdentifier: "ratingVC") as! ratingController
+        
+        ratingVC.wkoutName=wkoutName
+        ratingVC.wkoutImage=wkoutImage
+        ratingVC.wkoutRating=wkoutRating
+        ratingVC.wkoutRatingNum=wkoutRatingNum
+
+        navigationController?.pushViewController(ratingVC, animated: true)
+    }
+    
 }
 
