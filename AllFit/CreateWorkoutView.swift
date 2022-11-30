@@ -98,6 +98,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
               "workoutTotalSeconds": 100,
               "finishedWorkout": false
         ]
+        let workoutId = String(Auth.auth().currentUser!.email!) + "_" + workoutName.text!
         //push to firebase
         //if first time pushing, need to create new list
         //if list is there, append to list
@@ -105,17 +106,18 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         ref = Database.database().reference()
         var firebaseEmail = Auth.auth().currentUser!.email!
         if firebaseEmail != nil{
+            //replace dot by dash
             firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
             firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
-            //replace dot by dash
-            //assume we have empty createWorkout
-            //get createWorkout list
+            //push created workouts to user table
             ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with:{snapshot in
-                var createdWorkoutsList = snapshot.value as? [[String:Any]]
-                createdWorkoutsList?.append(firebaseWorkoutInfo)
+                var createdWorkoutsList = snapshot.value as? [String]
+                createdWorkoutsList?.append(workoutId)
                 //push to firebase
                 ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
             })
+            //push workout and creator Id to workout table
+            ref.child("workouts").child("workoutId").setValue(firebaseWorkoutInfo)
         }
         print("exercise array is ",exerciseArray)
         print("workout array is ",workOuts)
