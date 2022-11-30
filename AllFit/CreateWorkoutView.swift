@@ -66,14 +66,14 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
                                   workoutId:workOuts.count + 1,
                                   workout_exercises: exerciseArray,
                                   workoutDate: "11/22/2022",
-                                  workoutTotalSeconds: 100
+                                  workoutTotalSeconds: 100,
+                                  finishedWorkout: false
                                 )
             workOuts.append(workoutInfo)
             personal.append(workoutInfo)
         
         print("exercise array is ",exerciseArray)
         print("workout array is ",workOuts)
-
     }
     //create table view
     func setupTableView() {

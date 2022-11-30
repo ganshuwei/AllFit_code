@@ -1304,6 +1304,7 @@
                                     <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="endWorkout:" destination="bi6-Ba-Bxi" eventType="touchUpInside" id="8JN-Dg-OdC"/>
                                     <action selector="postWorkoutBtn:" destination="k6d-ND-tB9" eventType="touchUpInside" id="I5i-wA-WaF"/>
                                 </connections>
                             </button>

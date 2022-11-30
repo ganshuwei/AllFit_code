@@ -36,16 +36,17 @@ struct WorkOut {
     var favor = false
     var workoutDate: String
     var workoutTotalSeconds: Int
+    var finishedWorkout: Bool
 }
 
 // For test
 var workOuts : [WorkOut] = [
-    WorkOut(workOutStar: 4.8, workOutStarNum: 10, workOutImage: UIImage(named: "workout1"), workOutName: "Run",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "Mike", userPhoto: UIImage(systemName:  "person.crop.circle"),workoutId: 1, workout_exercises: [], workoutDate: "11/22/2022",workoutTotalSeconds: 100),
-    WorkOut(workOutStar: 4.3, workOutStarNum: 10,workOutImage: UIImage(named: "workout2"), workOutName: "Pushups",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "David", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 2, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100),
-    WorkOut(workOutStar: 4.2, workOutStarNum: 10,workOutImage: UIImage(named: "workout3"), workOutName: "Core",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "Johnson", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 3, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100),
-    WorkOut(workOutStar: 4.9, workOutStarNum: 10,workOutImage: UIImage(named: "workout4"), workOutName: "Strong",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "Lucy", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 4, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100),
-    WorkOut(workOutStar: 4.6, workOutStarNum: 10,workOutImage: UIImage(named: "workout5"), workOutName: "Balance",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "Emma", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 5, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100),
-    WorkOut(workOutStar: 4.4, workOutStarNum: 10,workOutImage: UIImage(named: "workout6"), workOutName: "Keep",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "George", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 6, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100)
+    WorkOut(workOutStar: 4.8, workOutStarNum: 10, workOutImage: UIImage(named: "workout1"), workOutName: "Run",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "Mike", userPhoto: UIImage(systemName:  "person.crop.circle"),workoutId: 1, workout_exercises: [], workoutDate: "11/22/2022",workoutTotalSeconds: 100, finishedWorkout: true),
+    WorkOut(workOutStar: 4.3, workOutStarNum: 10,workOutImage: UIImage(named: "workout2"), workOutName: "Pushups",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "David", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 2, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100,finishedWorkout: true),
+    WorkOut(workOutStar: 4.2, workOutStarNum: 10,workOutImage: UIImage(named: "workout3"), workOutName: "Core",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "Johnson", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 3, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100,finishedWorkout: false),
+    WorkOut(workOutStar: 4.9, workOutStarNum: 10,workOutImage: UIImage(named: "workout4"), workOutName: "Strong",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "Lucy", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 4, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100,finishedWorkout: true),
+    WorkOut(workOutStar: 4.6, workOutStarNum: 10,workOutImage: UIImage(named: "workout5"), workOutName: "Balance",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "Emma", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 5, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100,finishedWorkout: false),
+    WorkOut(workOutStar: 4.4, workOutStarNum: 10,workOutImage: UIImage(named: "workout6"), workOutName: "Keep",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "George", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: 6, workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100,finishedWorkout: false)
 ]
 
 var favourite: [WorkOut] = []
