@@ -55,14 +55,18 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func postWorkoutBtn(_ sender: Any) {
-        let workoutInfo = WorkOut(workOutStar:5.0,workOutStarNum: 0, workOutImage:workoutImage.image,
+        let workoutInfo = WorkOut(workOutStar:5.0,
+                                  workOutStarNum: 0,
+                                  workOutImage:workoutImage.image,
                                   workOutName: workoutName.text!,
                                   workOutDifficulty: workoutDifficultyString,
                                   workOutDescription:"blabla",
                                   userName:"mel",
                                   userPhoto:UIImage(systemName: "person.crop.circle"),
                                   workoutId:workOuts.count + 1,
-                                  workout_exercises: exerciseArray
+                                  workout_exercises: exerciseArray,
+                                  workoutDate: "11/22/2022",
+                                  workoutTotalSeconds: 100
                                 )
             workOuts.append(workoutInfo)
             personal.append(workoutInfo)

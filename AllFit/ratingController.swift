@@ -83,7 +83,6 @@ class ratingController : UIViewController{
         thisUserRating=5
         //change label to submit
         submitOrSkipBtn.setTitle("Submit", for: UIControl.State.normal)
-
     }
     
     @IBAction func skipOrSubmitPress(_ sender: Any) {
