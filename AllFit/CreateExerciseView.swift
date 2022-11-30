@@ -61,12 +61,23 @@ class CreateExerciseView: UIViewController{
                           exercise_type: exerciseTypeString,
                           exercise_repOrTime: exerciseTypeString,
                           exercise_repOrTimeValue:repOrTimeValue.text!,
-                          exercise_equipment: equipmentList
+                          exercise_equipment: equipmentList,
+                          exercise_time: 160
                             )
+        
+        let firebaseExerciseInfo: [String:Any] = [
+            "exercise_name": String(exerciseName.text!),
+            "exercise_type": exerciseTypeString,
+            "exercise_repOrTime": exerciseTypeString,
+            "exercise_repOrTimeValue":repOrTimeValue.text!,
+            "exercise_equipment": equipmentList,
+            "exercise_time": 160
+        ]
         //get list of exercises
         exerciseArray.append(exerciseInfo)
         print("exercise array is ",exerciseArray)
         
+        exerciseArrayFirebase.append(firebaseExerciseInfo)
         //reload table
 //        CreateWorkoutView.exerciseTable.reloadData()
         

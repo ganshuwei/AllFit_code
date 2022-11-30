@@ -161,7 +161,6 @@ class playWorkoutController : UIViewController{
 
         navigationController?.pushViewController(ratingVC, animated: true)
         
-        
         //pushed firebase
         //firebase: createdWorkouts, favoriteWorkouts, finishedWorkouts
         

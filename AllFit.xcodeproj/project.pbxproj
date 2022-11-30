@@ -63,6 +63,8 @@
 		CEAE820F292D28CA0028E934 /* DetailedWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE820E292D28CA0028E934 /* DetailedWorkoutController.swift */; };
 		CEAE8211292D31C10028E934 /* playWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE8210292D31C10028E934 /* playWorkoutController.swift */; };
 		CEAE8213293420CB0028E934 /* ratingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE8212293420CB0028E934 /* ratingController.swift */; };
+		CEAE82152937D7E90028E934 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE82142937D7E90028E934 /* StorageManager.swift */; };
+		CEAE82182937D84D0028E934 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CEAE82172937D84D0028E934 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +115,7 @@
 		CEAE820E292D28CA0028E934 /* DetailedWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedWorkoutController.swift; sourceTree = "<group>"; };
 		CEAE8210292D31C10028E934 /* playWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playWorkoutController.swift; sourceTree = "<group>"; };
 		CEAE8212293420CB0028E934 /* ratingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ratingController.swift; sourceTree = "<group>"; };
+		CEAE82142937D7E90028E934 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,7 @@
 				12E28FAB292BEDC80062018E /* FirebaseDatabaseSwift in Frameworks */,
 				12E28FA9292BEDC80062018E /* FirebaseDatabase in Frameworks */,
 				12E28FBF292BEDC80062018E /* FirebaseMLModelDownloader in Frameworks */,
+				CEAE82182937D84D0028E934 /* FirebaseStorage in Frameworks */,
 				12E28F9F292BEDC80062018E /* FirebaseAppCheck in Frameworks */,
 				12E28FB7292BEDC80062018E /* FirebaseFunctionsCombine-Community in Frameworks */,
 				12E28FBD292BEDC80062018E /* FirebaseInstallations in Frameworks */,
@@ -211,6 +215,7 @@
 				CEAE8212293420CB0028E934 /* ratingController.swift */,
 				123170D529215532008AD626 /* Data.swift */,
 				123170DB2921BE4F008AD626 /* Main.storyboard */,
+				CEAE82142937D7E90028E934 /* StorageManager.swift */,
 				123170D92921B7D2008AD626 /* DatabaseManager.swift */,
 				02A53EEF291731D1002574E5 /* Assets.xcassets */,
 				02A53EF1291731D1002574E5 /* LaunchScreen.storyboard */,
@@ -285,6 +290,7 @@
 				12E28FC6292BEDC80062018E /* FirebaseRemoteConfigSwift */,
 				12E28FC8292BEDC80062018E /* FirebaseStorage */,
 				12E28FCA292BEDC80062018E /* FirebaseStorageCombine-Community */,
+				CEAE82172937D84D0028E934 /* FirebaseStorage */,
 			);
 			productName = AllFit;
 			productReference = 02A53EE0291731D0002574E5 /* AllFit.app */;
@@ -362,6 +368,7 @@
 				02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				02B21AC5291DC9F60052A10C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				12E28F95292BEDC80062018E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CEAE82162937D84D0028E934 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 02A53EE1291731D0002574E5 /* Products */;
 			projectDirPath = "";
@@ -414,6 +421,7 @@
 				123170D629215532008AD626 /* Data.swift in Sources */,
 				CEAE8211292D31C10028E934 /* playWorkoutController.swift in Sources */,
 				123170CE2921544B008AD626 /* editProfileController.swift in Sources */,
+				CEAE82152937D7E90028E934 /* StorageManager.swift in Sources */,
 				123170DE29221315008AD626 /* favouriteViewController.swift in Sources */,
 				123170D429215465008AD626 /* workOutCollectionViewCell.swift in Sources */,
 				123170D029215457008AD626 /* profileViewController.swift in Sources */,
@@ -785,6 +793,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		CEAE82162937D84D0028E934 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -937,6 +953,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		CEAE82172937D84D0028E934 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 

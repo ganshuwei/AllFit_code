@@ -93,8 +93,8 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
               "workOutDescription":"blabla",
               "userName": Auth.auth().currentUser!.email!,
               "workoutId":workOuts.count + 1,
-              "workout_exercises": exerciseArray,
-              "workoutDate": Date(),
+              "workout_exercises": exerciseArrayFirebase,
+              "workoutDate": "11/20/2022",
               "workoutTotalSeconds": 100,
               "finishedWorkout": false
         ]

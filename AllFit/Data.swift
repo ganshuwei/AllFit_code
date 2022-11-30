@@ -65,6 +65,7 @@ struct Exercise: Encodable, Decodable {
 }
 
 var exerciseArray: [Exercise] = []
+var exerciseArrayFirebase: [[String:Any]] = [[:]]
 
 var testUser = User(userEmail: "", profilePhoto: UIImage(systemName: "person"))
 
