@@ -69,9 +69,54 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
                                   workoutTotalSeconds: 100,
                                   finishedWorkout: false
                                 )
-            workOuts.append(workoutInfo)
-            personal.append(workoutInfo)
+        workOuts.append(workoutInfo)
+        personal.append(workoutInfo)
         
+        //get image url
+        guard let workOutimage=workoutImage.image, let data = workOutimage.pngData() else {return}
+        let fileName = String(workOuts.count + 1) + "_workout_photo.png"
+        StorageManager.share.uploadProfilePicture(with: data, fileName: fileName, completion:{result in
+            switch result {
+                case .success(let downloadUrl):
+                    print(downloadUrl)
+                case .failure(let error):
+                    print("Firebase storage error: \(error)")
+            }
+        })
+        
+        let firebaseWorkoutInfo: [String:Any] = [
+              "workOutStar":5.0,
+              "workOutStarNum": 0,
+              "workOutImage":fileName,
+              "workOutName": workoutName.text!,
+              "workOutDifficulty": workoutDifficultyString,
+              "workOutDescription":"blabla",
+              "userName": Auth.auth().currentUser!.email!,
+              "workoutId":workOuts.count + 1,
+              "workout_exercises": exerciseArray,
+              "workoutDate": Date(),
+              "workoutTotalSeconds": 100,
+              "finishedWorkout": false
+        ]
+        //push to firebase
+        //if first time pushing, need to create new list
+        //if list is there, append to list
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        var firebaseEmail = Auth.auth().currentUser!.email!
+        if firebaseEmail != nil{
+            firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
+            firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
+            //replace dot by dash
+            //assume we have empty createWorkout
+            //get createWorkout list
+            ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with:{snapshot in
+                var createdWorkoutsList = snapshot.value as? [[String:Any]]
+                createdWorkoutsList?.append(firebaseWorkoutInfo)
+                //push to firebase
+                ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
+            })
+        }
         print("exercise array is ",exerciseArray)
         print("workout array is ",workOuts)
     }

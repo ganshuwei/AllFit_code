@@ -160,6 +160,12 @@ class playWorkoutController : UIViewController{
         ratingVC.wkoutRatingNum=wkoutRatingNum
 
         navigationController?.pushViewController(ratingVC, animated: true)
+        
+        
+        //pushed firebase
+        //firebase: createdWorkouts, favoriteWorkouts, finishedWorkouts
+        
+        
     }
     
 }
