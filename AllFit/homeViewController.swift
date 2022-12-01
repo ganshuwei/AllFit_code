@@ -151,13 +151,13 @@ class homeViewController: UIViewController {
 
 extension homeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return workOuts.count
+        return allWorkouts.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
         
-        cell.setUp(with: workOuts[indexPath.row])
+        cell.setUp(with: allWorkouts[indexPath.row])
         
         cell.index = indexPath.row
         
@@ -181,17 +181,17 @@ extension homeViewController: UICollectionViewDelegateFlowLayout {
 
 extension homeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(workOuts[indexPath.row].workOutName)
+        print(allWorkouts[indexPath.row].workOutName)
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let detailedVC = storyboard.instantiateViewController(withIdentifier: "detailedWorkoutVC") as! DetailedWorkoutController2
 
         //let detailedVC = DetailedWorkoutController()
-        detailedVC.wkoutImage = workOuts[indexPath.row].workOutImage
-        detailedVC.wkoutName=workOuts[indexPath.row].workOutName
-        detailedVC.wkoutRating=workOuts[indexPath.row].workOutStar
-        detailedVC.wkoutRatingNum=workOuts[indexPath.row].workOutStarNum
-        detailedVC.wkoutExercises=workOuts[indexPath.row].workout_exercises
+        detailedVC.wkoutImage = allWorkouts[indexPath.row].workOutImage
+        detailedVC.wkoutName=allWorkouts[indexPath.row].workOutName
+        detailedVC.wkoutRating=allWorkouts[indexPath.row].workOutStar
+        detailedVC.wkoutRatingNum=allWorkouts[indexPath.row].workOutStarNum
+        detailedVC.wkoutExercises=allWorkouts[indexPath.row].workout_exercises
 
         //push nav controller
         navigationController?.pushViewController(detailedVC, animated: true)

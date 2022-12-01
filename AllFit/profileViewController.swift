@@ -22,11 +22,10 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     
     @IBOutlet weak var control: UISegmentedControl!
     var user: User?
-    var savedWorkOuts : [WorkOut] = favourite
-    var personalWorkOuts : [WorkOut] = personal
+    var savedWorkOuts : [WorkOut] = []
+    var personalWorkOuts : [WorkOut] = []
     var option: Bool = true // true means personal; false means saved
     var ifLogin = false
-    var displayList : [WorkOut] = []
     var ref: DatabaseReference! = Database.database().reference()
      
     
@@ -84,8 +83,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        savedWorkOuts = favourite
-        personalWorkOuts = personal
         collectionView.reloadData()
     }
     
