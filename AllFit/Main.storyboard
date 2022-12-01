@@ -155,14 +155,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add your Personal Bio:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ja-Cq-jKk">
-                                <rect key="frame" x="78" y="281" width="257" height="70"/>
+                                <rect key="frame" x="79" y="333" width="257" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mnn-y2-aUU">
-                                <rect key="frame" x="46" y="442" width="321" height="42"/>
+                                <rect key="frame" x="226" y="442" width="123" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Saved">
@@ -175,7 +175,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZ6-6Z-iXD">
-                                <rect key="frame" x="46" y="359" width="321" height="40"/>
+                                <rect key="frame" x="50" y="442" width="129" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Your Workout">
@@ -185,14 +185,6 @@
                                     <action selector="personalWorkOutsAction:" destination="xGn-mp-tDA" eventType="touchUpInside" id="j7n-tY-JaB"/>
                                     <segue destination="LrT-xX-MSM" kind="show" id="LQW-RM-CTH"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIC-lr-yT5">
-                                <rect key="frame" x="46" y="536" width="321" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Change Yout Password">
-                                    <color key="baseBackgroundColor" systemColor="systemPurpleColor"/>
-                                </buttonConfiguration>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBE-ab-Rgl">
                                 <rect key="frame" x="74" y="209" width="267" height="35"/>
@@ -206,7 +198,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Dp-Y9-iza">
-                                <rect key="frame" x="171" y="259" width="89" height="21"/>
+                                <rect key="frame" x="163" y="312" width="89" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UserEmail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnx-Rs-Xdd">
+                                <rect key="frame" x="69" y="261" width="267" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -232,16 +231,10 @@
                                 <action selector="logOutAction:" destination="xGn-mp-tDA" id="bkU-fB-TwJ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="865-lX-8E2">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="qIn-pa-DAE">
-                                <rect key="frame" x="343" y="5" width="51" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="gearshape" catalog="system" imagePlacement="top"/>
-                                <connections>
-                                    <segue destination="2lu-BG-hVX" kind="show" id="Igp-m2-gBe"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="gearshape" catalog="system" id="AdS-Ep-mZV">
+                            <connections>
+                                <action selector="settingAction:" destination="xGn-mp-tDA" id="tWH-h2-qhw"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -251,7 +244,8 @@
                         <outlet property="personalWorkOutsBtn" destination="gZ6-6Z-iXD" id="ZFa-68-pbI"/>
                         <outlet property="profilePhoto" destination="6ir-az-5GQ" id="ucH-IF-5eY"/>
                         <outlet property="savedWorkOutsBtn" destination="Mnn-y2-aUU" id="08g-4z-af3"/>
-                        <outlet property="settingsButton" destination="865-lX-8E2" id="Rli-7H-vMz"/>
+                        <outlet property="settingsButton" destination="AdS-Ep-mZV" id="RID-GC-lEa"/>
+                        <outlet property="userEmailField" destination="cnx-Rs-Xdd" id="BHw-vI-wfk"/>
                         <outlet property="usernameLabel" destination="bBE-ab-Rgl" id="Ou0-v5-96F"/>
                     </connections>
                 </viewController>
@@ -488,7 +482,7 @@
         <!--Edit Profile-->
         <scene sceneID="gPa-yf-psN">
             <objects>
-                <viewController id="2lu-BG-hVX" customClass="editProfileViewController" customModule="AllFit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="edit" id="2lu-BG-hVX" customClass="editProfileViewController" customModule="AllFit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MiF-23-ST6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -510,19 +504,19 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birthday,,," textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IPB-in-U8F">
-                                <rect key="frame" x="63" y="403" width="289" height="34"/>
+                                <rect key="frame" x="63" y="516" width="289" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Bio:" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cck-X2-sUz">
-                                <rect key="frame" x="63" y="473" width="289" height="34"/>
+                                <rect key="frame" x="63" y="585" width="289" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2k-vk-KIP">
-                                <rect key="frame" x="121" y="552" width="153" height="39"/>
+                                <rect key="frame" x="131" y="688" width="153" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Submit"/>
@@ -530,6 +524,18 @@
                                     <action selector="submitAction:" destination="2lu-BG-hVX" eventType="touchUpInside" id="pLO-fk-KSt"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="FirstName,," textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ycm-G3-K5D">
+                                <rect key="frame" x="63" y="403" width="289" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="LastName,," textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mju-Em-ath">
+                                <rect key="frame" x="63" y="459" width="289" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dGU-wE-bD2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -538,7 +544,9 @@
                     <connections>
                         <outlet property="BirthdayField" destination="IPB-in-U8F" id="Pjc-iW-vcO"/>
                         <outlet property="bioField" destination="cck-X2-sUz" id="kdd-pb-5eW"/>
-                        <outlet property="profilePhoto" destination="0Fp-Hf-vnh" id="Hlz-9I-7zP"/>
+                        <outlet property="firstNameField" destination="Ycm-G3-K5D" id="wnZ-mX-l64"/>
+                        <outlet property="lastNameField" destination="mju-Em-ath" id="uDf-kS-ZVv"/>
+                        <outlet property="profilePhotoView" destination="0Fp-Hf-vnh" id="rX5-1j-Tq0"/>
                         <outlet property="submitBtn" destination="p2k-vk-KIP" id="ryZ-wt-9DI"/>
                         <outlet property="userEmailField" destination="Y14-qH-xMl" id="YfB-GJ-oAt"/>
                         <outlet property="userNameField" destination="AZq-yD-Rbx" id="soV-Ue-tIP"/>
@@ -1515,9 +1523,6 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

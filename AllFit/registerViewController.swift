@@ -41,7 +41,6 @@ class registerViewController: UIViewController {
             guard let strongSelf = self else{return}
             guard !exists else{
                 // user already exist in the real database
-//                strongSelf.alertUserSignUp(message: "This user has already existed.")
                 print("This user has already existed.")
                 return
             }
@@ -54,11 +53,20 @@ class registerViewController: UIViewController {
                 }
                 
                 // Add the new user to the real database
+            
                 let user = User(userEmail: email)
-                DatabaseManager.shared.addNewUser(with: user)
-                
-                // Suceessfully log in, go dismiss this view and go back to the home screen
-                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                UserDefaults.standard.set("\(user.username)", forKey: "name")
+                UserDefaults.standard.set("\(user.userEmail)", forKey: "email")
+                DatabaseManager.shared.addNewUser(with: user, completion: {success in
+                    if(success){
+                        // Suceessfully log in, go to the home screen
+
+                        let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserMain")
+                        navigationController.modalPresentationStyle = .fullScreen
+                        strongSelf.present(navigationController, animated: true, completion: nil)
+                    }
+                })
+
             }
         })
         

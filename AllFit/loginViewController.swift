@@ -40,8 +40,29 @@ class loginViewController: UIViewController {
                 self?.errorLabel.text=e.localizedDescription
                 return
             }
-            // Suceessfully log in, go dismiss this view and go back to the home screen
-            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            guard let result = authResult else {return}
+            let user = result.user
+            print("User \(user) log in successfully!")
+            let safeEmail = DatabaseManager.safeEmail(userEmail: email)
+            DatabaseManager.shared.fetchData(childNode: safeEmail, completion: {result in
+                switch result {
+                case .success(let data):
+                    guard let data = data as? [String: Any],
+                        let username = data["username"] as? String else {
+                            return
+                    }
+                    UserDefaults.standard.set("\(username)", forKey: "name")
+                    print(username)
+
+                case .failure(let error):
+                    print("Failed to get the user data from firebase \(error)")
+                }
+            })
+            UserDefaults.standard.set("\(email)", forKey: "email")
+            // Suceessfully log in,  go to the home screen
+            let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserMain")
+            navigationController.modalPresentationStyle = .fullScreen
+            strongSelf.present(navigationController, animated: true, completion: nil)
         }
     }
     
