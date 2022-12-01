@@ -65,7 +65,8 @@ class CreateExerciseView: UIViewController{
         
         //get exercise image url
         guard let exerciseImage=exerciseImage.image, let data = exerciseImage.pngData() else {return}
-        let exerciseFileName = String(exerciseArray.count + 1) + "_workout_photo.png"
+        let randomNumber = String(Int.random(in: 1...1000000))
+        let exerciseFileName = exerciseName.text! + randomNumber + "_exercise_photo.png"
         StorageManager.share.uploadProfilePicture(with: data, fileName: exerciseFileName, completion:{result in
             switch result {
                 case .success(let downloadUrl):
@@ -77,6 +78,7 @@ class CreateExerciseView: UIViewController{
         
         let firebaseExerciseInfo: [String:Any] = [
             "exercise_name": String(exerciseName.text!),
+            "exercise_id": String(exerciseName.text!)+randomNumber,
             "exercise_type": exerciseTypeString,
             "exercise_repOrTime": exerciseTypeString,
             "exercise_repOrTimeValue":repOrTimeValue.text!,

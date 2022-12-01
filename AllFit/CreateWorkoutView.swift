@@ -76,7 +76,9 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         
         //get image url
         guard let workOutimage=workoutImage.image, let data = workOutimage.pngData() else {return}
-        let fileName = String(workOuts.count + 1) + "_workout_photo.png"
+        
+        let randomNumberWorkout = String(Int.random(in: 1...1000000))
+        let fileName = workoutName.text! + randomNumberWorkout + "_workout_photo.png"
         StorageManager.share.uploadProfilePicture(with: data, fileName: fileName, completion:{result in
             switch result {
                 case .success(let downloadUrl):
@@ -94,7 +96,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
               "workOutDifficulty": workoutDifficultyString,
               "workOutDescription":"blabla",
               "userEmail": Auth.auth().currentUser!.email!,
-              "workoutId":workOuts.count + 1,
+              "workoutId": workoutName.text! + randomNumberWorkout,
               "workout_exercises": exerciseArrayFirebase,
               "workoutDate": "11/20/2022",
               "workoutTotalSeconds": 100,
