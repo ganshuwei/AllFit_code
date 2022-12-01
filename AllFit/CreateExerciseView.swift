@@ -66,7 +66,7 @@ class CreateExerciseView: UIViewController{
         //get exercise image url
         guard let exerciseImage=exerciseImage.image, let data = exerciseImage.pngData() else {return}
         let exerciseFileName = String(exerciseArray.count + 1) + "_workout_photo.png"
-        StorageManager.share.uploadProfilePicture(with: data, fileName: fileName, completion:{result in
+        StorageManager.share.uploadProfilePicture(with: data, fileName: exerciseFileName, completion:{result in
             switch result {
                 case .success(let downloadUrl):
                     print(downloadUrl)
