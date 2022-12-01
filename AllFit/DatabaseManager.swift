@@ -43,6 +43,9 @@ extension DatabaseManager{
     
     // Create a new user in the database
     public func addNewUser(with user: User, completion: @escaping((Bool) -> Void)){
+//        let favList : [Int] = []
+//        let createdList: [Int] = []
+//        let finishedList: [Int] = []
         database.child("users").child(user.safeEmail).setValue(["username":user.username,"first_name":user.firstName, "last_name": user.lastName, "bio": user.bio, "birthday": user.birthday], withCompletionBlock:{ error, _ in
             
             guard error == nil else{

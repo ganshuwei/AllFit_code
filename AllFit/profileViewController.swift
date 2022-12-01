@@ -11,23 +11,25 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     @IBOutlet weak var settingsButton: UIBarButtonItem!
     @IBOutlet weak var logOutButton: UIBarButtonItem!
     
-
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
     
     @IBOutlet weak var userEmailField: UILabel!
     
-    @IBOutlet weak var personalWorkOutsBtn: UIButton!
-    
-    @IBOutlet weak var savedWorkOutsBtn: UIButton!
-    
     @IBOutlet weak var birthday: UILabel!
+    
+    @IBOutlet weak var control: UISegmentedControl!
     var user: User?
-    var savedWorkOuts : [WorkOut] = []
-    var personalWorkOuts : [WorkOut] = []
+    var savedWorkOuts : [WorkOut] = favourite
+    var personalWorkOuts : [WorkOut] = personal
     var option: Bool = true // true means personal; false means saved
     var ifLogin = false
+    var displayList : [WorkOut] = []
+    var ref: DatabaseReference! = Database.database().reference()
+     
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +72,17 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
                 print("Fail to get the user profile photo: \(error)")
             }
         })
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        savedWorkOuts = favourite
+        personalWorkOuts = personal
+        collectionView.reloadData()
     }
     
     @IBAction func settingAction(_ sender: UIBarButtonItem) {
@@ -117,13 +129,75 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         present(logOutAlert, animated: true, completion: nil)
     }
     
-    
-    @IBAction func personalWorkOutsAction(_ sender: UIButton) {
-        option = true
+    @IBAction func controlAction(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0{
+            // Display the user favourite workouts
+//            if let workoutList = getWorkOutList(targetNode: "favWorkOuts"){
+//                savedWorkOuts = workoutList
+//            }
+            option = false
+        
+        }else if sender.selectedSegmentIndex == 1{
+            // Display the user created workout
+//            if let workoutList = getWorkOutList(targetNode: "createdWorkOuts"){
+//                personalWorkOuts = workoutList
+//            }
+            option = true
+        }
+        collectionView.reloadData()
     }
     
-    @IBAction func savedWorkOutsBtn(_ sender: UIButton) {
-        option = false
+    func getWorkOutList(targetNode: String) -> [WorkOut]?{
+        guard let user = user else {return nil}
+        var targetList : [WorkOut] = []
+        ref.child("users").child("\(user.safeEmail)/\(targetNode)").observeSingleEvent(of: .value, with: { snapshot in
+          // Get current user's favourite workouts
+          let favWorkoutsIdList = snapshot.value as? [Int]
+          guard let idList = favWorkoutsIdList else {return}
+                
+          for id in idList {
+                self.ref.child("workouts").child("\(id)").observeSingleEvent(of: .value, with: { snapshot2 in
+                    let workoutDic = snapshot2.value as? [String : Any]
+//                        let exerciseList = workoutDic?["workout_exercises"] as? [[String:Any]] ?? [[:]]
+                    
+                    
+                    let workoutImageFileName = "\(id)_workout_photo.png"
+                    let path = "images/" + workoutImageFileName
+                    
+                    // Get the workout image
+                    var workoutImage : UIImage?
+                    StorageManager.share.fetchPicUrl(for: path, completion: {result in
+                        switch result{
+                        case .success(let url):
+                            DispatchQueue.global().async {
+                                // Fetch Image Data
+                                if let data = try? Data(contentsOf: url) {
+                                    DispatchQueue.main.async {
+                                        // Create Image and Update Image View
+                                       workoutImage = UIImage(data: data)
+                                    }
+                                }
+                            }
+                            self.user?.profilePhoto = self.profilePhoto.image
+                        case .failure(let error):
+                            print("Fail to get the user profile photo: \(error)")
+                        }
+                    })
+                    guard let workoutImage = workoutImage else {
+                        return
+                    }
+
+                    let workout = WorkOut(workOutStar: workoutDic?["workOutStar"] as? Double ?? 0.0, workOutStarNum: workoutDic?["workOutStarNum"] as? Int ?? 0, workOutImage: workoutImage, workOutName: workoutDic?["workOutName"] as? String ?? "", workOutDifficulty: workoutDic?["workOutDifficulty"] as? String ?? "", workOutDescription: workoutDic?["workOutDescription"] as? String ?? "", userName: workoutDic?["userName"] as? String ?? "", userPhoto: self.profilePhoto.image, workoutId: workoutDic?["workoutId"] as? Int ?? 0, workout_exercises: workoutDic?["workout_exercises"] as? [Exercise] ?? [], favor: workoutDic?["favor"] as? Bool ?? false, workoutDate: workoutDic?["workoutDate"] as? String ?? "", workoutTotalSeconds: workoutDic?["workoutTotalSeconds"] as? Int ?? 0, finishedWorkout: workoutDic?["finishedWorkout"] as? Bool ?? false)
+                    
+                    targetList.append(workout)
+                })
+            }
+
+        }) { error in
+          print(error.localizedDescription)
+        }
+
+        return targetList
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -136,7 +210,36 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
-        
+        if(option){
+            cell.setUp(with: personalWorkOuts[indexPath.row])
+        }else{
+            cell.setUp(with: savedWorkOuts[indexPath.row])
+        }
+        cell.authorPhoto.image = profilePhoto.image
         return cell
+    }
+    
+    // Open the workout detial page
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(option){
+            print(personalWorkOuts[indexPath.row].workOutName)
+        }else{
+            print(savedWorkOuts[indexPath.row].workOutName)
+        }
+       
+    }
+}
+
+extension profileViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 194, height: 300)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 1, bottom: 10, right: 24)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }

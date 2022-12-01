@@ -1,9 +1,11 @@
 import UIKit
 import FirebaseAuth
+import Firebase
+import FirebaseDatabase
 
 class homeViewController: UIViewController {
 
-    
+    var allWorkouts : [WorkOut] = []
 
     @IBOutlet weak var searchBtn: UIBarButtonItem!
     
@@ -38,7 +40,20 @@ class homeViewController: UIViewController {
         
     }
     
-    
+    // ToDo: Add all the workouts into allWorkouts
+    func fetchAllWorkOuts(){
+        Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
+                    // Get user value
+        
+//            var workoutsDic = snapshot.value as? [Int: [String: Any]]
+            
+        
+        
+        
+      }) { error in
+        print(error.localizedDescription)
+      }
+    }
 }
 
 extension homeViewController: UICollectionViewDataSource {

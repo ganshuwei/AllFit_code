@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 class workOutCollectionViewCell : UICollectionViewCell{
 
         
@@ -52,7 +53,38 @@ class workOutCollectionViewCell : UICollectionViewCell{
                 print(item.favor)
             }
         }
+        
+        // Update the favourite list in the firebase
+        // ToDo: add a new propety of workout: userSafeEmail
+        // curWorkOut.userName shoule be  curWorkOut.userSafeEmail
+//        guard let curWorkOut = curWorkOut else {
+//            return
+//        }
+//        Database.database().reference().child("users/\(curWorkOut.userName)/favWorkOuts").observeSingleEvent(of: .value, with: { snapshot in
+//            // Get user value
+//
+//            var workOutIdList = snapshot.value as? [Int] ?? []
+//
+//
+//            if(workOutIdList.contains(curWorkOut.workoutId)){
+//                // Exist in the favList, So Remove
+//                workOutIdList = workOutIdList.filter{$0 != curWorkOut.workoutId}
+//                sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
+//                sender.tintColor = .black
+//            }else{
+//                workOutIdList.append(curWorkOut.workoutId)
+//                sender.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+//                sender.tintColor = self.starImage.tintColor
+//            }
+//            Database.database().reference().child("users/\(curWorkOut.userName)/favWorkOuts").setValue(workOutIdList)
+//
+//
+//          }) { error in
+//            print(error.localizedDescription)
+//          }
+
     }
+
     
     func setUp(with workOut: WorkOut){
         workOutImageView.image = workOut.workOutImage
@@ -60,6 +92,7 @@ class workOutCollectionViewCell : UICollectionViewCell{
         starsLabel.text = String(workOut.workOutStar)
         authorNameLabel.text = workOut.userName
         authorPhoto.image = workOut.userPhoto
+        authorPhoto.circleImageView()
         curWorkOut = workOut
         if(workOut.favor){
             addToFavouriteBtn.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
@@ -72,5 +105,17 @@ class workOutCollectionViewCell : UICollectionViewCell{
         if let row = workOuts.firstIndex(where: {$0.workoutId == workOut.workoutId}) {
             index = row
         }
+    }
+}
+
+extension UIImageView {
+
+    func circleImageView() {
+//       layer.borderColor = UIColor.white.cgColor
+       layer.borderWidth = 0
+       contentMode = .scaleAspectFill
+       layer.cornerRadius = self.frame.height / 2
+       layer.masksToBounds = false
+       clipsToBounds = true
     }
 }
