@@ -63,13 +63,26 @@ class CreateExerciseView: UIViewController{
                           exercise_image: exerciseImage.image
                           )
         
+        //get exercise image url
+        guard let exerciseImage=exerciseImage.image, let data = exerciseImage.pngData() else {return}
+        let exerciseFileName = String(exerciseArray.count + 1) + "_workout_photo.png"
+        StorageManager.share.uploadProfilePicture(with: data, fileName: fileName, completion:{result in
+            switch result {
+                case .success(let downloadUrl):
+                    print(downloadUrl)
+                case .failure(let error):
+                    print("Firebase storage error: \(error)")
+            }
+        })
+        
         let firebaseExerciseInfo: [String:Any] = [
             "exercise_name": String(exerciseName.text!),
             "exercise_type": exerciseTypeString,
             "exercise_repOrTime": exerciseTypeString,
             "exercise_repOrTimeValue":repOrTimeValue.text!,
             "exercise_equipment": equipmentList,
-            "exercise_time": 160
+            "exercise_time": 160,
+            "exercise_image": exerciseFileName
         ]
         //get list of exercises
         exerciseArray.append(exerciseInfo)

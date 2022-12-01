@@ -61,8 +61,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
           print(error.localizedDescription)
         }
 
-
-        
         // Get the user's profile photo
         let fileName = safeEmail + "_profile_photo.png"
         let path = "images/" + fileName

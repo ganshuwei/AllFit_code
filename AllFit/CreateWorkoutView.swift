@@ -95,7 +95,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
               "workOutDescription":"blabla",
               "userEmail": Auth.auth().currentUser!.email!,
               "workoutId":workOuts.count + 1,
-//              "workout_exercises": exerciseArrayFirebase,
+              "workout_exercises": exerciseArrayFirebase,
               "workoutDate": "11/20/2022",
               "workoutTotalSeconds": 100,
               "finishedWorkout": false
@@ -135,13 +135,6 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
                 }
 
             })
-//            ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with:{snapshot in
-//                var createdWorkoutsList = snapshot.value as? [String]
-//                createdWorkoutsList?.append(workoutId)
-//                //push to firebase
-//                ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
-//            })
-            //push workout info and creator Id to workout table
             ref.child("workouts").child(workoutId).setValue(firebaseWorkoutInfo)
         }
     }
