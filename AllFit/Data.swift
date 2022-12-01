@@ -10,15 +10,21 @@ import UIKit
 
 struct User{
     var userEmail:String
+    var username: String = "username"
     var firstName: String = "firstName"
     var lastName:String = "Last Name"
     var bio:String = "bio"
     var birthday:String = "birthday"
     var profilePhoto:UIImage?
+    // Firebase real-time database not allow . and @
     var safeEmail:String{
         var safeEmail = userEmail.replacingOccurrences(of: ".", with: "-")
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
         return safeEmail
+    }
+    
+    var profilePhotoFileName: String{
+        return "\(safeEmail)_profile_photo.png"
     }
 }
 

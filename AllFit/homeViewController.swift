@@ -1,9 +1,12 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import FirebaseDatabase
+import RealmSwift
 
 class homeViewController: UIViewController {
 
+    var allWorkouts : [WorkOut] = []
 
     @IBOutlet weak var searchBtn: UIBarButtonItem!
     
@@ -44,6 +47,89 @@ class homeViewController: UIViewController {
     
     @IBAction func searchAction(_ sender: UIBarButtonItem) {
         
+    }
+    
+    // ToDo: Add all the workouts into allWorkouts
+    func fetchAllWorkOuts(){
+        Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
+            for case let child as DataSnapshot in snapshot.children {
+                guard let dict = child.value as? [String:Any] else {
+                    print("Error")
+                    return
+                }
+                let username = dict["username"] as? String ?? ""
+                let workOutStar = dict["workOutStar"] as? Double ?? 0.0
+                let workOutStarNum = dict["workOutStarNum"] as? Int ?? 0
+                let workOutName = dict["workOutName"]as? String ?? ""
+                let workOutDifficulty = dict["workOutDifficulty"]as? String ?? ""
+                let workOutDescription = dict["workOutDescription"]as? String ?? ""
+                let workoutId = dict["workoutId"]as? Int ?? 0
+                let workout_exercises = dict["workout_exercises"]as? [[String: Any]] ?? [[:]]
+                let workoutDate = dict[ "workoutDate"]as? String ?? ""
+                let workoutTotalSeconds = dict["workoutTotalSeconds"]as? Int ?? 0
+                let finishedWorkout = dict["finishedWorkout"]as? Bool ?? false
+                var exerciseList : [Exercise] = []
+                // Create the exercise list
+                for dic in workout_exercises{
+                    let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0)
+                    exerciseList.append(exercise)
+                }
+                // Get the workout image
+                let workoutImageFileName = "\(workoutId)_workout_photo.png"
+                let path = "images/" + workoutImageFileName
+
+                var workoutImage : UIImage?
+                StorageManager.share.fetchPicUrl(for: path, completion: {result in
+                    switch result{
+                    case .success(let url):
+                        DispatchQueue.global().async {
+                            // Fetch Image Data
+                            if let data = try? Data(contentsOf: url) {
+                                DispatchQueue.main.async {
+                                    // Create Image and Update Image View
+                                   workoutImage = UIImage(data: data)
+                                }
+                            }
+                        }
+                    case .failure(let error):
+                        print("Fail to get the workout image: \(error)")
+                    }
+                })
+                guard let workoutImage = workoutImage else {
+                    return
+                }
+                
+                // Get the author's profile photo
+                // Todo: change username to userSafeEmail
+                let profilePhotoFileName = "\(username)_workout_photo.png"
+                let profilePhotoPath = "images/" + profilePhotoFileName
+                var profilePhoto : UIImage?
+                StorageManager.share.fetchPicUrl(for: profilePhotoPath, completion: {result in
+                    switch result{
+                    case .success(let url):
+                        DispatchQueue.global().async {
+                            // Fetch Image Data
+                            if let data = try? Data(contentsOf: url) {
+                                DispatchQueue.main.async {
+                                    // Create Image and Update Image View
+                                    profilePhoto = UIImage(data: data)
+                                }
+                            }
+                        }
+                    case .failure(let error):
+                        print("Fail to get the user profile photo: \(error)")
+                    }
+                })
+                guard let profilePhoto = profilePhoto else {
+                    return
+                }
+                
+                let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: username, userPhoto: profilePhoto, workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
+                self.allWorkouts.append(workout)
+            }
+      }) { error in
+        print(error.localizedDescription)
+      }
     }
 }
 

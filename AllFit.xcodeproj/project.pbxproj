@@ -28,8 +28,11 @@
 		123170D82921B358008AD626 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 123170D72921B358008AD626 /* GoogleService-Info.plist */; };
 		123170DA2921B7D2008AD626 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170D92921B7D2008AD626 /* DatabaseManager.swift */; };
 		123170DC2921BE4F008AD626 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 123170DB2921BE4F008AD626 /* Main.storyboard */; };
-		123170DE29221315008AD626 /* favouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170DD29221315008AD626 /* favouriteViewController.swift */; };
-		123170E2292215E8008AD626 /* personalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123170E1292215E8008AD626 /* personalViewController.swift */; };
+		12AF47C52938609700631B6A /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47C42938609700631B6A /* JGProgressHUD */; };
+		12AF47C8293860B800631B6A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47C7293860B800631B6A /* SDWebImage */; };
+		12AF47CA293860B800631B6A /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47C9293860B800631B6A /* SDWebImageMapKit */; };
+		12AF47CD293860F100631B6A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47CC293860F100631B6A /* Realm */; };
+		12AF47CF293860F100631B6A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47CE293860F100631B6A /* RealmSwift */; };
 		12E28F97292BEDC80062018E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28F96292BEDC80062018E /* FirebaseAnalytics */; };
 		12E28F99292BEDC80062018E /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28F98292BEDC80062018E /* FirebaseAnalyticsOnDeviceConversion */; };
 		12E28F9B292BEDC80062018E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28F9A292BEDC80062018E /* FirebaseAnalyticsSwift */; };
@@ -110,8 +113,6 @@
 		123170D72921B358008AD626 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		123170D92921B7D2008AD626 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		123170DB2921BE4F008AD626 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		123170DD29221315008AD626 /* favouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouriteViewController.swift; sourceTree = "<group>"; };
-		123170E1292215E8008AD626 /* personalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personalViewController.swift; sourceTree = "<group>"; };
 		CEAE82082922D58E0028E934 /* CreateExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseView.swift; sourceTree = "<group>"; };
 		CEAE820A2922DB700028E934 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		CEAE820C2922F4C30028E934 /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
@@ -141,23 +142,28 @@
 				12E28FA3292BEDC80062018E /* FirebaseAuth in Frameworks */,
 				12E28FC5292BEDC80062018E /* FirebaseRemoteConfig in Frameworks */,
 				12E28F9B292BEDC80062018E /* FirebaseAnalyticsSwift in Frameworks */,
+				12AF47CF293860F100631B6A /* RealmSwift in Frameworks */,
 				12E28FC9292BEDC80062018E /* FirebaseStorage in Frameworks */,
 				12E28FC3292BEDC80062018E /* FirebasePerformance in Frameworks */,
+				12AF47CD293860F100631B6A /* Realm in Frameworks */,
 				12E28FAF292BEDC80062018E /* FirebaseFirestore in Frameworks */,
 				02B21AC7291DC9F60052A10C /* FirebaseAnalytics in Frameworks */,
 				12E28FB9292BEDC80062018E /* FirebaseInAppMessaging-Beta in Frameworks */,
 				02B21AC9291DC9F60052A10C /* FirebaseAuth in Frameworks */,
 				12E28F99292BEDC80062018E /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				12E28FC7292BEDC80062018E /* FirebaseRemoteConfigSwift in Frameworks */,
+				12AF47C52938609700631B6A /* JGProgressHUD in Frameworks */,
 				12E28FA5292BEDC80062018E /* FirebaseAuthCombine-Community in Frameworks */,
 				12E28FB5292BEDC80062018E /* FirebaseFunctions in Frameworks */,
 				12E28F9D292BEDC80062018E /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				12E28FCB292BEDC80062018E /* FirebaseStorageCombine-Community in Frameworks */,
 				12E28FB1292BEDC80062018E /* FirebaseFirestoreCombine-Community in Frameworks */,
+				12AF47CA293860B800631B6A /* SDWebImageMapKit in Frameworks */,
 				12E28F97292BEDC80062018E /* FirebaseAnalytics in Frameworks */,
 				12E28FA7292BEDC80062018E /* FirebaseCrashlytics in Frameworks */,
 				02A53F1A29173358002574E5 /* FirebaseAnalytics in Frameworks */,
 				12E28FA1292BEDC80062018E /* FirebaseAppDistribution-Beta in Frameworks */,
+				12AF47C8293860B800631B6A /* SDWebImage in Frameworks */,
 				12E28FAD292BEDC80062018E /* FirebaseDynamicLinks in Frameworks */,
 				12E28FB3292BEDC80062018E /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -213,8 +219,6 @@
 				123170CD2921544B008AD626 /* editProfileController.swift */,
 				123170CF29215457008AD626 /* profileViewController.swift */,
 				123170D12921545F008AD626 /* homeViewController.swift */,
-				123170DD29221315008AD626 /* favouriteViewController.swift */,
-				123170E1292215E8008AD626 /* personalViewController.swift */,
 				123170D329215465008AD626 /* workOutCollectionViewCell.swift */,
 				CEAE820E292D28CA0028E934 /* DetailedWorkoutController.swift */,
 				CEAE8219293817440028E934 /* DetailedWorkoutController2.swift */,
@@ -300,6 +304,11 @@
 				12E28FC8292BEDC80062018E /* FirebaseStorage */,
 				12E28FCA292BEDC80062018E /* FirebaseStorageCombine-Community */,
 				CEAE82172937D84D0028E934 /* FirebaseStorage */,
+				12AF47C42938609700631B6A /* JGProgressHUD */,
+				12AF47C7293860B800631B6A /* SDWebImage */,
+				12AF47C9293860B800631B6A /* SDWebImageMapKit */,
+				12AF47CC293860F100631B6A /* Realm */,
+				12AF47CE293860F100631B6A /* RealmSwift */,
 			);
 			productName = AllFit;
 			productReference = 02A53EE0291731D0002574E5 /* AllFit.app */;
@@ -378,6 +387,9 @@
 				02B21AC5291DC9F60052A10C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				12E28F95292BEDC80062018E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CEAE82162937D84D0028E934 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				12AF47C32938609700631B6A /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				12AF47C6293860B800631B6A /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				12AF47CB293860F100631B6A /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 02A53EE1291731D0002574E5 /* Products */;
 			projectDirPath = "";
@@ -433,13 +445,11 @@
 				CEAE821C293906C60028E934 /* DetailedExerciseVC.swift in Sources */,
 				123170CE2921544B008AD626 /* editProfileController.swift in Sources */,
 				CEAE82152937D7E90028E934 /* StorageManager.swift in Sources */,
-				123170DE29221315008AD626 /* favouriteViewController.swift in Sources */,
 				123170D429215465008AD626 /* workOutCollectionViewCell.swift in Sources */,
 				123170D029215457008AD626 /* profileViewController.swift in Sources */,
 				CEAE8213293420CB0028E934 /* ratingController.swift in Sources */,
 				123170D22921545F008AD626 /* homeViewController.swift in Sources */,
 				CEAE82092922D58E0028E934 /* CreateExerciseView.swift in Sources */,
-				123170E2292215E8008AD626 /* personalViewController.swift in Sources */,
 				02A53EE6291731D0002574E5 /* SceneDelegate.swift in Sources */,
 				CEAE821E29391E1F0028E934 /* editExerciseView.swift in Sources */,
 				02B21AC4291DC9940052A10C /* registerViewController.swift in Sources */,
@@ -797,6 +807,30 @@
 				kind = branch;
 			};
 		};
+		12AF47C32938609700631B6A /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		12AF47C6293860B800631B6A /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		12AF47CB293860F100631B6A /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		12E28F95292BEDC80062018E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -830,6 +864,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 02B21AC5291DC9F60052A10C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		12AF47C42938609700631B6A /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12AF47C32938609700631B6A /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
+		12AF47C7293860B800631B6A /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12AF47C6293860B800631B6A /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		12AF47C9293860B800631B6A /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12AF47C6293860B800631B6A /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+		12AF47CC293860F100631B6A /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12AF47CB293860F100631B6A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		12AF47CE293860F100631B6A /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12AF47CB293860F100631B6A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		12E28F96292BEDC80062018E /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

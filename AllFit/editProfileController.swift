@@ -1,16 +1,21 @@
 
 
 import UIKit
+import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class editProfileViewController: UIViewController {
     
-    var user : User?
-    @IBOutlet weak var profilePhoto: UIImageView!
+    @IBOutlet weak var profilePhotoView: UIImageView!
     
     @IBOutlet weak var userEmailField: UITextField!
     
     @IBOutlet weak var userNameField: UITextField!
+    
+    @IBOutlet weak var firstNameField: UITextField!
+    
+    @IBOutlet weak var lastNameField: UITextField!
     
     @IBOutlet weak var BirthdayField: UITextField!
     
@@ -18,27 +23,55 @@ class editProfileViewController: UIViewController {
     
     @IBOutlet weak var submitBtn: UIButton!
     
+    var curUser: User?
+    
+    var completionHandler: ((User) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        profilePhoto.layer.masksToBounds = true
-        profilePhoto.layer.borderWidth = 2
-        profilePhoto.layer.borderColor = UIColor.lightGray.cgColor
-        profilePhoto.layer.cornerRadius = profilePhoto.frame.width/2.0
-        profilePhoto.isUserInteractionEnabled = true
+        userEmailField.isUserInteractionEnabled = false
+        profilePhotoView.layer.masksToBounds = true
+        profilePhotoView.layer.borderWidth = 2
+        profilePhotoView.layer.borderColor = UIColor.lightGray.cgColor
+        profilePhotoView.layer.cornerRadius = profilePhotoView.frame.width/2.0
+        profilePhotoView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self,
                                                      action: #selector(didTapChangeProfilePic))
-        profilePhoto.addGestureRecognizer(gesture)
-        BirthdayField.placeholder = testUser.birthday
-        bioField.placeholder = testUser.bio
-        userEmailField.placeholder = Auth.auth().currentUser?.email
+        profilePhotoView.addGestureRecognizer(gesture)
+        
+        guard let curUser = curUser else {return}
+        profilePhotoView.image = curUser.profilePhoto
+        userEmailField.text = curUser.userEmail
+        userNameField.text = curUser.username
+        firstNameField.text = curUser.firstName
+        lastNameField.text = curUser.lastName
+        BirthdayField.text = curUser.birthday
+        bioField.text = curUser.bio
     }
     
     @IBAction func submitAction(_ sender: UIButton) {
-        testUser.profilePhoto = profilePhoto.image
-        testUser.birthday = BirthdayField.text!
-        testUser.bio = bioField.text!
-        testUser.userEmail = userEmailField.text!
+        guard var curUser = curUser else {return}
+        Database.database().reference().child("users").child(curUser.safeEmail).setValue(["username":userNameField.text!,"first_name":firstNameField.text!, "last_name": lastNameField.text!, "bio": bioField.text!, "birthday": BirthdayField.text!])
+        
+        // Upload the user's new profile photo
+        guard let image = profilePhotoView.image, let data = image.pngData() else{return}
+        let fileName = curUser.profilePhotoFileName
+        StorageManager.share.uploadProfilePicture(with: data, fileName: fileName, completion: {result in
+            switch result {
+                case .success(let downloadUrl):
+                    print(downloadUrl)
+                case .failure(let error):
+                    print("Firebase Storage Error: \(error)")
+            }
+        })
+        curUser.username = userNameField.text ?? ""
+        curUser.firstName = firstNameField.text ?? ""
+        curUser.lastName =  lastNameField.text ?? ""
+        curUser.birthday = BirthdayField.text ?? ""
+        curUser.profilePhoto = profilePhotoView.image
+        curUser.bio = bioField.text ?? ""
+        completionHandler?(curUser)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -82,7 +115,7 @@ extension editProfileViewController: UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else{return}
-        self.profilePhoto.image = selectedImage
+        self.profilePhotoView.image = selectedImage
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
