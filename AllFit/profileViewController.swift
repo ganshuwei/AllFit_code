@@ -17,9 +17,8 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
     
+    @IBOutlet weak var profileInfoBackground: UIImageView!
     @IBOutlet weak var userEmailField: UILabel!
-    
-    @IBOutlet weak var birthday: UILabel!
     
     @IBOutlet weak var control: UISegmentedControl!
     var user: User?
@@ -37,9 +36,15 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         userEmailField.text = email
         // Do any additional setup after loading the view.
         profilePhoto.layer.masksToBounds = true
-        profilePhoto.layer.borderWidth = 2
-        profilePhoto.layer.borderColor = UIColor.lightGray.cgColor
+        profilePhoto.layer.borderWidth = 0
         profilePhoto.layer.cornerRadius = profilePhoto.frame.width/2.0
+        
+        profileInfoBackground.layer.cornerRadius = 20
+        profileInfoBackground.layer.masksToBounds = false
+        profileInfoBackground.layer.shadowColor = #colorLiteral(red: 0.7947373986, green: 0.7969929576, blue: 0.9504011273, alpha: 0.8013245033)
+        profileInfoBackground.layer.shadowOffset = CGSize.zero
+        profileInfoBackground.layer.shadowOpacity = 0.5
+        profileInfoBackground.layer.shadowRadius = 5.0
         
         // Get current user personal information
         guard let email = email else{
@@ -52,7 +57,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
           let value = snapshot.value as? NSDictionary
             self.usernameLabel.text = value?["username"] as? String ?? ""
             self.bioLabel.text = value?["bio"] as? String ?? ""
-            self.birthday.text = value?["birthday"] as? String ?? ""
             self.user = User(userEmail: email, username: value?["username"] as? String ?? "", firstName: value?["first_name"] as? String ?? "", lastName: value?["last_name"] as? String ?? "", bio: value?["bio"] as? String ?? "", birthday: value?["birthday"] as? String ?? "", profilePhoto: self.profilePhoto.image)
         }) { error in
           print(error.localizedDescription)
@@ -92,7 +96,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
             editVC.curUser?.profilePhoto = profilePhoto.image
             editVC.completionHandler = { newUser in
                 self.usernameLabel.text =  newUser.username
-                self.birthday.text = newUser.birthday
                 self.bioLabel.text = newUser.bio
                 self.profilePhoto.image = newUser.profilePhoto
                 
@@ -152,8 +155,8 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         var targetList : [WorkOut] = []
         ref.child("users").child("\(user.safeEmail)/\(targetNode)").observeSingleEvent(of: .value, with: { snapshot in
           // Get current user's favourite workouts
-          let favWorkoutsIdList = snapshot.value as? [Int]
-          guard let idList = favWorkoutsIdList else {return}
+          let workoutsIdList = snapshot.value as? [Int]
+          guard let idList = workoutsIdList else {return}
                 
           for id in idList {
                 self.ref.child("workouts").child("\(id)").observeSingleEvent(of: .value, with: { snapshot2 in
@@ -178,16 +181,23 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
                                     }
                                 }
                             }
-                            self.user?.profilePhoto = self.profilePhoto.image
                         case .failure(let error):
-                            print("Fail to get the user profile photo: \(error)")
+                            print("Fail to get the workout image: \(error)")
                         }
                     })
                     guard let workoutImage = workoutImage else {
                         return
                     }
+                    // Create the exercise list
+                    let workout_exercises = workoutDic?["workout_exercises"] as? [[String:Any]] ?? [[:]]
+                    var exerciseList : [Exercise] = []
 
-                    let workout = WorkOut(workOutStar: workoutDic?["workOutStar"] as? Double ?? 0.0, workOutStarNum: workoutDic?["workOutStarNum"] as? Int ?? 0, workOutImage: workoutImage, workOutName: workoutDic?["workOutName"] as? String ?? "", workOutDifficulty: workoutDic?["workOutDifficulty"] as? String ?? "", workOutDescription: workoutDic?["workOutDescription"] as? String ?? "", userName: workoutDic?["userName"] as? String ?? "", userPhoto: self.profilePhoto.image, workoutId: workoutDic?["workoutId"] as? Int ?? 0, workout_exercises: workoutDic?["workout_exercises"] as? [Exercise] ?? [], favor: workoutDic?["favor"] as? Bool ?? false, workoutDate: workoutDic?["workoutDate"] as? String ?? "", workoutTotalSeconds: workoutDic?["workoutTotalSeconds"] as? Int ?? 0, finishedWorkout: workoutDic?["finishedWorkout"] as? Bool ?? false)
+                    for dic in workout_exercises{
+                        let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0)
+                        exerciseList.append(exercise)
+                    }
+
+                    let workout = WorkOut(workOutStar: workoutDic?["workOutStar"] as? Double ?? 0.0, workOutStarNum: workoutDic?["workOutStarNum"] as? Int ?? 0, workOutImage: workoutImage, workOutName: workoutDic?["workOutName"] as? String ?? "", workOutDifficulty: workoutDic?["workOutDifficulty"] as? String ?? "", workOutDescription: workoutDic?["workOutDescription"] as? String ?? "", userName: workoutDic?["userName"] as? String ?? "", userPhoto: self.profilePhoto.image, workoutId: workoutDic?["workoutId"] as? Int ?? 0, workout_exercises: exerciseList, favor: workoutDic?["favor"] as? Bool ?? false, workoutDate: workoutDic?["workoutDate"] as? String ?? "", workoutTotalSeconds: workoutDic?["workoutTotalSeconds"] as? Int ?? 0, finishedWorkout: workoutDic?["finishedWorkout"] as? Bool ?? false)
                     
                     targetList.append(workout)
                 })
