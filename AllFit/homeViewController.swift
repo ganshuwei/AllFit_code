@@ -40,11 +40,13 @@ class homeViewController: UIViewController {
     // ToDo: Add all the workouts into allWorkouts
     func fetchAllWorkOuts(){
         Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
+
             for case let child as DataSnapshot in snapshot.children {
                 guard let dict = child.value as? [String:Any] else {
                     print("Error")
                     return
                 }
+                print("dict is ",dict)
                 let userEmail = dict["userEmail"] as? String ?? ""
                 let workOutStar = dict["workOutStar"] as? Double ?? 0.0
                 let workOutStarNum = dict["workOutStarNum"] as? Int ?? 0
@@ -52,29 +54,47 @@ class homeViewController: UIViewController {
                 let workOutDifficulty = dict["workOutDifficulty"]as? String ?? ""
                 let workOutDescription = dict["workOutDescription"]as? String ?? ""
                 let workoutId = dict["workoutId"]as? Int ?? 0
-                let workout_exercises = dict["workout_exercises"]as? [[String: Any]] ?? [[:]]
+                print("workout exercise is ",dict["workout_exercises"]!)
+                
+//                var workout_exercises = dict["workout_exercises"] as? [[String: Any]] ?? [[:]]
+//
+                var workout_exercises2 = dict["workout_exercises"] as? NSArray
+                
+                let objCArray = NSMutableArray(array: workout_exercises2!)
+
+                let workout_exercises: [[String:Any]] = objCArray.compactMap({ $0 as? [String:Any] })
+
+                print("swiftArray is ",workout_exercises)
+                
+//                workout_exercises.removeFirst()
                 let workoutDate = dict[ "workoutDate"]as? String ?? ""
                 let workoutTotalSeconds = dict["workoutTotalSeconds"]as? Int ?? 0
                 let finishedWorkout = dict["finishedWorkout"]as? Bool ?? false
                 
+                print("workout exercises is ",workout_exercises)
+                
                 // Create the exercise list
                 var exerciseList : [Exercise] = []
                 for dic in workout_exercises{
+                    let exerciseImageFile = dic["exercise_image"] as? String ?? ""
                     let exerciseId = dic["exerciseId"] as? String ?? ""
                     // Add the exercise image
-                    let exerciseImageFileName = "\(exerciseId)_exercise_photo.png"
-                    let path = "images/" + exerciseImageFileName
-
+                    let path = "images/" + exerciseImageFile
+                    
                     var exerciseImage : UIImage?
                     StorageManager.share.fetchPicUrl(for: path, completion: {result in
                         switch result{
                         case .success(let url):
                             DispatchQueue.global().async {
                                 // Fetch Image Data
+                                print("url is ", url)
                                 if let data = try? Data(contentsOf: url) {
                                     DispatchQueue.main.async {
                                         // Create Image and Update Image View
                                         exerciseImage = UIImage(data: data)
+                                        print("exercise image is ",exerciseImage)
+                                        print("exercise image! is ",exerciseImage!)
+
                                     }
                                 }
                             }
@@ -82,16 +102,23 @@ class homeViewController: UIViewController {
                             print("Fail to get the workout image: \(error)")
                         }
                     })
-                    guard let exerciseImage = exerciseImage else {
+                    var image:UIImage!
+                    if exerciseImage == nil{
                         return
                     }
+                    else{
+                        image=exerciseImage!
+                    }
+//                    guard let image = exerciseImage else {
+//                        return
+//                    }
                     
-                    let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image: exerciseImage)
+                    let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image: image)
                     exerciseList.append(exercise)
                 }
                 // Get the workout image
-                let workoutImageFileName = "\(workoutId)_workout_photo.png"
-                let path = "images/" + workoutImageFileName
+                let workoutImageFile = dict["workoutImage"] as? String ?? ""
+                let path = "images/" + workoutImageFile
 
                 var workoutImage : UIImage?
                 StorageManager.share.fetchPicUrl(for: path, completion: {result in
