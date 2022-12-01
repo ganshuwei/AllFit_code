@@ -85,7 +85,7 @@ class homeViewController: UIViewController {
                     StorageManager.share.fetchPicUrl(for: path, completion: {result in
                         switch result{
                         case .success(let url):
-                            DispatchQueue.global().async {
+                            DispatchQueue.global().sync {
                                 // Fetch Image Data
                                 print("url is ", url)
                                 if let data = try? Data(contentsOf: url) {
@@ -95,6 +95,18 @@ class homeViewController: UIViewController {
                                         print("exercise image is ",exerciseImage)
                                         print("exercise image! is ",exerciseImage!)
 
+                                        var image:UIImage
+                                        if exerciseImage == nil{
+                                            return
+                                        }
+                                        else{
+                                            image=exerciseImage!
+                                        }
+                                        print("image is ",image)
+                                        
+                                        let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image: image)
+                                        exerciseList.append(exercise)
+                                        print("exercise list is ",exerciseList)
                                     }
                                 }
                             }
@@ -102,22 +114,16 @@ class homeViewController: UIViewController {
                             print("Fail to get the workout image: \(error)")
                         }
                     })
-                    var image:UIImage!
-                    if exerciseImage == nil{
-                        return
-                    }
-                    else{
-                        image=exerciseImage!
-                    }
+
 //                    guard let image = exerciseImage else {
 //                        return
 //                    }
+                    print("exercise List is ",exerciseList)
                     
-                    let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image: image)
-                    exerciseList.append(exercise)
+    
                 }
                 // Get the workout image
-                let workoutImageFile = dict["workoutImage"] as? String ?? ""
+                let workoutImageFile = dict["workOutImage"] as? String ?? ""
                 let path = "images/" + workoutImageFile
 
                 var workoutImage : UIImage?
@@ -130,6 +136,12 @@ class homeViewController: UIViewController {
                                 DispatchQueue.main.async {
                                     // Create Image and Update Image View
                                    workoutImage = UIImage(data: data)
+                                    guard let workoutImage = workoutImage else {
+                                        return
+                                    }
+                                    print("workout image is ",workoutImage)
+                                    let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: UIImage(systemName: "person"), workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
+                                    print("workout is ",workout)
                                 }
                             }
                         }
@@ -137,43 +149,48 @@ class homeViewController: UIViewController {
                         print("Fail to get the workout image: \(error)")
                     }
                 })
-                guard let workoutImage = workoutImage else {
-                    return
-                }
-                
-                // Get the author's profile photo
-                // Todo: change username to userSafeEmail
-                let safeEmail = DatabaseManager.safeEmail(userEmail: userEmail)
-                let profilePhotoFileName = "\(safeEmail)_workout_photo.png"
-                let profilePhotoPath = "images/" + profilePhotoFileName
-                var profilePhoto : UIImage?
-                StorageManager.share.fetchPicUrl(for: profilePhotoPath, completion: {result in
-                    switch result{
-                    case .success(let url):
-                        DispatchQueue.global().async {
-                            // Fetch Image Data
-                            if let data = try? Data(contentsOf: url) {
-                                DispatchQueue.main.async {
-                                    // Create Image and Update Image View
-                                    profilePhoto = UIImage(data: data)
-                                }
-                            }
-                        }
-                    case .failure(let error):
-                        print("Fail to get the user profile photo: \(error)")
-                    }
-                })
-                guard let profilePhoto = profilePhoto else {
-                    return
-                }
-                
-                let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: profilePhoto, workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
-                self.allWorkouts.append(workout)
+//                // Get the author's profile photo
+//                // Todo: change username to userSafeEmail
+//                let safeEmail = DatabaseManager.safeEmail(userEmail: userEmail)
+//                let profilePhotoFileName = "\(safeEmail)_profile_photo.png"
+//                let profilePhotoPath = "images/" + profilePhotoFileName
+//                var profilePhoto : UIImage?
+//                StorageManager.share.fetchPicUrl(for: profilePhotoPath, completion: {result in
+//                    switch result{
+//                    case .success(let url):
+//                        DispatchQueue.global().async {
+//                            // Fetch Image Data
+//                            print("profile photo url is ",url)
+//                            if let data = try? Data(contentsOf: url) {
+//                                DispatchQueue.main.async {
+//                                    // Create Image and Update Image View
+//                                    profilePhoto = UIImage(data: data)
+//
+//                                    guard let profilePhoto = profilePhoto else {
+//                                        profilePhoto = UIImage(systemName: "person")
+//                                        return
+//                                    }
+//                                    print("profile photo is ",profilePhoto)
+//
+//                                    let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: profilePhoto, workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
+//                                    print("workout is ",workout)
+//                                    self.allWorkouts.append(workout)
+//                                }
+//                            }
+//                        }
+//                    case .failure(let error):
+//                        print("Fail to get the user profile photo: \(error)")
+//                    }
+//                })
+
             }
       }) { error in
         print(error.localizedDescription)
       }
+
     }
+    
+
 }
 
 extension homeViewController: UICollectionViewDataSource {
