@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class playWorkoutController : UIViewController{
     
@@ -106,6 +108,8 @@ class playWorkoutController : UIViewController{
         }
         // if workout is completed
         if totalWorkoutTime == 0 {
+            //stop timer
+            timer.invalidate()
             finishWorkout()
         }
     }
@@ -148,7 +152,6 @@ class playWorkoutController : UIViewController{
         finishWorkout()
     }
     
-    
     //
     func finishWorkout(){
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -163,8 +166,28 @@ class playWorkoutController : UIViewController{
         
         //pushed firebase
         //firebase: createdWorkouts, favoriteWorkouts, finishedWorkouts
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        var firebaseEmail = Auth.auth().currentUser!.email!
+        firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
+        firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
         
-        
+        let workoutId = firebaseEmail + "_" + wkoutName
+
+        if firebaseEmail != nil{
+            //replace dot by dash
+
+            print("firebase email is ",firebaseEmail)
+            print("workout id is ",workoutId)
+
+            //push created workouts to user table
+            ref.child("users").child(firebaseEmail).child("finishedWorkouts").observeSingleEvent(of: .value, with:{snapshot in
+                var finishedWorkoutsList = snapshot.value as? [String]
+                finishedWorkoutsList?.append(workoutId)
+                //push to firebase
+                ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue(finishedWorkoutsList)
+            })
+        }
     }
     
 }

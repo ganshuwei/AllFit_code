@@ -55,13 +55,14 @@ var personal: [WorkOut] = []
 
 // ===== Mel code =====
 
-struct Exercise: Encodable, Decodable {
+struct Exercise{
  var exercise_name: String?
  var exercise_type: String
  var exercise_repOrTime: String!
  var exercise_repOrTimeValue: String!
  var exercise_equipment: [String]
  var exercise_time: Int
+ let exercise_image: UIImage?
 }
 
 var exerciseArray: [Exercise] = []

@@ -65,6 +65,9 @@
 		CEAE8213293420CB0028E934 /* ratingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE8212293420CB0028E934 /* ratingController.swift */; };
 		CEAE82152937D7E90028E934 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE82142937D7E90028E934 /* StorageManager.swift */; };
 		CEAE82182937D84D0028E934 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CEAE82172937D84D0028E934 /* FirebaseStorage */; };
+		CEAE821A293817450028E934 /* DetailedWorkoutController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE8219293817440028E934 /* DetailedWorkoutController2.swift */; };
+		CEAE821C293906C60028E934 /* DetailedExerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE821B293906C60028E934 /* DetailedExerciseVC.swift */; };
+		CEAE821E29391E1F0028E934 /* editExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE821D29391E1F0028E934 /* editExerciseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +119,9 @@
 		CEAE8210292D31C10028E934 /* playWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playWorkoutController.swift; sourceTree = "<group>"; };
 		CEAE8212293420CB0028E934 /* ratingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ratingController.swift; sourceTree = "<group>"; };
 		CEAE82142937D7E90028E934 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		CEAE8219293817440028E934 /* DetailedWorkoutController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedWorkoutController2.swift; sourceTree = "<group>"; };
+		CEAE821B293906C60028E934 /* DetailedExerciseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedExerciseVC.swift; sourceTree = "<group>"; };
+		CEAE821D29391E1F0028E934 /* editExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editExerciseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,7 +217,10 @@
 				123170E1292215E8008AD626 /* personalViewController.swift */,
 				123170D329215465008AD626 /* workOutCollectionViewCell.swift */,
 				CEAE820E292D28CA0028E934 /* DetailedWorkoutController.swift */,
+				CEAE8219293817440028E934 /* DetailedWorkoutController2.swift */,
 				CEAE8210292D31C10028E934 /* playWorkoutController.swift */,
+				CEAE821B293906C60028E934 /* DetailedExerciseVC.swift */,
+				CEAE821D29391E1F0028E934 /* editExerciseView.swift */,
 				CEAE8212293420CB0028E934 /* ratingController.swift */,
 				123170D529215532008AD626 /* Data.swift */,
 				123170DB2921BE4F008AD626 /* Main.storyboard */,
@@ -414,12 +423,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEAE821A293817450028E934 /* DetailedWorkoutController2.swift in Sources */,
 				CEAE820D2922F4C30028E934 /* CreateWorkoutView.swift in Sources */,
 				CEAE820B2922DB700028E934 /* TabBarController.swift in Sources */,
 				02A53EE4291731D0002574E5 /* AppDelegate.swift in Sources */,
 				123170DA2921B7D2008AD626 /* DatabaseManager.swift in Sources */,
 				123170D629215532008AD626 /* Data.swift in Sources */,
 				CEAE8211292D31C10028E934 /* playWorkoutController.swift in Sources */,
+				CEAE821C293906C60028E934 /* DetailedExerciseVC.swift in Sources */,
 				123170CE2921544B008AD626 /* editProfileController.swift in Sources */,
 				CEAE82152937D7E90028E934 /* StorageManager.swift in Sources */,
 				123170DE29221315008AD626 /* favouriteViewController.swift in Sources */,
@@ -430,6 +441,7 @@
 				CEAE82092922D58E0028E934 /* CreateExerciseView.swift in Sources */,
 				123170E2292215E8008AD626 /* personalViewController.swift in Sources */,
 				02A53EE6291731D0002574E5 /* SceneDelegate.swift in Sources */,
+				CEAE821E29391E1F0028E934 /* editExerciseView.swift in Sources */,
 				02B21AC4291DC9940052A10C /* registerViewController.swift in Sources */,
 				02A53EEE291731D0002574E5 /* AllFit.xcdatamodeld in Sources */,
 				02B21AC2291DC98E0052A10C /* loginViewController.swift in Sources */,

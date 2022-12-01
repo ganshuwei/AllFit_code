@@ -23,20 +23,17 @@ class CreateExerciseView: UIViewController{
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var repOrTimeValue: UITextField!
     
-    var exerciseTypeString=""
-    //    struct Exercise: Encodable, Decodable {
-//     var exercise_name: String?
-//     var exercise_type: String
-//     var exercise_repOrTime: Int!
-//     var exercise_equipment: [String]
-//    }
-//
-//    var exerciseArray: [Exercise] = []
-//
+    var equipmentList:[String] = []
+    
+    var exerciseTypeString="rep"  //default value
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
+        matBtn.tintColor=UIColor.systemGray5
+        dumbellBtn.tintColor=UIColor.systemGray5
+        bikeBtn.tintColor=UIColor.systemGray5
+        
     }
     @IBAction func exerciseTypeChangeAction(_ sender: Any) {
         let exerciseTypeIndex = exerciseType.selectedSegmentIndex
@@ -53,7 +50,7 @@ class CreateExerciseView: UIViewController{
     @IBAction func submitExerciseClick(_ sender: Any) {
         print("exercise submited")
         //get values from interface
-        let equipmentList=["dumbell","mat"]
+//        let equipmentList=["dumbell","mat"]
 
         //add exercise to array of exercises
         let exerciseInfo = Exercise(
@@ -62,8 +59,9 @@ class CreateExerciseView: UIViewController{
                           exercise_repOrTime: exerciseTypeString,
                           exercise_repOrTimeValue:repOrTimeValue.text!,
                           exercise_equipment: equipmentList,
-                          exercise_time: 160
-                            )
+                          exercise_time: 160,
+                          exercise_image: exerciseImage.image
+                          )
         
         let firebaseExerciseInfo: [String:Any] = [
             "exercise_name": String(exerciseName.text!),
@@ -78,21 +76,9 @@ class CreateExerciseView: UIViewController{
         print("exercise array is ",exerciseArray)
         
         exerciseArrayFirebase.append(firebaseExerciseInfo)
-        //reload table
-//        CreateWorkoutView.exerciseTable.reloadData()
-        
-//        let defaults = UserDefaults.standard
-//        if let data = defaults.data(forKey: "MyExercises") {
-//            var exerciseArray = try! PropertyListDecoder().decode([Exercise].self, from: data)
-//            //add new exercise to list of exercises
-//            exerciseArray.append(exerciseInfo)
-//            if let data = try? PropertyListEncoder().encode(exerciseArray) {
-//                    UserDefaults.standard.set(data, forKey: "MyExercises")
-//            }
-//            print("exercise array is ",exerciseArray)
-//        }
+
+        //go to previous view controller
     }
-    
     
     
     @IBAction func enterExerciseName(_ sender: Any) {
@@ -102,6 +88,51 @@ class CreateExerciseView: UIViewController{
     @IBAction func uploadExerciseImage(_ sender: Any) {
         presentPhotoActionSheet()
     }
+    
+    @IBAction func clickDumbell(_ sender: Any) {
+        print("inside clickDumbell")
+        if dumbellBtn.tintColor == UIColor.systemBlue{
+            let indexDumbell = equipmentList.firstIndex(of: "dumbell")
+            equipmentList.remove(at: indexDumbell!)
+            dumbellBtn.tintColor=UIColor.systemGray5
+            dumbellBtn.layer.cornerRadius=5
+        }
+        else if dumbellBtn.tintColor == UIColor.systemGray5{
+            equipmentList.append("dumbell")
+            dumbellBtn.tintColor=UIColor.systemBlue
+            dumbellBtn.layer.cornerRadius=5
+        }
+    }
+
+    @IBAction func matBtn(_ sender: Any) {
+        print("inside matBtn")
+        if matBtn.tintColor == UIColor.systemBlue{
+            let indexMat = equipmentList.firstIndex(of: "mat")
+            equipmentList.remove(at: indexMat!)
+            matBtn.tintColor=UIColor.systemGray5
+            matBtn.layer.cornerRadius=5
+        }
+        else if matBtn.tintColor == UIColor.systemGray5{
+            equipmentList.append("mat")
+            matBtn.tintColor=UIColor.systemBlue
+            matBtn.layer.cornerRadius=5
+        }
+    }
+    @IBAction func bikeBtn(_ sender: Any) {
+        print("inside bikeBtn")
+        if bikeBtn.tintColor == UIColor.systemBlue{
+            let indexBike = equipmentList.firstIndex(of: "bike")
+            equipmentList.remove(at: indexBike!)
+            bikeBtn.tintColor=UIColor.systemGray5
+            bikeBtn.layer.cornerRadius=5
+        }
+        else if bikeBtn.tintColor == UIColor.systemGray5{
+            equipmentList.append("bike")
+            bikeBtn.tintColor=UIColor.systemBlue
+            bikeBtn.layer.cornerRadius=5
+        }
+    }
+
 }
 
 extension CreateExerciseView: UIImagePickerControllerDelegate, UINavigationControllerDelegate{

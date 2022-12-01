@@ -23,6 +23,8 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         print("in workout load view")
+        exerciseTable.isEditing = true
+        exerciseTable.allowsSelectionDuringEditing = true
         // Do any additional setup after loading the view.
         exerciseTable.reloadData()
         print("exercise array is ",exerciseArray)
@@ -93,22 +95,28 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
               "workOutDescription":"blabla",
               "userName": Auth.auth().currentUser!.email!,
               "workoutId":workOuts.count + 1,
-              "workout_exercises": exerciseArrayFirebase,
+//              "workout_exercises": exerciseArrayFirebase,
               "workoutDate": "11/20/2022",
               "workoutTotalSeconds": 100,
               "finishedWorkout": false
         ]
-        let workoutId = String(Auth.auth().currentUser!.email!) + "_" + workoutName.text!
         //push to firebase
         //if first time pushing, need to create new list
         //if list is there, append to list
         var ref: DatabaseReference!
         ref = Database.database().reference()
         var firebaseEmail = Auth.auth().currentUser!.email!
+        firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
+        firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
+        
+        let workoutId = firebaseEmail + "_" + workoutName.text!
+
         if firebaseEmail != nil{
             //replace dot by dash
-            firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
-            firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
+
+            print("firebase email is ",firebaseEmail)
+            print("workout id is ",workoutId)
+
             //push created workouts to user table
             ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with:{snapshot in
                 var createdWorkoutsList = snapshot.value as? [String]
@@ -116,8 +124,8 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
                 //push to firebase
                 ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
             })
-            //push workout and creator Id to workout table
-            ref.child("workouts").child("workoutId").setValue(firebaseWorkoutInfo)
+            //push workout info and creator Id to workout table
+            ref.child("workouts").child(workoutId).setValue(firebaseWorkoutInfo)
         }
         print("exercise array is ",exerciseArray)
         print("workout array is ",workOuts)
@@ -129,15 +137,19 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         exerciseTable.delegate = self
         exerciseTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
+    //click on exercise in table view -> opens preview
+    
+//
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
         let editAction = UITableViewRowAction(style:.normal,title:"Edit"){_,indexPath in
             //open edit view
+
         }
         let deleteAction=UITableViewRowAction(style:.destructive,title:"Delete"){_,indexPath in
                 exerciseArray.remove(at: indexPath.row)
                 self.exerciseTable.deleteRows(at: [indexPath], with: .fade)
         }
-        return[deleteAction,editAction]
+        return[deleteAction]
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -150,10 +162,35 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         return cell
     }
     
+    //preview exercise
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("clicked on row")
+        
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let detailedExerciseVC = storyboard.instantiateViewController(withIdentifier: "detailedExerciseVC") as! detailedExerciseController
+
+        detailedExerciseVC.exerciseName = exerciseArray[indexPath.row].exercise_name
+        detailedExerciseVC.exerciseType=exerciseArray[indexPath.row].exercise_type
+        detailedExerciseVC.equipmentList=exerciseArray[indexPath.row].exercise_equipment
+        detailedExerciseVC.repOrTimeNum=exerciseArray[indexPath.row].exercise_repOrTimeValue
+        detailedExerciseVC.exerciseImage=exerciseArray[indexPath.row].exercise_image
+        //push nav controller
+        navigationController?.pushViewController(detailedExerciseVC, animated: true)
+    }
+    //switch order of exercises
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        let movedObject = exerciseArray[sourceIndexPath.row]
+        exerciseArray.remove(at: sourceIndexPath.row)
+        exerciseArray.insert(movedObject, at: destinationIndexPath.row)
+    }
+    
     @IBAction func uploadWorkoutPhoto(_ sender: Any) {
         presentPhotoActionSheet()
     }
 }
+
 
 extension CreateWorkoutView: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func presentPhotoActionSheet(){

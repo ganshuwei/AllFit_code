@@ -1,9 +1,9 @@
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class homeViewController: UIViewController {
 
-    
 
     @IBOutlet weak var searchBtn: UIBarButtonItem!
     
@@ -16,6 +16,14 @@ class homeViewController: UIViewController {
         collection.delegate = self
         collection.collectionViewLayout = UICollectionViewFlowLayout()
         
+        //get data from firebase
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        var workoutsList: [[String]] = [[]]
+//        ref.child("workouts").observeSingleEvent(of: .value, with:{snapshot in
+//            workoutsList = (snapshot.value as? [[String]])!
+//            print("workouts list is ",workoutsList)
+//        })
     }
     override func viewWillAppear(_ animated: Bool) {
         self.collection.reloadData()
@@ -37,8 +45,6 @@ class homeViewController: UIViewController {
     @IBAction func searchAction(_ sender: UIBarButtonItem) {
         
     }
-    
-    
 }
 
 extension homeViewController: UICollectionViewDataSource {
@@ -74,5 +80,18 @@ extension homeViewController: UICollectionViewDelegateFlowLayout {
 extension homeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(workOuts[indexPath.row].workOutName)
+        
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let detailedVC = storyboard.instantiateViewController(withIdentifier: "detailedWorkoutVC") as! DetailedWorkoutController2
+
+        //let detailedVC = DetailedWorkoutController()
+        detailedVC.wkoutImage = workOuts[indexPath.row].workOutImage
+        detailedVC.wkoutName=workOuts[indexPath.row].workOutName
+        detailedVC.wkoutRating=workOuts[indexPath.row].workOutStar
+        detailedVC.wkoutRatingNum=workOuts[indexPath.row].workOutStarNum
+        detailedVC.wkoutExercises=workOuts[indexPath.row].workout_exercises
+
+        //push nav controller
+        navigationController?.pushViewController(detailedVC, animated: true)
     }
 }

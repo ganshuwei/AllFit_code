@@ -89,7 +89,10 @@ extension favouriteViewController: UICollectionViewDelegate {
 //        print(favourite[indexPath.row].workOutStar)
 //        print(favourite[indexPath.row].workout_exercises)
 
-        let detailedVC = DetailedWorkoutController()
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let detailedVC = storyboard.instantiateViewController(withIdentifier: "detailedWorkoutVC") as! DetailedWorkoutController2
+
+        //let detailedVC = DetailedWorkoutController()
         detailedVC.wkoutImage = favourite[indexPath.row].workOutImage
         detailedVC.wkoutName=favourite[indexPath.row].workOutName
         detailedVC.wkoutRating=favourite[indexPath.row].workOutStar
