@@ -103,26 +103,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="home" image="homekit" catalog="system" selectedImage="homekit" id="2yN-7Z-Qth"/>
-                    <navigationItem key="navigationItem" title="home" id="Xzu-6W-yZ3">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="ZQP-h2-mE5">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="IEK-6L-xhu">
-                                <rect key="frame" x="344" y="5" width="50" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.14117647059999999" green="0.28627450980000002" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="magnifyingglass" catalog="system"/>
-                                <connections>
-                                    <action selector="searchAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="nGi-rL-h4M"/>
-                                </connections>
-                            </button>
-                            <connections>
-                                <action selector="searchAction:" destination="Y6W-OH-hqX" id="5Fd-Jw-UeV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="home" id="Xzu-6W-yZ3"/>
                     <connections>
                         <outlet property="collection" destination="OwO-wv-VM4" id="zRJ-IG-Hb3"/>
-                        <outlet property="searchBtn" destination="ZQP-h2-mE5" id="g0J-qD-jhv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1316,7 +1299,6 @@
         <!--Create-->
         <scene sceneID="pZg-Xi-gJb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HCQ-Zy-R6m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="previewWorkoutVC" id="GmX-8K-gkT" customClass="playWorkoutController" customModule="AllFit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ha8-jg-jy3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -1433,6 +1415,7 @@
                         <outlet property="workoutTime" destination="lgb-X4-ate" id="la6-88-p6v"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HCQ-Zy-R6m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1061" y="2129"/>
         </scene>
@@ -1570,7 +1553,6 @@
         <image name="homekit" catalog="system" width="128" height="106"/>
         <image name="icons8-analytics-30" width="30" height="30"/>
         <image name="image_placeholder" width="612" height="612"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="mat" width="25" height="25"/>
         <image name="pause.fill" catalog="system" width="116" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>

@@ -22,11 +22,10 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     
     @IBOutlet weak var control: UISegmentedControl!
     var user: User?
-    var savedWorkOuts : [WorkOut] = favourite
-    var personalWorkOuts : [WorkOut] = personal
+    var savedWorkOuts : [WorkOut] = []
+    var personalWorkOuts : [WorkOut] = []
     var option: Bool = true // true means personal; false means saved
     var ifLogin = false
-    var displayList : [WorkOut] = []
     var ref: DatabaseReference! = Database.database().reference()
      
     
@@ -84,8 +83,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        savedWorkOuts = favourite
-        personalWorkOuts = personal
         collectionView.reloadData()
     }
     
@@ -135,16 +132,16 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     @IBAction func controlAction(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0{
             // Display the user favourite workouts
-//            if let workoutList = getWorkOutList(targetNode: "favWorkOuts"){
-//                savedWorkOuts = workoutList
-//            }
+            if let workoutList = getWorkOutList(targetNode: "favWorkOuts"){
+                savedWorkOuts = workoutList
+            }
             option = false
         
         }else if sender.selectedSegmentIndex == 1{
             // Display the user created workout
-//            if let workoutList = getWorkOutList(targetNode: "createdWorkOuts"){
-//                personalWorkOuts = workoutList
-//            }
+            if let workoutList = getWorkOutList(targetNode: "createdWorkOuts"){
+                personalWorkOuts = workoutList
+            }
             option = true
         }
         collectionView.reloadData()
@@ -161,8 +158,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
           for id in idList {
                 self.ref.child("workouts").child("\(id)").observeSingleEvent(of: .value, with: { snapshot2 in
                     let workoutDic = snapshot2.value as? [String : Any]
-//                        let exerciseList = workoutDic?["workout_exercises"] as? [[String:Any]] ?? [[:]]
-                    
                     let workoutImageFileName = "\(id)_workout_photo.png"
                     let path = "images/" + workoutImageFileName
                     

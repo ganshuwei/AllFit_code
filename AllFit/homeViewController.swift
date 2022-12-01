@@ -7,8 +7,6 @@ import RealmSwift
 class homeViewController: UIViewController {
 
     var allWorkouts : [WorkOut] = []
-
-    @IBOutlet weak var searchBtn: UIBarButtonItem!
     
     @IBOutlet weak var collection: UICollectionView!
     
@@ -18,15 +16,9 @@ class homeViewController: UIViewController {
         collection.dataSource = self
         collection.delegate = self
         collection.collectionViewLayout = UICollectionViewFlowLayout()
+        fetchAllWorkOuts()
+        collection.reloadData()
         
-        //get data from firebase
-        var ref: DatabaseReference!
-        ref = Database.database().reference()
-        var workoutsList: [[String]] = [[]]
-//        ref.child("workouts").observeSingleEvent(of: .value, with:{snapshot in
-//            workoutsList = (snapshot.value as? [[String]])!
-//            print("workouts list is ",workoutsList)
-//        })
     }
     override func viewWillAppear(_ animated: Bool) {
         self.collection.reloadData()
@@ -45,10 +37,6 @@ class homeViewController: UIViewController {
         }
     }
     
-    @IBAction func searchAction(_ sender: UIBarButtonItem) {
-        
-    }
-    
     // ToDo: Add all the workouts into allWorkouts
     func fetchAllWorkOuts(){
         Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
@@ -57,7 +45,7 @@ class homeViewController: UIViewController {
                     print("Error")
                     return
                 }
-                let username = dict["username"] as? String ?? ""
+                let userEmail = dict["userEmail"] as? String ?? ""
                 let workOutStar = dict["workOutStar"] as? Double ?? 0.0
                 let workOutStarNum = dict["workOutStarNum"] as? Int ?? 0
                 let workOutName = dict["workOutName"]as? String ?? ""
@@ -128,7 +116,8 @@ class homeViewController: UIViewController {
                 
                 // Get the author's profile photo
                 // Todo: change username to userSafeEmail
-                let profilePhotoFileName = "\(username)_workout_photo.png"
+                let safeEmail = DatabaseManager.safeEmail(userEmail: userEmail)
+                let profilePhotoFileName = "\(safeEmail)_workout_photo.png"
                 let profilePhotoPath = "images/" + profilePhotoFileName
                 var profilePhoto : UIImage?
                 StorageManager.share.fetchPicUrl(for: profilePhotoPath, completion: {result in
@@ -151,7 +140,7 @@ class homeViewController: UIViewController {
                     return
                 }
                 
-                let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: username, userPhoto: profilePhoto, workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
+                let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: profilePhoto, workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
                 self.allWorkouts.append(workout)
             }
       }) { error in
@@ -162,13 +151,13 @@ class homeViewController: UIViewController {
 
 extension homeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return workOuts.count
+        return allWorkouts.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
         
-        cell.setUp(with: workOuts[indexPath.row])
+        cell.setUp(with: allWorkouts[indexPath.row])
         
         cell.index = indexPath.row
         
@@ -192,17 +181,17 @@ extension homeViewController: UICollectionViewDelegateFlowLayout {
 
 extension homeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(workOuts[indexPath.row].workOutName)
+        print(allWorkouts[indexPath.row].workOutName)
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let detailedVC = storyboard.instantiateViewController(withIdentifier: "detailedWorkoutVC") as! DetailedWorkoutController2
 
         //let detailedVC = DetailedWorkoutController()
-        detailedVC.wkoutImage = workOuts[indexPath.row].workOutImage
-        detailedVC.wkoutName=workOuts[indexPath.row].workOutName
-        detailedVC.wkoutRating=workOuts[indexPath.row].workOutStar
-        detailedVC.wkoutRatingNum=workOuts[indexPath.row].workOutStarNum
-        detailedVC.wkoutExercises=workOuts[indexPath.row].workout_exercises
+        detailedVC.wkoutImage = allWorkouts[indexPath.row].workOutImage
+        detailedVC.wkoutName=allWorkouts[indexPath.row].workOutName
+        detailedVC.wkoutRating=allWorkouts[indexPath.row].workOutStar
+        detailedVC.wkoutRatingNum=allWorkouts[indexPath.row].workOutStarNum
+        detailedVC.wkoutExercises=allWorkouts[indexPath.row].workout_exercises
 
         //push nav controller
         navigationController?.pushViewController(detailedVC, animated: true)
