@@ -31,8 +31,6 @@
 		12AF47C52938609700631B6A /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47C42938609700631B6A /* JGProgressHUD */; };
 		12AF47C8293860B800631B6A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47C7293860B800631B6A /* SDWebImage */; };
 		12AF47CA293860B800631B6A /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47C9293860B800631B6A /* SDWebImageMapKit */; };
-		12AF47CD293860F100631B6A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47CC293860F100631B6A /* Realm */; };
-		12AF47CF293860F100631B6A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 12AF47CE293860F100631B6A /* RealmSwift */; };
 		12E28F97292BEDC80062018E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28F96292BEDC80062018E /* FirebaseAnalytics */; };
 		12E28F99292BEDC80062018E /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28F98292BEDC80062018E /* FirebaseAnalyticsOnDeviceConversion */; };
 		12E28F9B292BEDC80062018E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28F9A292BEDC80062018E /* FirebaseAnalyticsSwift */; };
@@ -71,6 +69,8 @@
 		CEAE821A293817450028E934 /* DetailedWorkoutController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE8219293817440028E934 /* DetailedWorkoutController2.swift */; };
 		CEAE821C293906C60028E934 /* DetailedExerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE821B293906C60028E934 /* DetailedExerciseVC.swift */; };
 		CEAE821E29391E1F0028E934 /* editExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE821D29391E1F0028E934 /* editExerciseView.swift */; };
+		CEAE82212939346A0028E934 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CEAE82202939346A0028E934 /* Realm */; };
+		CEAE82232939346A0028E934 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEAE82222939346A0028E934 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,10 +142,10 @@
 				12E28FA3292BEDC80062018E /* FirebaseAuth in Frameworks */,
 				12E28FC5292BEDC80062018E /* FirebaseRemoteConfig in Frameworks */,
 				12E28F9B292BEDC80062018E /* FirebaseAnalyticsSwift in Frameworks */,
-				12AF47CF293860F100631B6A /* RealmSwift in Frameworks */,
+				CEAE82232939346A0028E934 /* RealmSwift in Frameworks */,
 				12E28FC9292BEDC80062018E /* FirebaseStorage in Frameworks */,
 				12E28FC3292BEDC80062018E /* FirebasePerformance in Frameworks */,
-				12AF47CD293860F100631B6A /* Realm in Frameworks */,
+				CEAE82212939346A0028E934 /* Realm in Frameworks */,
 				12E28FAF292BEDC80062018E /* FirebaseFirestore in Frameworks */,
 				02B21AC7291DC9F60052A10C /* FirebaseAnalytics in Frameworks */,
 				12E28FB9292BEDC80062018E /* FirebaseInAppMessaging-Beta in Frameworks */,
@@ -307,8 +307,8 @@
 				12AF47C42938609700631B6A /* JGProgressHUD */,
 				12AF47C7293860B800631B6A /* SDWebImage */,
 				12AF47C9293860B800631B6A /* SDWebImageMapKit */,
-				12AF47CC293860F100631B6A /* Realm */,
-				12AF47CE293860F100631B6A /* RealmSwift */,
+				CEAE82202939346A0028E934 /* Realm */,
+				CEAE82222939346A0028E934 /* RealmSwift */,
 			);
 			productName = AllFit;
 			productReference = 02A53EE0291731D0002574E5 /* AllFit.app */;
@@ -389,7 +389,7 @@
 				CEAE82162937D84D0028E934 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				12AF47C32938609700631B6A /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 				12AF47C6293860B800631B6A /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				12AF47CB293860F100631B6A /* XCRemoteSwiftPackageReference "realm-swift" */,
+				CEAE821F2939346A0028E934 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 02A53EE1291731D0002574E5 /* Products */;
 			projectDirPath = "";
@@ -823,14 +823,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		12AF47CB293860F100631B6A /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		12E28F95292BEDC80062018E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -845,6 +837,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 9.0.0;
+			};
+		};
+		CEAE821F2939346A0028E934 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -879,16 +879,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 12AF47C6293860B800631B6A /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
-		};
-		12AF47CC293860F100631B6A /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 12AF47CB293860F100631B6A /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		12AF47CE293860F100631B6A /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 12AF47CB293860F100631B6A /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
 		};
 		12E28F96292BEDC80062018E /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1029,6 +1019,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		CEAE82202939346A0028E934 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEAE821F2939346A0028E934 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		CEAE82222939346A0028E934 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEAE821F2939346A0028E934 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
