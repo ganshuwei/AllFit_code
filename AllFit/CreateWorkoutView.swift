@@ -118,17 +118,32 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
             print("workout id is ",workoutId)
 
             //push created workouts to user table
-            ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with:{snapshot in
-                var createdWorkoutsList = snapshot.value as? [String]
-                createdWorkoutsList?.append(workoutId)
-                //push to firebase
-                ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
+            
+            //get list of created workouts for this user
+            ref.child("users").child(firebaseEmail).observeSingleEvent(of: .value, with: {snapshot in
+                //if user already as a list of created workouts, append to list
+                if snapshot.hasChild("createdWorkouts"){
+                    ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with: {snapshot in
+                        var createdWorkoutsList = snapshot.value as? [String]
+                        createdWorkoutsList?.append(workoutId)
+                        ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
+                    })
+                }
+                //create list if there isn't
+                else{
+                    ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(firebaseWorkoutInfo)
+                }
+
             })
+//            ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with:{snapshot in
+//                var createdWorkoutsList = snapshot.value as? [String]
+//                createdWorkoutsList?.append(workoutId)
+//                //push to firebase
+//                ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
+//            })
             //push workout info and creator Id to workout table
             ref.child("workouts").child(workoutId).setValue(firebaseWorkoutInfo)
         }
-        print("exercise array is ",exerciseArray)
-        print("workout array is ",workOuts)
     }
     //create table view
     func setupTableView() {

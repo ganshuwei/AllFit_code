@@ -163,7 +163,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
                     let workoutDic = snapshot2.value as? [String : Any]
 //                        let exerciseList = workoutDic?["workout_exercises"] as? [[String:Any]] ?? [[:]]
                     
-                    
                     let workoutImageFileName = "\(id)_workout_photo.png"
                     let path = "images/" + workoutImageFileName
                     
