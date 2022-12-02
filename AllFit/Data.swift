@@ -64,12 +64,14 @@ var personal: [WorkOut] = []
 // ===== Mel code =====
 
 struct Exercise{
+    
  var exercise_name: String?
  var exercise_type: String
  var exercise_repOrTime: String!
  var exercise_repOrTimeValue: String!
  var exercise_equipment: [String]
  var exercise_time: Int
+ let exercise_image_path: String!
  let exercise_image: UIImage?
 }
 

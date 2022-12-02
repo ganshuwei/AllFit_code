@@ -95,7 +95,7 @@ class homeViewController: UIViewController {
                     //let path = "images/" + exerciseImageFile
                     //self.getExerciseImage(imageUrl: path)
                     
-                    let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image: UIImage(systemName: "person"))
+                    let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image_path: dic["exercise_image"] as! String  ,exercise_image: UIImage(systemName: "person"))
                     exerciseList.append(exercise)
                 }
                 // Get the workout image
@@ -177,6 +177,7 @@ extension homeViewController: UICollectionViewDelegate {
         let detailedVC = storyboard.instantiateViewController(withIdentifier: "detailedWorkoutVC") as! DetailedWorkoutController2
 
         //let detailedVC = DetailedWorkoutController()
+        detailedVC.wkoutId = allWorkouts[indexPath.row].workoutId
         detailedVC.wkoutImage = allWorkouts[indexPath.row].workOutImage
         detailedVC.wkoutName=allWorkouts[indexPath.row].workOutName
         detailedVC.wkoutRating=allWorkouts[indexPath.row].workOutStar

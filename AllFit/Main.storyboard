@@ -1163,6 +1163,7 @@
                     <tabBarItem key="tabBarItem" title="Create" image="plus.app.fill" catalog="system" selectedImage="plus.app.fill" id="8be-qx-Nds"/>
                     <navigationItem key="navigationItem" id="B33-wW-Pdn"/>
                     <connections>
+                        <outlet property="currExerciseImage" destination="GQK-ZS-q6s" id="Ft4-ar-HU4"/>
                         <outlet property="exerciseName" destination="mDC-hd-A6g" id="x1A-U9-kng"/>
                         <outlet property="exerciseTime" destination="geL-YY-o6e" id="s6p-d5-giV"/>
                         <outlet property="nextBtn" destination="FMu-Pp-0HA" id="LQu-ZM-nTD"/>

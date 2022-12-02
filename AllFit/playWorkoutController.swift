@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class playWorkoutController : UIViewController{
     
-    
+    var wkoutId: String!
     var wkoutImage: UIImage!
     var wkoutName: String!
 //    var wkoutCreator: String!
@@ -32,6 +32,8 @@ class playWorkoutController : UIViewController{
     
     var timer=Timer()
     
+    
+    @IBOutlet weak var currExerciseImage: UIImageView!
     @IBOutlet weak var workoutName: UILabel!
     @IBOutlet weak var workoutTime: UILabel!
     @IBOutlet weak var exerciseName: UILabel!
@@ -46,6 +48,7 @@ class playWorkoutController : UIViewController{
         print(wkoutExercises)
         exerciseIndex=0
         workoutName.text=wkoutName
+        
         exerciseName.text=wkoutExercises[exerciseIndex].exercise_name!
         
         //display playPause button based on exercise time
@@ -76,6 +79,61 @@ class playWorkoutController : UIViewController{
             exerciseTime.isHidden=true
         }
         playBtn.isHidden=true
+        
+        //get exercise image from firebase storage
+        getExerciseImage(imagePath: wkoutExercises[exerciseIndex].exercise_image_path)
+        
+    }
+    func getExerciseImage(imagePath: String!){
+
+        Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
+
+            for case let child as DataSnapshot in snapshot.children {
+                guard let dict = child.value as? [String:Any] else {
+                    print("Error")
+                    return
+                }
+                //the workout we are currently playing
+                if dict["workoutId"] as! String == self.wkoutId {
+                    //get current exercise name
+                    let currentExerciseName = self.wkoutExercises[self.exerciseIndex].exercise_name!
+                    
+                    let exerciseList = dict["workout_exercises"] as? NSArray
+                    let objCArray = NSMutableArray(array: exerciseList!)
+                    let exerciseArray: [[String:Any]] = objCArray.compactMap({ $0 as? [String:Any] })
+                    
+                    //loop through exercises
+                    for exercise in exerciseArray{
+                        if exercise["exercise_name"] as! String == currentExerciseName {
+                            //get exercise image
+                            let exercisePicName=exercise["exercise_image"] as! String
+                            let currentExercisePicPath = "images/"+exercisePicName
+                           
+                            var exerciseImage : UIImage?
+                            StorageManager.share.fetchPicUrl(for: currentExercisePicPath, completion: {result in
+                                switch result{
+                                case .success(let url):
+                                    DispatchQueue.global().async {
+                                        // Fetch Image Data
+                                        if let data = try? Data(contentsOf: url) {
+                                            DispatchQueue.main.async {
+                                                exerciseImage = UIImage(data: data)
+                                                guard let exerciseImage = exerciseImage else {
+                                                    return
+                                                }
+                                                self.currExerciseImage.image=exerciseImage
+                                            }
+                                        }
+                                    }
+                                case .failure(let error):
+                                    print("Fail to get the exercise image: \(error)")
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        })
     }
     func getTime(seconds: Int) -> String{
         let hours = (seconds % 86400) / 3600
@@ -140,7 +198,6 @@ class playWorkoutController : UIViewController{
         pauseBtn.isHidden=true
         //pause timer
         timer.invalidate()
-
     }
     
     //display congratulations page

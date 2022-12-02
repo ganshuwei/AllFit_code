@@ -10,6 +10,7 @@ import UIKit
 
 class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate{
     
+    var wkoutId: String!
     var wkoutImage: UIImage!
     var wkoutName: String!
 //    var wkoutCreator: String!
@@ -29,7 +30,6 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     @IBOutlet weak var detailedDifficulty: UILabel!
     @IBOutlet weak var detailedDescription: UILabel!
     @IBOutlet weak var exerciseTable: UITableView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +70,7 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let playWorkoutVC = storyboard.instantiateViewController(withIdentifier: "playWorkoutVC") as! playWorkoutController
         
+        playWorkoutVC.wkoutId=wkoutId
         playWorkoutVC.wkoutName=wkoutName
         playWorkoutVC.wkoutImage=wkoutImage
         playWorkoutVC.wkoutExercises=wkoutExercises

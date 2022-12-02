@@ -52,16 +52,7 @@ class CreateExerciseView: UIViewController{
         //get values from interface
 //        let equipmentList=["dumbell","mat"]
 
-        //add exercise to array of exercises
-        let exerciseInfo = Exercise(
-                          exercise_name: String(exerciseName.text!),
-                          exercise_type: exerciseTypeString,
-                          exercise_repOrTime: exerciseTypeString,
-                          exercise_repOrTimeValue:repOrTimeValue.text!,
-                          exercise_equipment: equipmentList,
-                          exercise_time: 160,
-                          exercise_image: exerciseImage.image
-                          )
+
         
         //get exercise image url
         guard let exerciseImage=exerciseImage.image, let data = exerciseImage.pngData() else {return}
@@ -75,6 +66,17 @@ class CreateExerciseView: UIViewController{
                     print("Firebase storage error: \(error)")
             }
         })
+        //add exercise to array of exercises
+        let exerciseInfo = Exercise(
+                          exercise_name: String(exerciseName.text!),
+                          exercise_type: exerciseTypeString,
+                          exercise_repOrTime: exerciseTypeString,
+                          exercise_repOrTimeValue:repOrTimeValue.text!,
+                          exercise_equipment: equipmentList,
+                          exercise_time: 160,
+                          exercise_image_path: exerciseFileName,
+                          exercise_image: exerciseImage
+                          )
         
         let firebaseExerciseInfo: [String:Any] = [
             "exercise_name": String(exerciseName.text!),
