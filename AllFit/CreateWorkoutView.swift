@@ -135,7 +135,6 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
                 else{
                     ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(firebaseWorkoutInfo)
                 }
-
             })
             ref.child("workouts").child(workoutId).setValue(firebaseWorkoutInfo)
         }
