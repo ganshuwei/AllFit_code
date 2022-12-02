@@ -1057,6 +1057,7 @@
                         <outlet property="detailedDifficulty" destination="zHP-uo-zUp" id="MTl-d7-DhH"/>
                         <outlet property="detailedRating" destination="D8l-Vs-DAA" id="Sjf-iz-eeT"/>
                         <outlet property="detailedWorkoutImage" destination="HzI-Wq-wdy" id="OcK-7P-Y2j"/>
+                        <outlet property="detailedWorkoutName" destination="QlK-IZ-zAV" id="0t8-ye-ejz"/>
                         <outlet property="exerciseTable" destination="ApQ-FI-o0H" id="vxX-LG-6ID"/>
                     </connections>
                 </viewController>

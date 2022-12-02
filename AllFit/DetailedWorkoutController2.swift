@@ -22,6 +22,7 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     var wkoutDescription: String!
     var wkoutExercises: [Exercise] = []
     
+    @IBOutlet weak var detailedWorkoutName: UILabel!
     @IBOutlet weak var detailedWorkoutImage: UIImageView!
     @IBOutlet weak var detailedCreatorName: UILabel!
     @IBOutlet weak var detailedRating: UILabel!
@@ -29,9 +30,11 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     @IBOutlet weak var detailedDescription: UILabel!
     @IBOutlet weak var exerciseTable: UITableView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        detailedWorkoutName.text=wkoutName
         detailedWorkoutImage.image = wkoutImage
         detailedCreatorName.text = "by: "+creatorName
         detailedRating.text = String(wkoutRating)
@@ -50,7 +53,7 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
         exerciseTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exerciseArray.count
+        return wkoutExercises.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
