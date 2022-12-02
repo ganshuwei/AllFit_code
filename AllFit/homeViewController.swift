@@ -186,6 +186,7 @@ extension homeViewController: UICollectionViewDelegate {
         detailedVC.creatorName=allWorkouts[indexPath.row].userName
         detailedVC.wkoutDifficulty=allWorkouts[indexPath.row].workOutDifficulty
         detailedVC.wkoutDescription=allWorkouts[indexPath.row].workOutDescription
+        detailedVC.currWorkout = allWorkouts[indexPath.row]
 
         //push nav controller
         navigationController?.pushViewController(detailedVC, animated: true)

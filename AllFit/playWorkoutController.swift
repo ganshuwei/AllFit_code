@@ -32,6 +32,7 @@ class playWorkoutController : UIViewController{
     
     var timer=Timer()
     
+    var currentWorkout: WorkOut!
     
     @IBOutlet weak var currExerciseImage: UIImageView!
     @IBOutlet weak var workoutName: UILabel!
@@ -135,6 +136,21 @@ class playWorkoutController : UIViewController{
             }
         })
     }
+    func showNextExercise(){
+        //display next exercise info
+        exerciseName.text=wkoutExercises[exerciseIndex].exercise_name
+        
+        if wkoutExercises[exerciseIndex].exercise_type == "time"{
+            currentExerciseTime = Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!
+        }
+        else if wkoutExercises[exerciseIndex].exercise_type == "rep"{
+            exerciseTime.isHidden=true
+        }
+        
+        //get and display exercise image from firebase storage
+        getExerciseImage(imagePath: wkoutExercises[exerciseIndex].exercise_image_path)
+    }
+    
     func getTime(seconds: Int) -> String{
         let hours = (seconds % 86400) / 3600
         let minutes = (seconds % 3600) / 60
@@ -156,13 +172,8 @@ class playWorkoutController : UIViewController{
         else if (currentExerciseTime > 0){
             //skip to next exercise
             exerciseIndex+=1
-            exerciseName.text=wkoutExercises[exerciseIndex].exercise_name
-            if wkoutExercises[exerciseIndex].exercise_type == "time"{
-                currentExerciseTime = Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!
-            }
-            else if wkoutExercises[exerciseIndex].exercise_type == "rep"{
-                exerciseTime.isHidden=true
-            }
+            showNextExercise()
+
         }
         // if workout is completed
         if totalWorkoutTime == 0 {
@@ -179,7 +190,7 @@ class playWorkoutController : UIViewController{
             finishWorkout()
         }
         else{
-            exerciseName.text=wkoutExercises[exerciseIndex].exercise_name
+            showNextExercise()
         }
     }
     
@@ -229,21 +240,28 @@ class playWorkoutController : UIViewController{
         firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
         firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
         
-        let workoutId = firebaseEmail + "_" + wkoutName
-
         if firebaseEmail != nil{
-            //replace dot by dash
-
-            print("firebase email is ",firebaseEmail)
-            print("workout id is ",workoutId)
-
-            //push created workouts to user table
-            ref.child("users").child(firebaseEmail).child("finishedWorkouts").observeSingleEvent(of: .value, with:{snapshot in
-                var finishedWorkoutsList = snapshot.value as? [String]
-                finishedWorkoutsList?.append(workoutId)
-                //push to firebase
-                ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue(finishedWorkoutsList)
-            })
+            //see if there exists a list of finished workout
+            //if yes, append to list
+            //if no, create new list and append
+            if firebaseEmail != nil{
+                //push created workouts to user table
+                //get list of created workouts for this user
+                ref.child("users").child(firebaseEmail).observeSingleEvent(of: .value, with: {snapshot in
+                    //if user already as a list of created workouts, append to list
+                    if snapshot.hasChild("finishedWorkouts"){
+                        ref.child("users").child(firebaseEmail).child("finishedWorkouts").observeSingleEvent(of: .value, with: {snapshot in
+                            var finishedWorkoutsList = snapshot.value as? [String]
+                            finishedWorkoutsList?.append(self.wkoutId)
+                            ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue(finishedWorkoutsList)
+                        })
+                    }
+                    //create list if there isn't
+                    else{
+                        ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue([self.wkoutId])
+                    }
+                })
+            }
         }
     }
     

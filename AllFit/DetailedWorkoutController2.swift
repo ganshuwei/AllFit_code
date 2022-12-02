@@ -23,6 +23,8 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     var wkoutDescription: String!
     var wkoutExercises: [Exercise] = []
     
+    var currWorkout: WorkOut!
+    
     @IBOutlet weak var detailedWorkoutName: UILabel!
     @IBOutlet weak var detailedWorkoutImage: UIImageView!
     @IBOutlet weak var detailedCreatorName: UILabel!
@@ -76,7 +78,8 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
         playWorkoutVC.wkoutExercises=wkoutExercises
         playWorkoutVC.wkoutRating=wkoutRating
         playWorkoutVC.wkoutRatingNum=wkoutRatingNum
-
+        playWorkoutVC.currentWorkout = currWorkout
+        
         navigationController?.pushViewController(playWorkoutVC, animated: true)
     }
 
