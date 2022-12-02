@@ -47,7 +47,7 @@ class workOutCollectionViewCell : UICollectionViewCell{
                 workOuts[index].favor = true
                 item.favor = true
                 curWorkOut?.favor = true
-                favou/Users/user/Desktop/AllFit/AllFit/ratingController.swiftrite.append(item)
+                favourite.append(item)
                 print("Added to favourite")
                 print(index)
                 print(item.favor)

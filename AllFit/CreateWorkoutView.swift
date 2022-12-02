@@ -65,7 +65,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
                                   workOutDescription:"blabla",
                                   userName:"mel",
                                   userPhoto:UIImage(systemName: "person.crop.circle"),
-                                  workoutId:workOuts.count + 1,
+                                  workoutId:String(workOuts.count + 1),
                                   workout_exercises: exerciseArray,
                                   workoutDate: "11/22/2022",
                                   workoutTotalSeconds: 100,
