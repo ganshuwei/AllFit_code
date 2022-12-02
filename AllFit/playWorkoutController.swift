@@ -27,11 +27,13 @@ class playWorkoutController : UIViewController{
     var exerciseIndex=0
     
     var totalWorkoutTime = 0
+    var repWorkoutTime = 0
 
     var currentExerciseTime=0
     
     var timer=Timer()
-    
+    var totalTimeTimer=Timer()
+
     var currentWorkout: WorkOut!
     
     @IBOutlet weak var currExerciseImage: UIImageView!
@@ -46,39 +48,40 @@ class playWorkoutController : UIViewController{
     override func viewDidLoad() {
         print("in play workout view controller")
         super.viewDidLoad()
-        print(wkoutExercises)
-        exerciseIndex=0
+        
         workoutName.text=wkoutName
         
+        exerciseIndex=0
         exerciseName.text=wkoutExercises[exerciseIndex].exercise_name!
         
-        //display playPause button based on exercise time
         let exerciseType=wkoutExercises[exerciseIndex].exercise_type
-        
+        //display playPause button based on exercise type
         if exerciseType == "time"{
             print("exercise type is time")
             currentExerciseTime=Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!
-        
             exerciseTime.text=getTime(seconds: currentExerciseTime)
             
-            //find and display total workout time
-            for exercise in wkoutExercises{
-                totalWorkoutTime += Int(exercise.exercise_repOrTimeValue)!
-            }
-            print("total workout time is ",totalWorkoutTime)
-            
-            workoutTime.text = getTime(seconds: totalWorkoutTime)
-            
+//            //find and display total workout time
+//            for exercise in wkoutExercises{
+//                totalWorkoutTime += Int(exercise.exercise_repOrTimeValue)!
+//            }
+//            print("total workout time is ",totalWorkoutTime)
+//
             //display timer count down
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.update), userInfo: nil, repeats: true)
-
+            
+            totalTimeTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.updateTotalTime), userInfo: nil, repeats: true)
+            
             nextBtn.isHidden=true
         }
         else if exerciseType == "rep"{
             //don't display timer
-            workoutTime.isHidden = true
-            exerciseTime.isHidden=true
+            workoutTime.isHidden = false
+            exerciseTime.text=String(Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!) + " " + "repetitions"
+            nextBtn.isHidden=false
         }
+        //display workout timer
+        workoutTime.text = getTime(seconds: totalWorkoutTime)
         playBtn.isHidden=true
         
         //get exercise image from firebase storage
@@ -137,16 +140,24 @@ class playWorkoutController : UIViewController{
         })
     }
     func showNextExercise(){
+        print("in show next exercise")
         //display next exercise info
         exerciseName.text=wkoutExercises[exerciseIndex].exercise_name
         
         if wkoutExercises[exerciseIndex].exercise_type == "time"{
             currentExerciseTime = Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!
+            exerciseTime.text=getTime(seconds: currentExerciseTime)
+            exerciseTime.isHidden=false
+            nextBtn.isHidden=false
+            //have to recreate timer
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.update), userInfo: nil, repeats: true)
         }
         else if wkoutExercises[exerciseIndex].exercise_type == "rep"{
-            exerciseTime.isHidden=true
+            //stop timer
+            timer.invalidate()
+            exerciseTime.text=String(Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!) + " " + "repetitions"
+            nextBtn.isHidden=false
         }
-        
         //get and display exercise image from firebase storage
         getExerciseImage(imagePath: wkoutExercises[exerciseIndex].exercise_image_path)
     }
@@ -160,36 +171,40 @@ class playWorkoutController : UIViewController{
         let secondsString = String(format: "%02d", seconds)
         return hoursString+":"+minutesString+":"+secondsString
     }
+    
+    @objc func updateTotalTime(){
+        totalWorkoutTime+=1
+        print("total workout time is ",totalWorkoutTime)
+        workoutTime.text = getTime(seconds: totalWorkoutTime)
+    }
+    
     @objc func update(){
-        if(totalWorkoutTime > 0) {
-            totalWorkoutTime-=1
-            workoutTime.text = getTime(seconds: totalWorkoutTime)
-        }
         if (currentExerciseTime > 0){
             currentExerciseTime-=1
             exerciseTime.text = getTime(seconds: currentExerciseTime)
         }
-        else if (currentExerciseTime > 0){
+        else if (currentExerciseTime == 0){
+            print("timed exercise is over")
+            print(exerciseIndex)
+            print(wkoutExercises.count)
             //skip to next exercise
-            exerciseIndex+=1
-            showNextExercise()
-
-        }
-        // if workout is completed
-        if totalWorkoutTime == 0 {
-            //stop timer
-            timer.invalidate()
-            finishWorkout()
+            if exerciseIndex == wkoutExercises.count-1 {
+                finishWorkout()
+            }
+            else{
+                exerciseIndex+=1
+                showNextExercise()
+            }
         }
     }
     //only for reps
     @IBAction func nextExercise(_ sender: Any) {
-        exerciseIndex+=1
         //if last exercise
-        if exerciseIndex == wkoutExercises.count {
+        if exerciseIndex == wkoutExercises.count-1{
             finishWorkout()
         }
         else{
+            exerciseIndex+=1
             showNextExercise()
         }
     }
@@ -200,7 +215,10 @@ class playWorkoutController : UIViewController{
         pauseBtn.isHidden=false
         //resume timer
         //have to recreate timer
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.update), userInfo: nil, repeats: true)
+        if wkoutExercises[exerciseIndex].exercise_type == "time"{
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.update), userInfo: nil, repeats: true)
+        }
+        totalTimeTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.updateTotalTime), userInfo: nil, repeats: true)
     }
     
     @IBAction func pauseClick(_ sender: Any) {
@@ -208,7 +226,10 @@ class playWorkoutController : UIViewController{
         playBtn.isHidden=false
         pauseBtn.isHidden=true
         //pause timer
-        timer.invalidate()
+        if wkoutExercises[exerciseIndex].exercise_type == "time"{
+            timer.invalidate()
+        }
+        totalTimeTimer.invalidate()
     }
     
     //display congratulations page
@@ -222,15 +243,24 @@ class playWorkoutController : UIViewController{
     
     //
     func finishWorkout(){
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let ratingVC = storyboard.instantiateViewController(withIdentifier: "ratingVC") as! ratingController
-        
-        ratingVC.wkoutName=wkoutName
-        ratingVC.wkoutImage=wkoutImage
-        ratingVC.wkoutRating=wkoutRating
-        ratingVC.wkoutRatingNum=wkoutRatingNum
+        timer.invalidate()
+        totalTimeTimer.invalidate()
 
-        navigationController?.pushViewController(ratingVC, animated: true)
+        print("inside finish workout")
+        // Create Date
+        let date = Date()
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+        // Set Date Format
+        dateFormatter.dateFormat = "YY/MM/dd"
+        // Convert Date to String
+        let dateString = dateFormatter.string(from: date)
+        
+        let justFinishedWorkout=[
+            "workoutId":wkoutId!,
+            "totalTime": totalWorkoutTime,
+            "date":dateString
+        ] as [String : Any]
         
         //pushed firebase
         //firebase: createdWorkouts, favoriteWorkouts, finishedWorkouts
@@ -251,18 +281,30 @@ class playWorkoutController : UIViewController{
                     //if user already as a list of created workouts, append to list
                     if snapshot.hasChild("finishedWorkouts"){
                         ref.child("users").child(firebaseEmail).child("finishedWorkouts").observeSingleEvent(of: .value, with: {snapshot in
-                            var finishedWorkoutsList = snapshot.value as? [String]
-                            finishedWorkoutsList?.append(self.wkoutId)
+                            var finishedWorkoutsList = snapshot.value as? [[String:Any]]
+                            
+                            finishedWorkoutsList?.append(justFinishedWorkout)
                             ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue(finishedWorkoutsList)
                         })
                     }
                     //create list if there isn't
                     else{
-                        ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue([self.wkoutId])
+                        ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue([justFinishedWorkout])
                     }
                 })
             }
         }
+        
+        //compute time taken
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let ratingVC = storyboard.instantiateViewController(withIdentifier: "ratingVC") as! ratingController
+        
+        ratingVC.wkoutName=wkoutName
+        ratingVC.wkoutImage=wkoutImage
+        ratingVC.wkoutRating=wkoutRating
+        ratingVC.wkoutRatingNum=wkoutRatingNum
+
+        navigationController?.pushViewController(ratingVC, animated: true)
     }
     
 }

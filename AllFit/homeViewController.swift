@@ -84,7 +84,8 @@ class homeViewController: UIViewController {
                 let finishedWorkout = dict["finishedWorkout"]as? Bool ?? false
 
                 let workout_exercises2 = dict["workout_exercises"] as? NSArray
-                let objCArray = NSMutableArray(array: workout_exercises2!)
+                
+                let objCArray = NSMutableArray(array: workout_exercises2 ?? [])
                 let workout_exercises: [[String:Any]] = objCArray.compactMap({ $0 as? [String:Any] })
 
                 // Create the exercise list
