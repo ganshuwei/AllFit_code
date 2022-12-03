@@ -112,23 +112,6 @@
             </objects>
             <point key="canvasLocation" x="789.85507246376812" y="1287.7232142857142"/>
         </scene>
-        <!--Analytics-->
-        <scene sceneID="C2Q-M9-lxn">
-            <objects>
-                <viewController id="LS4-sx-qe6" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gx1-ZT-EbL">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="4vI-2m-pKR"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Analytics" image="icons8-analytics-30" selectedImage="icons8-analytics-30" id="tm5-Kv-BDV"/>
-                    <navigationItem key="navigationItem" title="Analytics" id="BwG-7B-1Zx"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7aI-bI-U9X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2692" y="1325"/>
-        </scene>
         <!--Profile View-->
         <scene sceneID="J9w-aP-jCG">
             <objects>
@@ -611,7 +594,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="mqB-pu-L1P" kind="relationship" relationship="rootViewController" id="56W-A8-Gv7"/>
+                        <segue destination="mqB-pu-L1P" kind="relationship" relationship="rootViewController" id="3e8-WX-S6P"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9uC-HY-Qby" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

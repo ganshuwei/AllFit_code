@@ -31,49 +31,33 @@ class AnalyticalViewController: UIViewController {
     var currentWeek:[Date]!
     var currentYear:String!
     let thisWeek = Date.today().currentWeek()
-    var finishedList:[FinishedWorkout]=[]
+    var dayDict:[String:Int]=[:]
+    var yearDict:[String:Int]=[:]
+    var chartStyleOfLine:ChartStyle?
+    var chartStyleOfBar:ChartStyle?
+
     
     
     
 
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.fetchData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        currentWeek = thisWeek
+        currentYear = getYear()
+        yearL.text = currentYear
+        setUpChartSytle()
         fetchData()
         
         
         
+
         
-        
-        currentWeek = thisWeek
-        currentYear = getYear()
-        yearL.text = currentYear
-        let chartStyleOfLine = ChartStyle(backgroundColor: Color.white, accentColor: upperColorOfLine, secondGradientColor:lowerColorOfLine , textColor: Color.gray, legendTextColor: Color.gray, dropShadowColor: Color.gray)
-        
-        let chartStyleOfBar = ChartStyle(backgroundColor: Color.white, accentColor: upperColorOfBar, secondGradientColor:lowerColorOfBar , textColor: Color.gray, legendTextColor: Color.gray, dropShadowColor: Color.gray)
-        
-        let barchartView = BarChartView(data: ChartData(values: [("Mon",63150),("Tue",77550), ("Wed",79600), ("Thu",92550),("Fri",92550),("Sat",92550),("Sun",92550)]),title:"Week Exercise Time(h)",style: chartStyleOfBar,form: ChartForm.extraLarge)
-        
-        let linechartView =  LineChartView(data: [8,23,54,80,12,37,7,23,43,12,31,23], title: "Year Exercise Time(h)", style: chartStyleOfBar,form: ChartForm.extraLarge,rateValue: nil) // legend is optional
-        
-        let barChart = UIHostingController(rootView: barchartView)
-        barChart.view.translatesAutoresizingMaskIntoConstraints = false
-        barChart.view.frame = bgViewOfBar.bounds
-        barChart.view.center=bgViewOfBar.center
-        
-        
-        // First, add the view of the child to the view of the parent
-        bgViewOfBar.addSubview(barChart.view)
-        // Then, add the child to the parent
-        //self.addChild(child)
-        
-        let lineChart = UIHostingController(rootView: linechartView)
-        lineChart.view.translatesAutoresizingMaskIntoConstraints = false
-        lineChart.view.frame = bgViewOfLine.bounds
-        lineChart.view.center=bgViewOfLine.center
-        bgViewOfLine.addSubview(lineChart.view)
 
         
         
@@ -91,18 +75,42 @@ class AnalyticalViewController: UIViewController {
         var safeEmail = userEmail.replacingOccurrences(of: ".", with: "-")
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
         
-        Database.database().reference().child("users/\(safeEmail)").child("createdWorkouts").observeSingleEvent(of:.value,
+        Database.database().reference().child("users/\(safeEmail)").child("finishedWorkouts").observeSingleEvent(of:.value,
                                                                                        with:{snapshot in
             for case let child as DataSnapshot in snapshot.children {
-                guard let workoutId = child.value as? String else {
+                guard let finishedWorkout = child.value as? [String:Any] else {
                     print("Error")
                     return
                 }
-                print("workoutID: \(workoutId)")
+                let date = finishedWorkout["date"] as! String
+                let totalTime = finishedWorkout["totalTime"] as? Int ?? 0
+                let dateExists = self.dayDict[date] != nil
+                if dateExists{
+                    var existTime = self.dayDict[date]!
+                    existTime += totalTime
+                    self.dayDict[date] = existTime
+                }else{
+                    self.dayDict[date] = totalTime
+                }
+                let yearStr = String(date.prefix(5))
+                let yearExists = self.yearDict[yearStr] != nil
+                if yearExists{
+                    var existTime = self.yearDict[yearStr]!
+                    existTime += totalTime
+                    self.yearDict[yearStr] = existTime
+                }else{
+                    self.yearDict[yearStr] = totalTime
+                }
+                
                 
                 //get workout info from workouts
                 //self.getWorkoutInfo(workoutID: workoutId)
             }
+        
+        self.showWeekChart()
+        self.showYearChart()
+        print("1")
+            
 //            for case let child as DataSnapshot in snapshot.children{
 //                guard let finishedWorkout = child.value as? FinishedWorkout else{
 //                    print("Error")
@@ -114,31 +122,89 @@ class AnalyticalViewController: UIViewController {
         }){error in
             print(error.localizedDescription)
         }
+
+    }
+    
+    func showWeekChart(){
+        var showList = [("Mon",0),("Tue",0), ("Wed",0),("Thu",0),("Fri",0),("Sat",0),("Sun",0)]
+        var index = 0
+        for date in currentWeek{
+            let dateStr = dateToStr(date: date, ifnum: true)
+            if dayDict[dateStr] != nil{
+                showList[index].1 = dayDict[dateStr]!
+            }
+            index+=1
+        }
+        //remove subview
+        for view in bgViewOfBar.subviews{
+            view.removeFromSuperview()
+        }
+        
+        let barchartView = BarChartView(data: ChartData(values: showList),title:"Week Exercise Time(h)",style: chartStyleOfBar!,form: ChartForm.extraLarge)
+        let barChart = UIHostingController(rootView: barchartView)
+        barChart.view.translatesAutoresizingMaskIntoConstraints = false
+        barChart.view.frame = bgViewOfBar.bounds
+        barChart.view.center=bgViewOfBar.center
+        bgViewOfBar.addSubview(barChart.view)
+        
+    }
+    
+    func showYearChart(){
+        var showList:[Double]=[]
+        let helper = ["/01","/02","/03","/04","/05","/06","/07","/08","/09","/10","/11","/12"]
+        for month in helper{
+            let yearStr = String(currentYear.suffix(2)) + month
+            if yearDict[yearStr] != nil{
+                showList.append(Double(yearDict[yearStr]!))
+            }else{
+                showList.append(Double(0))
+            }
+        }
+        for view in bgViewOfLine.subviews{
+            view.removeFromSuperview()
+        }
+        let linechartView =  LineChartView(data: showList, title: "Year Exercise Time(h)", style: chartStyleOfBar!,form: ChartForm.extraLarge,rateValue: nil) // legend is optional
+        
+        
+        let lineChart = UIHostingController(rootView: linechartView)
+        lineChart.view.translatesAutoresizingMaskIntoConstraints = false
+        lineChart.view.frame = bgViewOfLine.bounds
+        lineChart.view.center=bgViewOfLine.center
+        bgViewOfLine.addSubview(lineChart.view)
+        
+        
+    }
+    
+    func setUpChartSytle(){
+        chartStyleOfLine = ChartStyle(backgroundColor: Color.white, accentColor: upperColorOfLine, secondGradientColor:lowerColorOfLine , textColor: Color.gray, legendTextColor: Color.gray, dropShadowColor: Color.gray)
+        
+        chartStyleOfBar = ChartStyle(backgroundColor: Color.white, accentColor: upperColorOfBar, secondGradientColor:lowerColorOfBar , textColor: Color.gray, legendTextColor: Color.gray, dropShadowColor: Color.gray)
     }
     
     
     @IBAction func preWeek(_ sender: Any) {
         let thisMon = currentWeek[0]
         let preMon = thisMon.perviousMonday()
-        let preSun = thisMon.perviousSunday()
-        currentWeek = [preMon,preSun]
+        currentWeek = preMon.currentWeek()
         showDate()
+        showWeekChart()
         
     }
     
     
     @IBAction func nextWeek(_ sender: Any) {
-        let thisSun = currentWeek[1]
+        let thisSun = currentWeek.last!
         let nextMon = thisSun.nextWeekMonday()
-        let nextSun = thisSun.nextWeekSunday()
-        currentWeek = [nextMon,nextSun]
+        currentWeek = nextMon.currentWeek()
         showDate()
+        showWeekChart()
     }
     
     @IBAction func preYear(_ sender: Any) {
         let yearN = Int(currentYear)
         currentYear = String(yearN!-1)
         yearL.text = currentYear
+        showYearChart()
     }
     
     
@@ -146,16 +212,22 @@ class AnalyticalViewController: UIViewController {
         let yearN = Int(currentYear)
         currentYear = String(yearN!+1)
         yearL.text = currentYear
+        showYearChart()
     }
     
     
     
-    func dateToStr(date:Date) -> String{
+    func dateToStr(date:Date,ifnum:Bool) -> String{
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "y,MMM d"
+        if ifnum{
+            dateFormatter.dateFormat = "YY/MM/dd"
+        }else{
+            dateFormatter.dateFormat = "y,MMM d"
+        }
         let formattedDate = dateFormatter.string(from: date)
         return formattedDate
     }
+    
     
     func getYear() -> String{
         let dateFormatter = DateFormatter()
@@ -167,11 +239,11 @@ class AnalyticalViewController: UIViewController {
     
     func showDate(){
         let start = currentWeek[0]
-        let end = currentWeek[1]
+        let end = currentWeek.last
         if currentWeek == thisWeek{
             test.text = "This Week"
         }else{
-            test.text = dateToStr(date: start)+" - "+dateToStr(date: end)
+            test.text = dateToStr(date: start,ifnum: false)+" - "+dateToStr(date: end!,ifnum: false)
         }
 
     }

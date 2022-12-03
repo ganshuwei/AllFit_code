@@ -23,8 +23,19 @@ extension Date{
         else if getTodayWeekDay() == "Sunday"{
             endDate = self
         }
-        return [startDate,endDate]
+        let Tues = startDate.next(.tuesday)
+        let Wed = startDate.next(.wednesday)
+        let Thur = startDate.next(.thursday)
+        let Fri = startDate.next(.friday)
+        let Sat = startDate.next(.saturday)
+        return [startDate,Tues,Wed,Thur,Fri,Sat,endDate]
         
+    }
+    
+    func next(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+      return get(.next,
+                 weekday,
+                 considerToday: considerToday)
     }
     
     func nextWeekMonday() -> Date {
@@ -86,7 +97,7 @@ extension Date{
     func getTodayWeekDay()-> String{
            let dateFormatter = DateFormatter()
            dateFormatter.dateFormat = "EEEE"
-           let weekDay = dateFormatter.string(from: Date())
+           let weekDay = dateFormatter.string(from: self)
            return weekDay
      }
 
