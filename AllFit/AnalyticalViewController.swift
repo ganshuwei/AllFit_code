@@ -93,7 +93,16 @@ class AnalyticalViewController: UIViewController {
         
         Database.database().reference().child("users/\(safeEmail)").child("createdWorkouts").observeSingleEvent(of:.value,
                                                                                        with:{snapshot in
-            print("1")
+            for case let child as DataSnapshot in snapshot.children {
+                guard let workoutId = child.value as? String else {
+                    print("Error")
+                    return
+                }
+                print("workoutID: \(workoutId)")
+                
+                //get workout info from workouts
+                //self.getWorkoutInfo(workoutID: workoutId)
+            }
 //            for case let child as DataSnapshot in snapshot.children{
 //                guard let finishedWorkout = child.value as? FinishedWorkout else{
 //                    print("Error")
