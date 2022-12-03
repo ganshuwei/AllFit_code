@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 
+struct FinishedWorkout{
+    var date:String
+    var totalTime:Int
+    var workoutId:String
+}
+
 struct User{
     var userEmail:String
     var username: String = "username"

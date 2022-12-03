@@ -90,7 +90,8 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
             //compute total time
             var totalExerciseTime = 0
             for exercise in wkoutExercises {
-                totalExerciseTime += exercise.exercise_repOrTimeValue as! Int
+                let exerciseTime = Int(exercise.exercise_repOrTimeValue) ?? 0
+                totalExerciseTime += exerciseTime
             }
             durationLabel.isHidden=false
             durationLabel.text = String(totalExerciseTime)

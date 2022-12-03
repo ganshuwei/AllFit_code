@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		023983F5293B7939007E5947 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 023983F4293B7939007E5947 /* FirebaseAuth */; };
+		023983F7293B7939007E5947 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 023983F6293B7939007E5947 /* FirebaseDatabase */; };
+		023983F9293B793A007E5947 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 023983F8293B793A007E5947 /* FirebaseFirestore */; };
+		023983FB293B793B007E5947 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 023983FA293B793B007E5947 /* FirebaseStorage */; };
+		023983FD293B8323007E5947 /* AnalyticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023983FC293B8322007E5947 /* AnalyticalViewController.swift */; };
+		02398400293B899F007E5947 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 023983FF293B899F007E5947 /* SwiftUICharts */; };
+		02398402293B8A35007E5947 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02398401293B8A34007E5947 /* Extension.swift */; };
 		02A53EE4291731D0002574E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A53EE3291731D0002574E5 /* AppDelegate.swift */; };
 		02A53EE6291731D0002574E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A53EE5291731D0002574E5 /* SceneDelegate.swift */; };
 		02A53EEE291731D0002574E5 /* AllFit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02A53EEC291731D0002574E5 /* AllFit.xcdatamodeld */; };
@@ -58,6 +65,9 @@
 		12E28FC7292BEDC80062018E /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28FC6292BEDC80062018E /* FirebaseRemoteConfigSwift */; };
 		12E28FC9292BEDC80062018E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28FC8292BEDC80062018E /* FirebaseStorage */; };
 		12E28FCB292BEDC80062018E /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 12E28FCA292BEDC80062018E /* FirebaseStorageCombine-Community */; };
+		1F25F7877D9D787B676FB6A4 /* Pods_AllFitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A209631CAC294AFDA90657 /* Pods_AllFitTests.framework */; };
+		47730BE03D8526265B2DA0F1 /* Pods_AllFit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2EA93862A6EE263FBC8425 /* Pods_AllFit.framework */; };
+		BDB1AAF9BE7323DF13BDA0DA /* Pods_AllFit_AllFitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D1B0963A3AA6086CDF11611 /* Pods_AllFit_AllFitUITests.framework */; };
 		CEAE82092922D58E0028E934 /* CreateExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE82082922D58E0028E934 /* CreateExerciseView.swift */; };
 		CEAE820B2922DB700028E934 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE820A2922DB700028E934 /* TabBarController.swift */; };
 		CEAE820D2922F4C30028E934 /* CreateWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE820C2922F4C30028E934 /* CreateWorkoutView.swift */; };
@@ -91,6 +101,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		023983FC293B8322007E5947 /* AnalyticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticalViewController.swift; sourceTree = "<group>"; };
+		02398401293B8A34007E5947 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		02A53EE0291731D0002574E5 /* AllFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A53EE3291731D0002574E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02A53EE5291731D0002574E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +117,8 @@
 		02A53F09291731D2002574E5 /* AllFitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		02B21AC1291DC98E0052A10C /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		02B21AC3291DC9940052A10C /* registerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
+		08FE97E710E830DFF76BEE08 /* Pods-AllFitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllFitTests.release.xcconfig"; path = "Target Support Files/Pods-AllFitTests/Pods-AllFitTests.release.xcconfig"; sourceTree = "<group>"; };
+		10B332E99A15C6AEC9F10D08 /* Pods-AllFit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllFit.debug.xcconfig"; path = "Target Support Files/Pods-AllFit/Pods-AllFit.debug.xcconfig"; sourceTree = "<group>"; };
 		123170CD2921544B008AD626 /* editProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editProfileController.swift; sourceTree = "<group>"; };
 		123170CF29215457008AD626 /* profileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileViewController.swift; sourceTree = "<group>"; };
 		123170D12921545F008AD626 /* homeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +127,13 @@
 		123170D72921B358008AD626 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		123170D92921B7D2008AD626 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		123170DB2921BE4F008AD626 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		1D1B0963A3AA6086CDF11611 /* Pods_AllFit_AllFitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AllFit_AllFitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E2EA93862A6EE263FBC8425 /* Pods_AllFit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AllFit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FA2A62DD192260DD34F40A1 /* Pods-AllFitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllFitTests.debug.xcconfig"; path = "Target Support Files/Pods-AllFitTests/Pods-AllFitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		34A209631CAC294AFDA90657 /* Pods_AllFitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AllFitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70F437D3798887B455A59EE5 /* Pods-AllFit-AllFitUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllFit-AllFitUITests.release.xcconfig"; path = "Target Support Files/Pods-AllFit-AllFitUITests/Pods-AllFit-AllFitUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A695176645628B99168A7C6D /* Pods-AllFit-AllFitUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllFit-AllFitUITests.debug.xcconfig"; path = "Target Support Files/Pods-AllFit-AllFitUITests/Pods-AllFit-AllFitUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BD3D44901C57891E587F3D85 /* Pods-AllFit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllFit.release.xcconfig"; path = "Target Support Files/Pods-AllFit/Pods-AllFit.release.xcconfig"; sourceTree = "<group>"; };
 		CEAE82082922D58E0028E934 /* CreateExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseView.swift; sourceTree = "<group>"; };
 		CEAE820A2922DB700028E934 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		CEAE820C2922F4C30028E934 /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
@@ -132,6 +153,7 @@
 			files = (
 				12E28FBB292BEDC80062018E /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				12E28FAB292BEDC80062018E /* FirebaseDatabaseSwift in Frameworks */,
+				023983F5293B7939007E5947 /* FirebaseAuth in Frameworks */,
 				12E28FA9292BEDC80062018E /* FirebaseDatabase in Frameworks */,
 				12E28FBF292BEDC80062018E /* FirebaseMLModelDownloader in Frameworks */,
 				CEAE82182937D84D0028E934 /* FirebaseStorage in Frameworks */,
@@ -142,9 +164,13 @@
 				12E28FA3292BEDC80062018E /* FirebaseAuth in Frameworks */,
 				12E28FC5292BEDC80062018E /* FirebaseRemoteConfig in Frameworks */,
 				12E28F9B292BEDC80062018E /* FirebaseAnalyticsSwift in Frameworks */,
+				023983FB293B793B007E5947 /* FirebaseStorage in Frameworks */,
 				CEAE82232939346A0028E934 /* RealmSwift in Frameworks */,
+				02398400293B899F007E5947 /* SwiftUICharts in Frameworks */,
+				023983F9293B793A007E5947 /* FirebaseFirestore in Frameworks */,
 				12E28FC9292BEDC80062018E /* FirebaseStorage in Frameworks */,
 				12E28FC3292BEDC80062018E /* FirebasePerformance in Frameworks */,
+				023983F7293B7939007E5947 /* FirebaseDatabase in Frameworks */,
 				CEAE82212939346A0028E934 /* Realm in Frameworks */,
 				12E28FAF292BEDC80062018E /* FirebaseFirestore in Frameworks */,
 				02B21AC7291DC9F60052A10C /* FirebaseAnalytics in Frameworks */,
@@ -166,6 +192,7 @@
 				12AF47C8293860B800631B6A /* SDWebImage in Frameworks */,
 				12E28FAD292BEDC80062018E /* FirebaseDynamicLinks in Frameworks */,
 				12E28FB3292BEDC80062018E /* FirebaseFirestoreSwift in Frameworks */,
+				47730BE03D8526265B2DA0F1 /* Pods_AllFit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F25F7877D9D787B676FB6A4 /* Pods_AllFitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDB1AAF9BE7323DF13BDA0DA /* Pods_AllFit_AllFitUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +222,8 @@
 				02A53EFC291731D1002574E5 /* AllFitTests */,
 				02A53F06291731D2002574E5 /* AllFitUITests */,
 				02A53EE1291731D0002574E5 /* Products */,
+				7B9448F1808E97B4E90A034A /* Pods */,
+				48E21A75A004DF4BAB54190D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,11 +261,13 @@
 				123170DB2921BE4F008AD626 /* Main.storyboard */,
 				CEAE82142937D7E90028E934 /* StorageManager.swift */,
 				123170D92921B7D2008AD626 /* DatabaseManager.swift */,
+				02398401293B8A34007E5947 /* Extension.swift */,
 				02A53EEF291731D1002574E5 /* Assets.xcassets */,
 				02A53EF1291731D1002574E5 /* LaunchScreen.storyboard */,
 				02A53EF4291731D1002574E5 /* Info.plist */,
 				123170D72921B358008AD626 /* GoogleService-Info.plist */,
 				02A53EEC291731D0002574E5 /* AllFit.xcdatamodeld */,
+				023983FC293B8322007E5947 /* AnalyticalViewController.swift */,
 			);
 			path = AllFit;
 			sourceTree = "<group>";
@@ -256,6 +289,29 @@
 			path = AllFitUITests;
 			sourceTree = "<group>";
 		};
+		48E21A75A004DF4BAB54190D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E2EA93862A6EE263FBC8425 /* Pods_AllFit.framework */,
+				1D1B0963A3AA6086CDF11611 /* Pods_AllFit_AllFitUITests.framework */,
+				34A209631CAC294AFDA90657 /* Pods_AllFitTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7B9448F1808E97B4E90A034A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				10B332E99A15C6AEC9F10D08 /* Pods-AllFit.debug.xcconfig */,
+				BD3D44901C57891E587F3D85 /* Pods-AllFit.release.xcconfig */,
+				A695176645628B99168A7C6D /* Pods-AllFit-AllFitUITests.debug.xcconfig */,
+				70F437D3798887B455A59EE5 /* Pods-AllFit-AllFitUITests.release.xcconfig */,
+				1FA2A62DD192260DD34F40A1 /* Pods-AllFitTests.debug.xcconfig */,
+				08FE97E710E830DFF76BEE08 /* Pods-AllFitTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -263,9 +319,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02A53F0D291731D2002574E5 /* Build configuration list for PBXNativeTarget "AllFit" */;
 			buildPhases = (
+				25BCDC3060691DEFB4353764 /* [CP] Check Pods Manifest.lock */,
 				02A53EDC291731CF002574E5 /* Sources */,
 				02A53EDD291731CF002574E5 /* Frameworks */,
 				02A53EDE291731CF002574E5 /* Resources */,
+				CA5D3CB2F7394BB41BABAFF4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -309,6 +367,11 @@
 				12AF47C9293860B800631B6A /* SDWebImageMapKit */,
 				CEAE82202939346A0028E934 /* Realm */,
 				CEAE82222939346A0028E934 /* RealmSwift */,
+				023983F4293B7939007E5947 /* FirebaseAuth */,
+				023983F6293B7939007E5947 /* FirebaseDatabase */,
+				023983F8293B793A007E5947 /* FirebaseFirestore */,
+				023983FA293B793B007E5947 /* FirebaseStorage */,
+				023983FF293B899F007E5947 /* SwiftUICharts */,
 			);
 			productName = AllFit;
 			productReference = 02A53EE0291731D0002574E5 /* AllFit.app */;
@@ -318,6 +381,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02A53F10291731D2002574E5 /* Build configuration list for PBXNativeTarget "AllFitTests" */;
 			buildPhases = (
+				46F2E82A9F1D926A465820FE /* [CP] Check Pods Manifest.lock */,
 				02A53EF5291731D1002574E5 /* Sources */,
 				02A53EF6291731D1002574E5 /* Frameworks */,
 				02A53EF7291731D1002574E5 /* Resources */,
@@ -336,9 +400,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02A53F13291731D2002574E5 /* Build configuration list for PBXNativeTarget "AllFitUITests" */;
 			buildPhases = (
+				4D763AD1059447D9C1C98A75 /* [CP] Check Pods Manifest.lock */,
 				02A53EFF291731D2002574E5 /* Sources */,
 				02A53F00291731D2002574E5 /* Frameworks */,
 				02A53F01291731D2002574E5 /* Resources */,
+				3FEEC898DF9BA86DCB423B64 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -390,6 +456,8 @@
 				12AF47C32938609700631B6A /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 				12AF47C6293860B800631B6A /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				CEAE821F2939346A0028E934 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				023983F3293B7938007E5947 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				023983FE293B899F007E5947 /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 02A53EE1291731D0002574E5 /* Products */;
 			projectDirPath = "";
@@ -430,13 +498,118 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		25BCDC3060691DEFB4353764 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AllFit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3FEEC898DF9BA86DCB423B64 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AllFit-AllFitUITests/Pods-AllFit-AllFitUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AllFit-AllFitUITests/Pods-AllFit-AllFitUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AllFit-AllFitUITests/Pods-AllFit-AllFitUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46F2E82A9F1D926A465820FE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AllFitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D763AD1059447D9C1C98A75 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AllFit-AllFitUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA5D3CB2F7394BB41BABAFF4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AllFit/Pods-AllFit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AllFit/Pods-AllFit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AllFit/Pods-AllFit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		02A53EDC291731CF002574E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02398402293B8A35007E5947 /* Extension.swift in Sources */,
 				CEAE821A293817450028E934 /* DetailedWorkoutController2.swift in Sources */,
 				CEAE820D2922F4C30028E934 /* CreateWorkoutView.swift in Sources */,
+				023983FD293B8323007E5947 /* AnalyticalViewController.swift in Sources */,
 				CEAE820B2922DB700028E934 /* TabBarController.swift in Sources */,
 				02A53EE4291731D0002574E5 /* AppDelegate.swift in Sources */,
 				123170DA2921B7D2008AD626 /* DatabaseManager.swift in Sources */,
@@ -619,6 +792,7 @@
 		};
 		02A53F0E291731D2002574E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10B332E99A15C6AEC9F10D08 /* Pods-AllFit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -647,6 +821,7 @@
 		};
 		02A53F0F291731D2002574E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD3D44901C57891E587F3D85 /* Pods-AllFit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -675,6 +850,7 @@
 		};
 		02A53F11291731D2002574E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FA2A62DD192260DD34F40A1 /* Pods-AllFitTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -695,6 +871,7 @@
 		};
 		02A53F12291731D2002574E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08FE97E710E830DFF76BEE08 /* Pods-AllFitTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -715,6 +892,7 @@
 		};
 		02A53F14291731D2002574E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A695176645628B99168A7C6D /* Pods-AllFit-AllFitUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -733,6 +911,7 @@
 		};
 		02A53F15291731D2002574E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70F437D3798887B455A59EE5 /* Pods-AllFit-AllFitUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -791,6 +970,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		023983F3293B7938007E5947 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		023983FE293B899F007E5947 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -850,6 +1045,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		023983F4293B7939007E5947 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B21AC5291DC9F60052A10C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		023983F6293B7939007E5947 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B21AC5291DC9F60052A10C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		023983F8293B793A007E5947 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B21AC5291DC9F60052A10C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		023983FA293B793B007E5947 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B21AC5291DC9F60052A10C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		023983FF293B899F007E5947 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 023983FE293B899F007E5947 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
 		02A53F1929173358002574E5 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 02A53F1829173358002574E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

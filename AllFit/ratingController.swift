@@ -105,17 +105,17 @@ class ratingController : UIViewController{
                     //the workout we are currently playing
                     if dict["workoutId"] as! String == self.wkoutID {
                         //get rating and rating num
-                        let currRating = (dict["workOutStar"]! as? NSString)?.doubleValue
-                        let currRatingCount = (dict["workOutStarNum"]! as? NSString)?.doubleValue
+                        let currRating = dict["workOutStar"] as? Double ?? 0.0
+                        let currRatingCount = dict["workOutStarNum"] as? Int ?? 0
                         
                         print("current rating is ",currRating )
                         print("current rating count is ",currRatingCount )
 
                         //calculate and update rating
-                        let newWorkoutRating = (currRating! + self.thisUserRating!) / (currRatingCount!+1.0)
+                        let newWorkoutRating = (currRating + self.thisUserRating!) / (Double(currRatingCount)+1.0)
                         
                         //replace values in firebase data
-                        Database.database().reference().child("workouts").child(workoutKey).updateChildValues(["workOutStar": String(newWorkoutRating),"workOutStarNum": String(currRatingCount!+1.0)])
+                        Database.database().reference().child("workouts").child(workoutKey).updateChildValues(["workOutStar": newWorkoutRating,"workOutStarNum": currRatingCount+1])
                     }
                 }
             })
