@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class ratingController : UIViewController{
 
@@ -14,6 +16,7 @@ class ratingController : UIViewController{
     var wkoutName: String!
     var wkoutRating: Double!
     var wkoutRatingNum: Int!
+    var wkoutID: String!
 
     var thisUserRating:Double!
     
@@ -37,6 +40,8 @@ class ratingController : UIViewController{
         star4.setImage(UIImage(systemName: "star"), for: UIControl.State.normal)
         star5.setImage(UIImage(systemName: "star"), for: UIControl.State.normal)
         thisUserRating=1
+        //change label to submit
+        submitOrSkipBtn.setTitle("Submit", for: UIControl.State.normal)
     }
     
     @IBAction func star2Press(_ sender: Any) {
@@ -86,19 +91,39 @@ class ratingController : UIViewController{
     }
     
     @IBAction func skipOrSubmitPress(_ sender: Any) {
+        //get rating data from firebase
         if thisUserRating != 0{
 
-            //calculate and update rating
-            let newWorkoutRating = (wkoutRating + thisUserRating) / (Double(wkoutRatingNum)+1.0)
-            
-            if let i = workOuts.firstIndex(where: { $0.workOutName == wkoutName }) {
-                workOuts[i].workOutStar = newWorkoutRating
-            }
-            //redirect to feed
+            Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
+
+                for case let child as DataSnapshot in snapshot.children {
+                    let workoutKey = child.key
+                    guard var dict = child.value as? [String:Any] else {
+                        print("Error")
+                        return
+                    }
+                    //the workout we are currently playing
+                    if dict["workoutId"] as! String == self.wkoutID {
+                        //get rating and rating num
+                        let currRating = (dict["workOutStar"]! as? NSString)?.doubleValue
+                        let currRatingCount = (dict["workOutStarNum"]! as? NSString)?.doubleValue
+                        
+                        print("current rating is ",currRating )
+                        print("current rating count is ",currRatingCount )
+
+                        //calculate and update rating
+                        let newWorkoutRating = (currRating! + self.thisUserRating!) / (currRatingCount!+1.0)
+                        
+                        //replace values in firebase data
+                        Database.database().reference().child("workouts").child(workoutKey).updateChildValues(["workOutStar": String(newWorkoutRating),"workOutStarNum": String(currRatingCount!+1.0)])
+                    }
+                }
+            })
         }
         else if thisUserRating == 0{
-            //redirect to feed
 
         }
+        //redirect to analytics
+        
     }
 }

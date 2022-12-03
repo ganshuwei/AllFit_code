@@ -299,6 +299,7 @@ class playWorkoutController : UIViewController{
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let ratingVC = storyboard.instantiateViewController(withIdentifier: "ratingVC") as! ratingController
         
+        ratingVC.wkoutID=wkoutId
         ratingVC.wkoutName=wkoutName
         ratingVC.wkoutImage=wkoutImage
         ratingVC.wkoutRating=wkoutRating

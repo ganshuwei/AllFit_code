@@ -202,8 +202,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
                 
                 //get workout info from workouts
                 let createdWorkoutList = self.getWorkoutInfo(userEmail: "test-gmail-com")
-                
-
             }
       }) { error in
         print(error.localizedDescription)
