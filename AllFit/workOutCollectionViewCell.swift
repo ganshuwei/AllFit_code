@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 class workOutCollectionViewCell : UICollectionViewCell{
 
         
@@ -23,65 +24,41 @@ class workOutCollectionViewCell : UICollectionViewCell{
     @IBOutlet weak var authorNameLabel: UILabel!
     
     @IBOutlet weak var authorPhoto: UIImageView!
-    
-    var index : Int = 0
-    
+
     var curWorkOut : WorkOut?
     
     
     
     @IBAction func addToFavAction(_ sender: UIButton) {
-        if var item = curWorkOut{
-            print(item.favor)
-            if(item.favor){
+        guard let curWorkOut = curWorkOut else {
+            return
+        }
+        guard let user = Auth.auth().currentUser else {return}
+        guard let email = user.email else {return}
+        let safeEmail = DatabaseManager.safeEmail(userEmail: email)
+        let workoutID = DatabaseManager.safeEmail(userEmail: curWorkOut.userName) + "_" + curWorkOut.workOutName
+        
+        Database.database().reference().child("users/\(safeEmail)").child("favWorkOuts").observeSingleEvent(of: .value, with: { snapshot in
+            // Get user value
+            var workOutIdList = snapshot.value as? [String] ?? []
+            
+
+            if(workOutIdList.contains(workoutID)){
+                // Exist in the favList, So Remove
+                workOutIdList = workOutIdList.filter{$0 != workoutID}
                 sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
                 sender.tintColor = .black
-                item.favor = false
-                curWorkOut?.favor = false
-                workOuts[index].favor = false
-                favourite = favourite.filter{$0.workoutId != item.workoutId}
-                print("remove from favourite")
             }else{
+                workOutIdList.append(workoutID)
                 sender.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-                sender.tintColor = starImage.tintColor
-                workOuts[index].favor = true
-                item.favor = true
-                curWorkOut?.favor = true
-                favourite.append(item)
-                print("Added to favourite")
-                print(index)
-                print(item.favor)
+                sender.tintColor = self.starImage.tintColor
             }
-        }
-        
-        // Update the favourite list in the firebase
-        // ToDo: add a new propety of workout: userSafeEmail
-        // curWorkOut.userName shoule be  curWorkOut.userSafeEmail
-//        guard let curWorkOut = curWorkOut else {
-//            return
-//        }
-//        Database.database().reference().child("users/\(curWorkOut.userName)/favWorkOuts").observeSingleEvent(of: .value, with: { snapshot in
-//            // Get user value
-//
-//            var workOutIdList = snapshot.value as? [Int] ?? []
-//
-//
-//            if(workOutIdList.contains(curWorkOut.workoutId)){
-//                // Exist in the favList, So Remove
-//                workOutIdList = workOutIdList.filter{$0 != curWorkOut.workoutId}
-//                sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
-//                sender.tintColor = .black
-//            }else{
-//                workOutIdList.append(curWorkOut.workoutId)
-//                sender.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-//                sender.tintColor = self.starImage.tintColor
-//            }
-//            Database.database().reference().child("users/\(curWorkOut.userName)/favWorkOuts").setValue(workOutIdList)
-//
-//
-//          }) { error in
-//            print(error.localizedDescription)
-//          }
+            Database.database().reference().child("users/\(safeEmail)/favWorkOuts").setValue(workOutIdList)
+
+
+          }) { error in
+            print(error.localizedDescription)
+          }
 
     }
 
@@ -91,20 +68,51 @@ class workOutCollectionViewCell : UICollectionViewCell{
         workOutNameLabel.text = workOut.workOutName
         starsLabel.text = String(workOut.workOutStar)
         authorNameLabel.text = workOut.userName
+        let safeEmail = DatabaseManager.safeEmail(userEmail: workOut.userName)
+        let fileName = safeEmail + "_profile_photo.png"
+        let path = "images/" + fileName
+        StorageManager.share.fetchPicUrl(for: path, completion: {result in
+            switch result{
+            case .success(let url):
+                self.authorPhoto.sd_setImage(with: url, completed: nil)
+            case .failure(let error):
+                print("Fail to get the user profile photo: \(error)")
+            }
+        })
         authorPhoto.image = workOut.userPhoto
         authorPhoto.circleImageView()
         curWorkOut = workOut
-        if(workOut.favor){
-            addToFavouriteBtn.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-            addToFavouriteBtn.tintColor = starImage.tintColor
-        }else{
-            addToFavouriteBtn.setImage(UIImage(systemName: "bookmark"), for: .normal)
-            addToFavouriteBtn.tintColor = .black
+        checkFav()
+    }
+    
+    func checkFav(){
+        guard let curWorkOut = curWorkOut else {
+            return
         }
+        guard let user = Auth.auth().currentUser else {return}
+        guard let email = user.email else {return}
+        let safeEmail = DatabaseManager.safeEmail(userEmail: email)
+        let workoutID = DatabaseManager.safeEmail(userEmail: curWorkOut.userName) + "_" + curWorkOut.workOutName
         
-        if let row = workOuts.firstIndex(where: {$0.workoutId == workOut.workoutId}) {
-            index = row
-        }
+        Database.database().reference().child("users/\(safeEmail)").child("favWorkOuts").observeSingleEvent(of: .value, with: { snapshot in
+            // Get user value
+            let workOutIdList = snapshot.value as? [String] ?? []
+            
+
+            if(workOutIdList.contains(workoutID)){
+                // Exist in the favList, So Remove
+                self.addToFavouriteBtn.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+                self.addToFavouriteBtn.tintColor = self.starImage.tintColor
+
+            }else{
+                self.addToFavouriteBtn.setImage(UIImage(systemName: "bookmark"), for: .normal)
+                self.addToFavouriteBtn.tintColor = .black
+
+            }
+
+          }) { error in
+            print(error.localizedDescription)
+          }
     }
 }
 

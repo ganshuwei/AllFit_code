@@ -92,11 +92,11 @@ class homeViewController: UIViewController {
                 var exerciseList : [Exercise] = []
                 for dic in workout_exercises{
                     // Add the exercise image
-                    //let exerciseImageFile = dic["exercise_image"] as? String ?? ""
-                    //let path = "images/" + exerciseImageFile
+                    let exerciseImageFile = dic["exercise_image"] as? String ?? ""
+//                    let path = "images/" + exerciseImageFile
                     //self.getExerciseImage(imageUrl: path)
                     
-                    let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image_path: dic["exercise_image"] as! String  ,exercise_image: UIImage(systemName: "person"))
+                    let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image_path: exerciseImageFile,exercise_image: UIImage(systemName: "person"))
                     exerciseList.append(exercise)
                 }
                 // Get the workout image
@@ -117,7 +117,6 @@ class homeViewController: UIViewController {
                                         return
                                     }
                                     let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: UIImage(systemName: "person"), workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
-//                                    print("workout is ",workout)
                                     self.allWorkouts.append(workout)
                                     self.collection.reloadData()
                                 }
@@ -150,7 +149,6 @@ extension homeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
         print("all workouts is ",allWorkouts)
         cell.setUp(with: allWorkouts[indexPath.row])
-        cell.index = indexPath.row
         
         return cell
     }

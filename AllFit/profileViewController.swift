@@ -5,6 +5,7 @@ import FirebaseAuth
 import Firebase
 import FirebaseDatabase
 import SDWebImage
+import AVFoundation
 
 class profileViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource {
     
@@ -22,13 +23,8 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     
     @IBOutlet weak var control: UISegmentedControl!
     var user: User?
-    var savedWorkOuts : [WorkOut] = []
-    var personalWorkOuts : [WorkOut] = []
-    var option: Bool = true // true means personal; false means saved
     var ifLogin = false
-    var ref: DatabaseReference! = Database.database().reference()
-     
-    var createdWorkouts: [[String:Any]]=[]
+    var displayWorkOuts : [WorkOut] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +54,7 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
             self.usernameLabel.text = value?["username"] as? String ?? ""
             self.bioLabel.text = value?["bio"] as? String ?? ""
             self.user = User(userEmail: email, username: value?["username"] as? String ?? "", firstName: value?["first_name"] as? String ?? "", lastName: value?["last_name"] as? String ?? "", bio: value?["bio"] as? String ?? "", birthday: value?["birthday"] as? String ?? "", profilePhoto: self.profilePhoto.image)
+            self.getWorkOutList(targetNode: "favWorkOuts")
         }) { error in
           print(error.localizedDescription)
         }
@@ -74,15 +71,25 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
                 print("Fail to get the user profile photo: \(error)")
             }
         })
-        
+
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        collectionView.reloadData()
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        displayWorkOuts = []
         collectionView.reloadData()
+        if control.selectedSegmentIndex == 0{
+            // Display the user favourite workouts
+            getWorkOutList(targetNode: "favWorkOuts")
+        
+        }else if control.selectedSegmentIndex == 1{
+            // Display the user created workout
+            getWorkOutList(targetNode: "createdWorkouts")
+        }
     }
     
     @IBAction func settingAction(_ sender: UIBarButtonItem) {
@@ -129,114 +136,115 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     }
     
     @IBAction func controlAction(_ sender: UISegmentedControl) {
+        displayWorkOuts = []
+        collectionView.reloadData()
         if sender.selectedSegmentIndex == 0{
             // Display the user favourite workouts
-            if let workoutList = getWorkOutList(targetNode: "favWorkOuts"){
-                savedWorkOuts = workoutList
-            }
-            option = false
+            getWorkOutList(targetNode: "favWorkOuts")
         
         }else if sender.selectedSegmentIndex == 1{
             // Display the user created workout
-            if let workoutList = getWorkOutList(targetNode: "createdWorkouts"){
-                personalWorkOuts = workoutList
-            }
-            option = true
+            getWorkOutList(targetNode: "createdWorkouts")
         }
-        collectionView.reloadData()
-    }
-    func test(){
-        let safeEmail = "test2-gmail-com"
-        Database.database().reference().child("users/\(safeEmail)/createdWorkouts").observeSingleEvent(of: .value, with: { snapshot in
-            print("1")
-        }){error in
-            print(error.localizedDescription)
-        }
-                                                                                                       
-            
-    }
-    func getWorkoutInfo(userEmail: String) -> [[String:Any]]{
-        
-        print("in get workout info")
-        print("user email is ",userEmail)
-
-                
-        Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
-
-            for case let child as DataSnapshot in snapshot.children {
-                guard let workoutInfo = child.value as? [String:Any] else {
-                    print("Error")
-                    return
-                }
-                let thisUserEmail = workoutInfo["userEmail"]
-                let thisUserSafeEmail = DatabaseManager.safeEmail(userEmail: thisUserEmail as! String)
-                if thisUserSafeEmail == userEmail{
-                    print("workoutInfo is ",workoutInfo)
-                    self.createdWorkouts.append(workoutInfo)
-                }
-            }
-            print("created workout list is ",self.createdWorkouts)
-            
-            /////////////////
-            ///TODO: Update cell with createdWorkouts list data
-            ///////////////
-            
-      }) { error in
-        print(error.localizedDescription)
-      }
-        return self.createdWorkouts
     }
     
-    func getWorkOutList(targetNode: String) -> [WorkOut]?{
+    func getWorkoutInfo(workoutID : String){
+        Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value as? NSDictionary else {return}
+            guard let dict = value[workoutID] as? [String: Any] else {return}
+            let userEmail = dict["userEmail"] as? String ?? ""
+            let workOutStar = dict["workOutStar"] as? Double ?? 0.0
+            let workOutStarNum = dict["workOutStarNum"] as? Int ?? 0
+            let workOutName = dict["workOutName"]as? String ?? ""
+            let workOutDifficulty = dict["workOutDifficulty"]as? String ?? ""
+            let workOutDescription = dict["workOutDescription"]as? String ?? ""
+            let workoutId = dict["workoutId"]as? String ?? ""
+            let workoutDate = dict[ "workoutDate"]as? String ?? ""
+            let workoutTotalSeconds = dict["workoutTotalSeconds"]as? Int ?? 0
+            let finishedWorkout = dict["finishedWorkout"]as? Bool ?? false
+            let workout_exercises2 = dict["workout_exercises"] as? NSArray
+            
+            let objCArray = NSMutableArray(array: workout_exercises2 ?? [])
+            let workout_exercises: [[String:Any]] = objCArray.compactMap({ $0 as? [String:Any] })
+            
+            var exerciseList : [Exercise] = []
+            for dic in workout_exercises{
+                // Add the exercise image
+                let exerciseImageFile = dic["exercise_image"] as? String ?? ""
+                let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image_path: exerciseImageFile,exercise_image: UIImage(systemName: "person"))
+                exerciseList.append(exercise)
+            }
+            let workoutImageFile = dict["workOutImage"] as? String ?? ""
+            let path = "images/" + workoutImageFile
+            var workoutImage : UIImage?
+            StorageManager.share.fetchPicUrl(for: path, completion: {result in
+                switch result{
+                case .success(let url):
+                    DispatchQueue.global().async {
+                        // Fetch Image Data
+                        if let data = try? Data(contentsOf: url) {
+                            DispatchQueue.main.async {
+                                // Create Image and Update Image View
+                               workoutImage = UIImage(data: data)
+                                guard let workoutImage = workoutImage else {
+                                    return
+                                }
+                                let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: UIImage(systemName: "person"), workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
+                                self.displayWorkOuts.append(workout)
+                                self.collectionView.reloadData()
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    print("Fail to get the workout image: \(error)")
+                }
+            })
+          }) { error in
+            print(error.localizedDescription)
+          }
+    }
+    
+    func getWorkOutList(targetNode: String){
         print("target node is ",targetNode)
                 
-        Database.database().reference().child("users").child("test-gmail-com").child("createdWorkouts").observeSingleEvent(of: .value, with: { snapshot in
+        guard let user = user else {
+            return
+        }
+        
+        let safeEmail = user.safeEmail
+//        Database.database().reference().child("users").child("test-gmail-com").child("createdWorkouts").observeSingleEvent(of: .value, with: { snapshot in
+        Database.database().reference().child("users/\(safeEmail)").child(targetNode).observeSingleEvent(of: .value, with: { snapshot in
 
             for case let child as DataSnapshot in snapshot.children {
-                print("createdWorkouts child value is ",child.value)
                 guard let workoutId = child.value as? String else {
                     print("Error")
                     return
                 }
-                print("workoutId is ",workoutId)
+                print("workoutID: \(workoutId)")
                 
                 //get workout info from workouts
-                let createdWorkoutList = self.getWorkoutInfo(userEmail: "test-gmail-com")
+                self.getWorkoutInfo(workoutID: workoutId)
             }
       }) { error in
         print(error.localizedDescription)
       }
-//        let testWorkout = WorkOut(workOutStar: 4.4, workOutStarNum: 10,workOutImage: UIImage(named: "workout6"), workOutName: "Keep",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "George", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: "6", workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100,finishedWorkout: false)
-        print("created workout list is ",self.createdWorkouts)
-        return personalWorkOuts
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if(option){
-            return personalWorkOuts.count
-        }else{
-            return savedWorkOuts.count
-        }
+        return displayWorkOuts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
-        if(option){
-            cell.setUp(with: personalWorkOuts[indexPath.row])
-        }else{
-            cell.setUp(with: savedWorkOuts[indexPath.row])
-        }
+        cell.curWorkOut = displayWorkOuts[indexPath.row]
+        cell.setUp(with: displayWorkOuts[indexPath.row])
         cell.authorPhoto.image = profilePhoto.image
         return cell
     }
     
     // Open the workout detial page
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(option){
-            print(personalWorkOuts[indexPath.row].workOutName)
-        }else{
-            print(savedWorkOuts[indexPath.row].workOutName)
-        }
+        print(displayWorkOuts[indexPath.row].workOutName)
        
     }
 }
