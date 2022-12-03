@@ -126,17 +126,36 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
                 //if user already as a list of created workouts, append to list
                 if snapshot.hasChild("createdWorkouts"){
                     ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with: {snapshot in
-                        var createdWorkoutsList = snapshot.value as? [String]
-                        createdWorkoutsList?.append(workoutId)
-                        ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
+                        let createdWorkoutsList = snapshot.value as? [String]
+                        guard var createdWorkoutsList = createdWorkoutsList else {return}
+                        if createdWorkoutsList.contains(workoutId){
+                            let alert = UIAlertController(title: "Duplicate Workout Name", message: "Use Another Workout Name", preferredStyle: .alert)
+                            let defaultAction2 = UIAlertAction(title: "OK", style: .default, handler: { action in
+                                        })
+                            alert.addAction(defaultAction2)
+                            self.present(alert, animated: true)
+                            return
+                        }else{
+                            createdWorkoutsList.append(workoutId)
+                            ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
+                        }
+
                     })
                 }
                 //create list if there isn't
                 else{
-                    ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(firebaseWorkoutInfo)
+                    let inputIdList=[workoutId]
+                    ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(inputIdList)
                 }
             })
             ref.child("workouts").child(workoutId).setValue(firebaseWorkoutInfo)
+//            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+//            let VC = storyboard.instantiateViewController(withIdentifier: "createWorkOutVC") as! CreateWorkoutView
+//            var vcs = self.navigationController!.viewControllers // get all vcs
+//            vcs = vcs.dropLast()
+//            vcs.append(VC)
+//            self.navigationController!.setViewControllers(vcs,animated:false)
+//
         }
     }
     //create table view
@@ -243,3 +262,87 @@ extension CreateWorkoutView: UIImagePickerControllerDelegate, UINavigationContro
     }
 }
 
+//
+//@IBAction func postWorkoutBtn(_ sender: Any) {
+//    let workoutInfo = WorkOut(workOutStar:5.0,
+//                              workOutStarNum: 0,
+//                              workOutImage:workoutImage.image,
+//                              workOutName: workoutName.text!,
+//                              workOutDifficulty: workoutDifficultyString,
+//                              workOutDescription:"blabla",
+//                              userName:"mel",
+//                              userPhoto:UIImage(systemName: "person.crop.circle"),
+//                              workoutId:String(workOuts.count + 1),
+//                              workout_exercises: exerciseArray,
+//                              workoutDate: "11/22/2022",
+//                              workoutTotalSeconds: 100,
+//                              finishedWorkout: false
+//                            )
+//    workOuts.append(workoutInfo)
+//    personal.append(workoutInfo)
+//
+//    //get image url
+//    guard let workOutimage=workoutImage.image, let data = workOutimage.pngData() else {return}
+//
+//    let randomNumberWorkout = String(Int.random(in: 1...1000000))
+//    let fileName = workoutName.text! + randomNumberWorkout + "_workout_photo.png"
+//    StorageManager.share.uploadProfilePicture(with: data, fileName: fileName, completion:{result in
+//        switch result {
+//            case .success(let downloadUrl):
+//                print(downloadUrl)
+//            case .failure(let error):
+//                print("Firebase storage error: \(error)")
+//        }
+//    })
+//
+//    let firebaseWorkoutInfo: [String:Any] = [
+//          "workOutStar":5.0,
+//          "workOutStarNum": 0,
+//          "workOutImage":fileName,
+//          "workOutName": workoutName.text!,
+//          "workOutDifficulty": workoutDifficultyString,
+//          "workOutDescription":"blabla",
+//          "userEmail": Auth.auth().currentUser!.email!,
+//          "workoutId": workoutName.text! + randomNumberWorkout,
+//          "workout_exercises": exerciseArrayFirebase,
+//          "workoutDate": "11/20/2022",
+//          "workoutTotalSeconds": 100,
+//          "finishedWorkout": false
+//    ]
+//    //push to firebase
+//    //if first time pushing, need to create new list
+//    //if list is there, append to list
+//    var ref: DatabaseReference!
+//    ref = Database.database().reference()
+//    var firebaseEmail = Auth.auth().currentUser!.email!
+//    firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
+//    firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
+//
+//    let workoutId = firebaseEmail + "_" + workoutName.text!
+//
+//    if firebaseEmail != nil{
+//        //replace dot by dash
+//
+//        print("firebase email is ",firebaseEmail)
+//        print("workout id is ",workoutId)
+//
+//        //push created workouts to user table
+//
+//        //get list of created workouts for this user
+//        ref.child("users").child(firebaseEmail).observeSingleEvent(of: .value, with: {snapshot in
+//            //if user already as a list of created workouts, append to list
+//            if snapshot.hasChild("createdWorkouts"){
+//                ref.child("users").child(firebaseEmail).child("createdWorkouts").observeSingleEvent(of: .value, with: {snapshot in
+//                    var createdWorkoutsList = snapshot.value as? [String]
+//                    createdWorkoutsList?.append(workoutId)
+//                    ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(createdWorkoutsList)
+//                })
+//            }
+//            //create list if there isn't
+//            else{
+//                ref.child("users").child(firebaseEmail).child("createdWorkouts").setValue(firebaseWorkoutInfo)
+//            }
+//        })
+//        ref.child("workouts").child(workoutId).setValue(firebaseWorkoutInfo)
+//    }
+//}
