@@ -33,6 +33,17 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     @IBOutlet weak var detailedDescription: UILabel!
     @IBOutlet weak var exerciseTable: UITableView!
     
+    @IBOutlet weak var timeBasedLabel: UILabel!
+    @IBOutlet weak var repBasedLabel: UILabel!
+    
+    @IBOutlet weak var durationLabel: UILabel!
+    
+    @IBOutlet weak var dumbellImage: UIImageView!
+    @IBOutlet weak var matImage: UIImageView!
+    @IBOutlet weak var bikeImage: UIImageView!
+    
+    @IBOutlet weak var equipmentBackground: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +53,72 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
         detailedRating.text = String(wkoutRating)
         detailedDifficulty.text = wkoutDifficulty
         detailedDescription.text = wkoutDescription
+        
+        durationLabel.isHidden=true
+        dumbellImage.isHidden=true
+        matImage.isHidden=true
+        bikeImage.isHidden=true
+        equipmentBackground.isHidden=true
+
+        var timedExercises = false
+        var repExercises = false
+        for exercise in wkoutExercises {
+            if exercise.exercise_repOrTime == "time"{
+                timedExercises = true
+            }
+            if exercise.exercise_repOrTime == "rep"{
+                repExercises = true
+            }
+        }
+        print("repExercises is ",repExercises)
+        print("timedExercises is ",timedExercises)
+
+        //if both are true
+        if (repExercises == true && timedExercises == true) {
+            timeBasedLabel.isHidden=false
+            repBasedLabel.isHidden=false
+        }
+        //if rep workouts
+        else if (repExercises == true && timedExercises == false) {
+            repBasedLabel.isHidden=false
+            timeBasedLabel.isHidden=true
+
+        }
+        else if (repExercises == false && timedExercises == true){
+            repBasedLabel.isHidden=true
+            timeBasedLabel.isHidden=false
+            //compute total time
+            var totalExerciseTime = 0
+            for exercise in wkoutExercises {
+                totalExerciseTime += exercise.exercise_repOrTimeValue as! Int
+            }
+            durationLabel.isHidden=false
+            durationLabel.text = String(totalExerciseTime)
+        }
+        
+        //equipment images
+        var equipmentList:[String] = []
+        for exercise in wkoutExercises {
+            for equipment in exercise.exercise_equipment{
+                if !equipmentList.contains(equipment){
+                    equipmentList.append(equipment)
+                }
+            }
+        }
+        print("equipment list is ",equipmentList)
+        
+        if equipmentList.contains("dumbell"){
+            dumbellImage.isHidden=false
+            equipmentBackground.isHidden=false
+        }
+        if equipmentList.contains("mat"){
+            matImage.isHidden=false
+            equipmentBackground.isHidden=false
+        }
+        if equipmentList.contains("bike"){
+            bikeImage.isHidden=false
+            equipmentBackground.isHidden=false
+        }
         
         //display exercises in table
         //display them

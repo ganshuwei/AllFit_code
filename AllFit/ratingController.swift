@@ -124,6 +124,5 @@ class ratingController : UIViewController{
 
         }
         //redirect to analytics
-        
     }
 }
