@@ -18,16 +18,13 @@ class homeViewController: UIViewController {
         collection.dataSource = self
         collection.delegate = self
         collection.collectionViewLayout = UICollectionViewFlowLayout()
-        collection.reloadData()
-        fetchAllWorkOuts()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        self.collection.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         validateLogIn()
+        fetchAllWorkOuts()
+        collection.reloadData()
     }
 
     private func validateLogIn(){
@@ -65,6 +62,8 @@ class homeViewController: UIViewController {
     
     // ToDo: Add all the workouts into allWorkouts
     func fetchAllWorkOuts(){
+        allWorkouts = []
+        collection.reloadData()
         Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
 
             for case let child as DataSnapshot in snapshot.children {

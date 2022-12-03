@@ -19,6 +19,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var workoutDescription: UITextField!
     
     var workoutDifficultyString=""
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,28 +58,12 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func postWorkoutBtn(_ sender: Any) {
-        let workoutInfo = WorkOut(workOutStar:5.0,
-                                  workOutStarNum: 0,
-                                  workOutImage:workoutImage.image,
-                                  workOutName: workoutName.text!,
-                                  workOutDifficulty: workoutDifficultyString,
-                                  workOutDescription:"blabla",
-                                  userName:"mel",
-                                  userPhoto:UIImage(systemName: "person.crop.circle"),
-                                  workoutId:String(workOuts.count + 1),
-                                  workout_exercises: exerciseArray,
-                                  workoutDate: "11/22/2022",
-                                  workoutTotalSeconds: 100,
-                                  finishedWorkout: false
-                                )
-        workOuts.append(workoutInfo)
-        personal.append(workoutInfo)
-        
         //get image url
         guard let workOutimage=workoutImage.image, let data = workOutimage.pngData() else {return}
         
         let randomNumberWorkout = String(Int.random(in: 1...1000000))
         let fileName = workoutName.text! + randomNumberWorkout + "_workout_photo.png"
+        let dateFormatter : DateFormatter = DateFormatter()
         StorageManager.share.uploadProfilePicture(with: data, fileName: fileName, completion:{result in
             switch result {
                 case .success(let downloadUrl):
@@ -88,17 +73,33 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
             }
         })
         
+        // will be added to allworkouts to reload the home view collection after posting
+        let workoutInfo = WorkOut(workOutStar:5.0,
+                                  workOutStarNum: 0,
+                                  workOutImage:workoutImage.image,
+                                  workOutName: workoutName.text!,
+                                  workOutDifficulty: workoutDifficultyString,
+                                  workOutDescription:workoutDescription.text ?? "",
+                                  userName:Auth.auth().currentUser!.email!,
+                                  userPhoto:UIImage(systemName: "person.crop.circle"),
+                                  workoutId:workoutName.text! + randomNumberWorkout,
+                                  workout_exercises: exerciseArray,
+                                  workoutDate: dateFormatter.string(from: Date()),
+                                  workoutTotalSeconds: 100,
+                                  finishedWorkout: false
+                                )
+        
         let firebaseWorkoutInfo: [String:Any] = [
               "workOutStar":5.0,
               "workOutStarNum": 0,
               "workOutImage":fileName,
               "workOutName": workoutName.text!,
               "workOutDifficulty": workoutDifficultyString,
-              "workOutDescription":"blabla",
+              "workOutDescription":workoutDescription.text,
               "userEmail": Auth.auth().currentUser!.email!,
               "workoutId": workoutName.text! + randomNumberWorkout,
               "workout_exercises": exerciseArrayFirebase,
-              "workoutDate": "11/20/2022",
+              "workoutDate": dateFormatter.string(from: Date()),
               "workoutTotalSeconds": 100,
               "finishedWorkout": false
         ]
@@ -149,12 +150,12 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
                 }
             })
             ref.child("workouts").child(workoutId).setValue(firebaseWorkoutInfo)
-//            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-//            let VC = storyboard.instantiateViewController(withIdentifier: "createWorkOutVC") as! CreateWorkoutView
-//            var vcs = self.navigationController!.viewControllers // get all vcs
-//            vcs = vcs.dropLast()
-//            vcs.append(VC)
-//            self.navigationController!.setViewControllers(vcs,animated:false)
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let VC = storyboard.instantiateViewController(withIdentifier: "createWorkOutVC") as! CreateWorkoutView
+            var vcs = self.navigationController!.viewControllers // get all vcs
+            vcs = vcs.dropLast()
+            vcs.append(VC)
+            self.navigationController!.setViewControllers(vcs,animated:false)
 //
         }
     }
