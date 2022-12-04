@@ -42,7 +42,7 @@ struct WorkOut {
     let workOutDifficulty:String
     let workOutDescription: String
     let userName:String
-    let userPhoto: UIImage?
+    var userPhoto: UIImage?
     let workoutId : String
     let workout_exercises: [Exercise]
     var favor = false
@@ -61,12 +61,6 @@ var workOuts : [WorkOut] = [
     WorkOut(workOutStar: 4.4, workOutStarNum: 10,workOutImage: UIImage(named: "workout6"), workOutName: "Keep",workOutDifficulty:"Easy", workOutDescription:"bla",userName: "George", userPhoto: UIImage(systemName: "person.crop.circle"),workoutId: "6", workout_exercises: [],workoutDate: "11/22/2022",workoutTotalSeconds: 100,finishedWorkout: false)
 ]
 
-//var workOuts : [WorkOut] = []
-
-var favourite: [WorkOut] = []
-
-var personal: [WorkOut] = []
-
 // ===== Mel code =====
 
 struct Exercise{
@@ -84,5 +78,4 @@ struct Exercise{
 var exerciseArray: [Exercise] = []
 var exerciseArrayFirebase: [[String:Any]] = [[:]]
 
-var testUser = User(userEmail: "", profilePhoto: UIImage(systemName: "person"))
 

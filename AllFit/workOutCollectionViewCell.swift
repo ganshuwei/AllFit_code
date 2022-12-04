@@ -27,6 +27,8 @@ class workOutCollectionViewCell : UICollectionViewCell{
 
     var curWorkOut : WorkOut?
     
+    var completionHandler: ((UIImage) -> Void)?
+    
     
     
     @IBAction func addToFavAction(_ sender: UIButton) {
@@ -71,15 +73,18 @@ class workOutCollectionViewCell : UICollectionViewCell{
         let safeEmail = DatabaseManager.safeEmail(userEmail: workOut.userName)
         let fileName = safeEmail + "_profile_photo.png"
         let path = "images/" + fileName
-        StorageManager.share.fetchPicUrl(for: path, completion: {result in
-            switch result{
-            case .success(let url):
-                self.authorPhoto.sd_setImage(with: url, completed: nil)
-            case .failure(let error):
-                print("Fail to get the user profile photo: \(error)")
-            }
-        })
-        authorPhoto.image = workOut.userPhoto
+        if(workOut.userPhoto == UIImage(systemName: "person.crop.circle.fill")){
+            StorageManager.share.fetchPicUrl(for: path, completion: {result in
+                switch result{
+                case .success(let url):
+                    self.authorPhoto.sd_setImage(with: url, completed: nil)
+                    guard let image = self.authorPhoto.image else {return}
+                    self.completionHandler?(image)
+                case .failure(let error):
+                    print("Fail to get the user profile photo: \(error)")
+                }
+            })
+        }
         authorPhoto.circleImageView()
         curWorkOut = workOut
         checkFav()

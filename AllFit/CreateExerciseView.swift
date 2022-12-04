@@ -48,12 +48,28 @@ class CreateExerciseView: UIViewController{
     }
     
     @IBAction func submitExerciseClick(_ sender: Any) {
-        print("exercise submited")
-        //get values from interface
-//        let equipmentList=["dumbell","mat"]
-
-
+        // Check exercise equiment select or empty
+        if(matBtn.tintColor == UIColor.systemGray5 && bikeBtn.tintColor == UIColor.systemGray5 && dumbellBtn.tintColor == UIColor.systemGray5){
+            let alert = UIAlertController(title: "Missing Equipment", message: "You must select at least one equipment.", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { action in
+                        })
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true)
+            return
+        }
+        // Check the textField
+        if let exerciseNameString = exerciseName.text, let repOrTimeValueString = repOrTimeValue.text{
+            if(exerciseNameString.isEmpty || repOrTimeValueString.isEmpty){
+                let alert = UIAlertController(title: "Missing input words", message: "You must set the exercise name and time.", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { action in
+                            })
+                alert.addAction(defaultAction)
+                self.present(alert, animated: true)
+                return
+            }
+        }
         
+        //get values from interface
         //get exercise image url
         guard let exerciseImage=exerciseImage.image, let data = exerciseImage.pngData() else {return}
         let randomNumber = String(Int.random(in: 1...1000000))

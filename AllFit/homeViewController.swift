@@ -47,8 +47,6 @@ class homeViewController: UIViewController {
                         DispatchQueue.main.async {
                             // Create Image and Update Image View
                             exerciseImage = UIImage(data: data)
-                            print("exercise image is ",exerciseImage)
-                            print("exercise image! is ",exerciseImage!)
                         }
                     }
                 }
@@ -59,11 +57,7 @@ class homeViewController: UIViewController {
     }
     
     
-    
-    // ToDo: Add all the workouts into allWorkouts
     func fetchAllWorkOuts(){
-        allWorkouts = []
-        collection.reloadData()
         Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
 
             for case let child as DataSnapshot in snapshot.children {
@@ -71,10 +65,27 @@ class homeViewController: UIViewController {
                     print("Error")
                     return
                 }
+                let workOutName = dict["workOutName"]as? String ?? ""
+                
+                // Check whether exists in the allWorkouts list
+                if(self.allWorkouts.count != 0){
+                    var exist = false
+                    for workout in self.allWorkouts{
+                        if(workout.workOutName == workOutName){
+                            exist = true
+                            // This child has existed in the allworkouts list
+                            break
+                        }
+                    }
+                    if(exist){
+                        // Skip this child
+                        continue
+                    }
+                }
+                
                 let userEmail = dict["userEmail"] as? String ?? ""
                 let workOutStar = dict["workOutStar"] as? Double ?? 0.0
                 let workOutStarNum = dict["workOutStarNum"] as? Int ?? 0
-                let workOutName = dict["workOutName"]as? String ?? ""
                 let workOutDifficulty = dict["workOutDifficulty"]as? String ?? ""
                 let workOutDescription = dict["workOutDescription"]as? String ?? ""
                 let workoutId = dict["workoutId"]as? String ?? ""
@@ -92,8 +103,6 @@ class homeViewController: UIViewController {
                 for dic in workout_exercises{
                     // Add the exercise image
                     let exerciseImageFile = dic["exercise_image"] as? String ?? ""
-//                    let path = "images/" + exerciseImageFile
-                    //self.getExerciseImage(imageUrl: path)
                     
                     let exercise = Exercise(exercise_name: dic["exercise_name"] as? String ?? "", exercise_type: dic["exercise_type"]as? String ?? "", exercise_repOrTime: dic["exercise_repOrTime"]as? String ?? "", exercise_repOrTimeValue: dic["exercise_repOrTimeValue"]as? String ?? "", exercise_equipment: dic["exercise_equipment"] as? [String] ?? [], exercise_time: dic["exercise_time"] as? Int ?? 0, exercise_image_path: exerciseImageFile,exercise_image: UIImage(systemName: "person"))
                     exerciseList.append(exercise)
@@ -115,7 +124,7 @@ class homeViewController: UIViewController {
                                     guard let workoutImage = workoutImage else {
                                         return
                                     }
-                                    let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: UIImage(systemName: "person"), workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
+                                    let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: UIImage(systemName: "person.crop.circle.fill"), workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
                                     self.allWorkouts.append(workout)
                                     self.collection.reloadData()
                                 }
@@ -148,7 +157,9 @@ extension homeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
         print("all workouts is ",allWorkouts)
         cell.setUp(with: allWorkouts[indexPath.row])
-        
+        cell.completionHandler = { newImage in
+            self.allWorkouts[indexPath.row].userPhoto = newImage
+        }
         return cell
     }
 }
@@ -190,37 +201,3 @@ extension homeViewController: UICollectionViewDelegate {
         navigationController?.pushViewController(detailedVC, animated: true)
     }
 }
-
-//                // Get the author's profile photo
-//                // Todo: change username to userSafeEmail
-//                let safeEmail = DatabaseManager.safeEmail(userEmail: userEmail)
-//                let profilePhotoFileName = "\(safeEmail)_profile_photo.png"
-//                let profilePhotoPath = "images/" + profilePhotoFileName
-//                var profilePhoto : UIImage?
-//                StorageManager.share.fetchPicUrl(for: profilePhotoPath, completion: {result in
-//                    switch result{
-//                    case .success(let url):
-//                        DispatchQueue.global().async {
-//                            // Fetch Image Data
-//                            print("profile photo url is ",url)
-//                            if let data = try? Data(contentsOf: url) {
-//                                DispatchQueue.main.async {
-//                                    // Create Image and Update Image View
-//                                    profilePhoto = UIImage(data: data)
-//
-//                                    guard let profilePhoto = profilePhoto else {
-//                                        profilePhoto = UIImage(systemName: "person")
-//                                        return
-//                                    }
-//                                    print("profile photo is ",profilePhoto)
-//
-//                                    let workout = WorkOut(workOutStar: workOutStar, workOutStarNum: workOutStarNum, workOutImage: workoutImage, workOutName: workOutName, workOutDifficulty: workOutDifficulty, workOutDescription: workOutDescription, userName: userEmail, userPhoto: profilePhoto, workoutId: workoutId, workout_exercises: exerciseList, workoutDate: workoutDate, workoutTotalSeconds: workoutTotalSeconds, finishedWorkout: finishedWorkout)
-//                                    print("workout is ",workout)
-//                                    self.allWorkouts.append(workout)
-//                                }
-//                            }
-//                        }
-//                    case .failure(let error):
-//                        print("Fail to get the user profile photo: \(error)")
-//                    }
-//                })
