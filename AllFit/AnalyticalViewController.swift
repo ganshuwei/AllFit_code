@@ -211,8 +211,8 @@ class AnalyticalViewController: UIViewController {
             chart.view.frame = self.bgViewOfBar.bounds
             chart.view.center=self.bgViewOfBar.center
             self.bgViewOfBar.addSubview(chart.view)
-            yearView?.removeFromSuperview()
-            yearView = chart.view
+            weekView?.removeFromSuperview()
+            weekView = chart.view
         }
 
         
@@ -251,6 +251,9 @@ class AnalyticalViewController: UIViewController {
             chart.view.frame = self.bgViewOfLine.bounds
             chart.view.center=self.bgViewOfLine.center
             self.bgViewOfLine.addSubview(chart.view)
+            yearView?.removeFromSuperview()
+            yearView = chart.view
+            
             
         }else{
             let chartView = LineChartView(data: showList1, title: "Year Exercise Time(s)", style: self.chartStyleOfLine!, form: ChartForm.extraLarge,rateValue:nil,dropShadow: false)
@@ -259,6 +262,8 @@ class AnalyticalViewController: UIViewController {
             chart.view.frame = self.bgViewOfLine.bounds
             chart.view.center=self.bgViewOfLine.center
             self.bgViewOfLine.addSubview(chart.view)
+            yearView?.removeFromSuperview()
+            yearView = chart.view
         }
         
         
