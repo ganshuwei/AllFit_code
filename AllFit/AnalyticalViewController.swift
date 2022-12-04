@@ -11,6 +11,9 @@ import SwiftUI
 import FirebaseAuth
 import Firebase
 import FirebaseDatabase
+import CoreMedia
+import DropDown
+import Charts
 
 
 
@@ -24,10 +27,22 @@ class AnalyticalViewController: UIViewController {
     @IBOutlet weak var preY: UIButton!
     @IBOutlet weak var nextY: UIButton!
     @IBOutlet weak var yearL: UILabel!
+    @IBOutlet weak var dropDownView: UIView!
+    @IBOutlet weak var dropDownView1: UIView!
+    @IBOutlet weak var weekChartType: UILabel!
+    @IBOutlet weak var yearChartType: UILabel!
+    @IBOutlet weak var downClickOfWeek: UIButton!
+    @IBOutlet weak var downClickOfYear: UIButton!
+    let myDropDownWeek = DropDown()
+    let myDropDownYear = DropDown()
+    let typeArray = ["Bar Chart","Line Chart"]
+    let typeArray1 = ["Bar Chart","Line Chart"]
     let upperColorOfBar = Color("u")
     let lowerColorOfBar = Color("d")
     let upperColorOfLine = Color("2")
     let lowerColorOfLine = Color("1")
+    let upperColorOfBar1 = Color("2-1")
+    let lowerColorOfBar1 = Color("1-1")
     var currentWeek:[Date]!
     var currentYear:String!
     let thisWeek = Date.today().currentWeek()
@@ -35,14 +50,17 @@ class AnalyticalViewController: UIViewController {
     var yearDict:[String:Int]=[:]
     var chartStyleOfLine:ChartStyle?
     var chartStyleOfBar:ChartStyle?
+    var chartStyleOfBar1:ChartStyle?
+    var ifWeekBarChart=true
+    var ifYearBarChart=true
 
     
     
     
 
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.fetchData()
+    override func viewWillAppear(_ animated: Bool)  {
+        fetchData()
     }
     
     override func viewDidLoad() {
@@ -53,6 +71,29 @@ class AnalyticalViewController: UIViewController {
         yearL.text = currentYear
         setUpChartSytle()
         fetchData()
+        setupDropDown()
+        
+        let barchartView = BarChartView(data: ChartData(values: [("Mon",63150),("Tue",77550), ("Wed",79600), ("Thu",92550),("Fri",92550),("Sat",92550),("Sun",92550)]),title:"Week Exercise Time(h)",style: chartStyleOfBar!,form: ChartForm.extraLarge)
+
+        let linechartView =  LineChartView(data: [8,23,54,80,12,37,7,23,43,12,31,23], title: "Year Exercise Time(h)", style: chartStyleOfBar!,form: ChartForm.extraLarge,dropShadow: false) // legend is optional
+
+        let barChart = UIHostingController(rootView: barchartView)
+        barChart.view.translatesAutoresizingMaskIntoConstraints = false
+        barChart.view.frame = bgViewOfBar.bounds
+        barChart.view.center=bgViewOfBar.center
+
+
+//        // First, add the view of the child to the view of the parent
+//        bgViewOfBar.addSubview(barChart.view)
+//        // Then, add the child to the parent
+//        //self.addChild(child)
+//
+        let lineChart = UIHostingController(rootView: linechartView)
+        lineChart.view.translatesAutoresizingMaskIntoConstraints = false
+        lineChart.view.frame = bgViewOfLine.bounds
+        lineChart.view.center=bgViewOfLine.center
+        bgViewOfLine.addSubview(lineChart.view)
+        
         
         
         
@@ -62,7 +103,6 @@ class AnalyticalViewController: UIViewController {
         
         
         // Do any additional setup after loading the view.
-        
         
     }
     
@@ -106,10 +146,15 @@ class AnalyticalViewController: UIViewController {
                 //get workout info from workouts
                 //self.getWorkoutInfo(workoutID: workoutId)
             }
+            self.showWeekChart()
+            self.showYearChart()
+
+            
+
+
+            
         
-        self.showWeekChart()
-        self.showYearChart()
-        print("1")
+
             
 //            for case let child as DataSnapshot in snapshot.children{
 //                guard let finishedWorkout = child.value as? FinishedWorkout else{
@@ -123,81 +168,134 @@ class AnalyticalViewController: UIViewController {
             print(error.localizedDescription)
         }
 
+        
     }
     
     func showWeekChart(){
         var showList = [("Mon",0),("Tue",0), ("Wed",0),("Thu",0),("Fri",0),("Sat",0),("Sun",0)]
+        var showList1 = [Double(0),Double(0),Double(0),Double(0),Double(0),Double(0),Double(0)]
         var index = 0
         for date in currentWeek{
             let dateStr = dateToStr(date: date, ifnum: true)
             if dayDict[dateStr] != nil{
-                showList[index].1 = dayDict[dateStr]!
+                if ifWeekBarChart{
+                    showList[index].1 = dayDict[dateStr]!
+                }else{
+                    showList1[index] = Double(dayDict[dateStr]!)
+                }
+                
             }
             index+=1
         }
         //remove subview
-        for view in bgViewOfBar.subviews{
-            view.removeFromSuperview()
+        if ifWeekBarChart{
+            let chartView = BarChartView(data: ChartData(values: showList),title:"Week Exercise Time(s)",style: self.chartStyleOfBar!,form: ChartForm.extraLarge,dropShadow: false)
+            let chart = UIHostingController(rootView: chartView)
+            chart.view.translatesAutoresizingMaskIntoConstraints = false
+            chart.view.frame = self.bgViewOfBar.bounds
+            chart.view.center=self.bgViewOfBar.center
+            self.bgViewOfBar.addSubview(chart.view)
+            
+        }else{
+            let chartView = LineChartView(data: showList1, title: "Week Exercise Time(s)", style: self.chartStyleOfLine!, form: ChartForm.extraLarge,rateValue:nil,dropShadow: false)
+            let chart = UIHostingController(rootView: chartView)
+            chart.view.translatesAutoresizingMaskIntoConstraints = false
+            chart.view.frame = self.bgViewOfBar.bounds
+            chart.view.center=self.bgViewOfBar.center
+            self.bgViewOfBar.addSubview(chart.view)
         }
-        
-        let barchartView = BarChartView(data: ChartData(values: showList),title:"Week Exercise Time(h)",style: chartStyleOfBar!,form: ChartForm.extraLarge)
-        let barChart = UIHostingController(rootView: barchartView)
-        barChart.view.translatesAutoresizingMaskIntoConstraints = false
-        barChart.view.frame = bgViewOfBar.bounds
-        barChart.view.center=bgViewOfBar.center
-        bgViewOfBar.addSubview(barChart.view)
+
         
     }
     
     func showYearChart(){
-        var showList:[Double]=[]
+        var showList1:[Double]=[]
+        var showList2:[(String,Int)]=[]
         let helper = ["/01","/02","/03","/04","/05","/06","/07","/08","/09","/10","/11","/12"]
+        var index = 1
         for month in helper{
             let yearStr = String(currentYear.suffix(2)) + month
             if yearDict[yearStr] != nil{
-                showList.append(Double(yearDict[yearStr]!))
+                if ifYearBarChart{
+                    let added = (String(index),yearDict[yearStr]!)
+                    showList2.append(added)
+                }else{
+                    showList1.append(Double(yearDict[yearStr]!))
+                }
             }else{
-                showList.append(Double(0))
+                if ifYearBarChart{
+                    let added = (String(index),0)
+                    showList2.append(added)
+                }else{
+                    showList1.append(Double(0))
+                }
+                
             }
+            index += 1
         }
-        for view in bgViewOfLine.subviews{
-            view.removeFromSuperview()
+
+        if ifYearBarChart{
+            let chartView = BarChartView(data: ChartData(values: showList2),title:"Year Exercise Time(s)",style: self.chartStyleOfBar1!,form: ChartForm.extraLarge,dropShadow: false)
+            let chart = UIHostingController(rootView: chartView)
+            chart.view.translatesAutoresizingMaskIntoConstraints = false
+            chart.view.frame = self.bgViewOfLine.bounds
+            chart.view.center=self.bgViewOfLine.center
+            self.bgViewOfLine.addSubview(chart.view)
+            
+        }else{
+            let chartView = LineChartView(data: showList1, title: "Year Exercise Time(s)", style: self.chartStyleOfLine!, form: ChartForm.extraLarge,rateValue:nil,dropShadow: false)
+            let chart = UIHostingController(rootView: chartView)
+            chart.view.translatesAutoresizingMaskIntoConstraints = false
+            chart.view.frame = self.bgViewOfLine.bounds
+            chart.view.center=self.bgViewOfLine.center
+            self.bgViewOfLine.addSubview(chart.view)
         }
-        let linechartView =  LineChartView(data: showList, title: "Year Exercise Time(h)", style: chartStyleOfBar!,form: ChartForm.extraLarge,rateValue: nil) // legend is optional
         
         
-        let lineChart = UIHostingController(rootView: linechartView)
-        lineChart.view.translatesAutoresizingMaskIntoConstraints = false
-        lineChart.view.frame = bgViewOfLine.bounds
-        lineChart.view.center=bgViewOfLine.center
-        bgViewOfLine.addSubview(lineChart.view)
+ // legend is optional
+            
+            
+
+        
+
         
         
     }
+    
     
     func setUpChartSytle(){
         chartStyleOfLine = ChartStyle(backgroundColor: Color.white, accentColor: upperColorOfLine, secondGradientColor:lowerColorOfLine , textColor: Color.gray, legendTextColor: Color.gray, dropShadowColor: Color.gray)
         
         chartStyleOfBar = ChartStyle(backgroundColor: Color.white, accentColor: upperColorOfBar, secondGradientColor:lowerColorOfBar , textColor: Color.gray, legendTextColor: Color.gray, dropShadowColor: Color.gray)
+        
+        chartStyleOfBar1 = ChartStyle(backgroundColor: Color.white, accentColor: upperColorOfBar1, secondGradientColor:lowerColorOfBar1 , textColor: Color.gray, legendTextColor: Color.gray, dropShadowColor: Color.gray)
+        
     }
     
     
     @IBAction func preWeek(_ sender: Any) {
+        preWeekBtn()
+    }
+    
+    func preWeekBtn(){
         let thisMon = currentWeek[0]
         let preMon = thisMon.perviousMonday()
         currentWeek = preMon.currentWeek()
         showDate()
         showWeekChart()
-        
     }
     
-    
-    @IBAction func nextWeek(_ sender: Any) {
+    func nextWeekBtn(){
         let thisSun = currentWeek.last!
         let nextMon = thisSun.nextWeekMonday()
         currentWeek = nextMon.currentWeek()
         showDate()
         showWeekChart()
+    }
+    
+    
+    @IBAction func nextWeek(_ sender: Any) {
+        nextWeekBtn()
     }
     
     @IBAction func preYear(_ sender: Any) {
@@ -215,6 +313,14 @@ class AnalyticalViewController: UIViewController {
         showYearChart()
     }
     
+    @IBAction func chooseChartTypeOfWeek(_ sender: Any) {
+        myDropDownWeek.show()
+    }
+    
+    
+    @IBAction func chooseChartTypeOfYear(_ sender: Any) {
+        myDropDownYear.show()
+    }
     
     
     func dateToStr(date:Date,ifnum:Bool) -> String{
@@ -247,6 +353,46 @@ class AnalyticalViewController: UIViewController {
         }
 
     }
+    
+    func setupDropDown(){
+        myDropDownWeek.anchorView = dropDownView
+        myDropDownWeek.dataSource = typeArray
+        
+        myDropDownWeek.bottomOffset = CGPoint(x: 0, y: (myDropDownWeek.anchorView?.plainView.bounds.height)!)
+        myDropDownWeek.topOffset = CGPoint(x: 0, y: -(myDropDownWeek.anchorView?.plainView.bounds.height)!)
+        myDropDownWeek.direction = .bottom
+        
+        myDropDownWeek.selectionAction = { (index: Int, item: String) in
+            self.weekChartType.text = self.typeArray[index]
+            
+            if index == 0{
+                self.ifWeekBarChart = true
+            }else{
+                self.ifWeekBarChart = false
+            }
+            self.showWeekChart()
+        }
+        myDropDownYear.anchorView = dropDownView1
+        myDropDownYear.dataSource = typeArray
+        
+        myDropDownYear.bottomOffset = CGPoint(x: 0, y: (myDropDownYear.anchorView?.plainView.bounds.height)!)
+        myDropDownYear.topOffset = CGPoint(x: 0, y: -(myDropDownYear.anchorView?.plainView.bounds.height)!)
+        myDropDownYear.direction = .bottom
+        
+        myDropDownYear.selectionAction = { (index: Int, item: String) in
+            self.yearChartType.text = self.typeArray[index]
+            
+            if index == 0{
+                self.ifYearBarChart = true
+            }else{
+                self.ifYearBarChart = false
+            }
+            self.showYearChart()
+        }
+    }
+        
+
+    
     
     
 

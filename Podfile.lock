@@ -9,6 +9,7 @@ PODS:
     - Charts/Core (= 4.1.0)
   - Charts/Core (4.1.0):
     - SwiftAlgorithms (~> 1.0)
+  - DropDown (2.3.13)
   - GoogleSignIn (6.2.4):
     - AppAuth (~> 1.5)
     - GTMAppAuth (~> 1.3)
@@ -23,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - Charts
+  - DropDown
   - GoogleSignIn
   - GoogleSignInSwiftSupport
 
@@ -30,6 +32,7 @@ SPEC REPOS:
   trunk:
     - AppAuth
     - Charts
+    - DropDown
     - GoogleSignIn
     - GoogleSignInSwiftSupport
     - GTMAppAuth
@@ -39,12 +42,13 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   Charts: 354f86803d11d9c35de280587fef50d1af063978
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
   GoogleSignInSwiftSupport: 565fa830a18d4d26d78c7a7c77be096fea7cf22b
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: 418d6bda8ed393e3ee603f806c520bd24e150c5c
+PODFILE CHECKSUM: b3aeacd90f7c8b0194707a051d6863ca9ad8e556
 
 COCOAPODS: 1.11.3

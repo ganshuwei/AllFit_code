@@ -9,6 +9,7 @@ target 'AllFit' do
 pod 'GoogleSignIn'
 pod 'GoogleSignInSwiftSupport'
 pod 'Charts'
+pod "DropDown"
   target 'AllFitTests' do
     inherit! :search_paths
     # Pods for testing
