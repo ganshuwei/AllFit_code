@@ -53,6 +53,8 @@ class AnalyticalViewController: UIViewController {
     var chartStyleOfBar1:ChartStyle?
     var ifWeekBarChart=true
     var ifYearBarChart=true
+    var weekView:UIView?
+    var yearView:UIView?
 
     
     
@@ -81,7 +83,8 @@ class AnalyticalViewController: UIViewController {
         barChart.view.translatesAutoresizingMaskIntoConstraints = false
         barChart.view.frame = bgViewOfBar.bounds
         barChart.view.center=bgViewOfBar.center
-
+        bgViewOfBar.addSubview(barChart.view)
+        weekView = barChart.view
 
 //        // First, add the view of the child to the view of the parent
 //        bgViewOfBar.addSubview(barChart.view)
@@ -93,6 +96,8 @@ class AnalyticalViewController: UIViewController {
         lineChart.view.frame = bgViewOfLine.bounds
         lineChart.view.center=bgViewOfLine.center
         bgViewOfLine.addSubview(lineChart.view)
+        yearView = lineChart.view
+        
         
         
         
@@ -194,7 +199,10 @@ class AnalyticalViewController: UIViewController {
             chart.view.translatesAutoresizingMaskIntoConstraints = false
             chart.view.frame = self.bgViewOfBar.bounds
             chart.view.center=self.bgViewOfBar.center
+            
             self.bgViewOfBar.addSubview(chart.view)
+            weekView?.removeFromSuperview()
+            weekView = chart.view
             
         }else{
             let chartView = LineChartView(data: showList1, title: "Week Exercise Time(s)", style: self.chartStyleOfLine!, form: ChartForm.extraLarge,rateValue:nil,dropShadow: false)
@@ -203,6 +211,8 @@ class AnalyticalViewController: UIViewController {
             chart.view.frame = self.bgViewOfBar.bounds
             chart.view.center=self.bgViewOfBar.center
             self.bgViewOfBar.addSubview(chart.view)
+            yearView?.removeFromSuperview()
+            yearView = chart.view
         }
 
         
