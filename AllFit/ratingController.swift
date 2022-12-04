@@ -98,12 +98,13 @@ class ratingController : UIViewController{
 
                 for case let child as DataSnapshot in snapshot.children {
                     let workoutKey = child.key
-                    guard var dict = child.value as? [String:Any] else {
+                    guard let dict = child.value as? [String:Any] else {
                         print("Error")
                         return
                     }
                     //the workout we are currently playing
-                    if dict["workoutId"] as! String == self.wkoutID {
+                    guard let workoutId = dict["workoutId"] as? String else{return}
+                    if  workoutId == self.wkoutID {
                         //get rating and rating num
                         let currRating = dict["workOutStar"] as? Double ?? 0.0
                         let currRatingCount = dict["workOutStarNum"] as? Int ?? 0

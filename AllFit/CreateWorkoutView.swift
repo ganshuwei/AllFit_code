@@ -96,7 +96,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         })
         
         let firebaseWorkoutInfo: [String:Any] = [
-              "workOutStar":5.0,
+              "workOutStar":0.0,
               "workOutStarNum": 0,
               "workOutImage":fileName,
               "workOutName": workoutName.text!,

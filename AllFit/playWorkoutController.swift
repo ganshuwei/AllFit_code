@@ -237,9 +237,6 @@ class playWorkoutController : UIViewController{
     //when time is up
     
     //or when finish the last exercise
-    @IBAction func endWorkout(_ sender: Any) {
-        finishWorkout()
-    }
     
     //
     func finishWorkout(){
