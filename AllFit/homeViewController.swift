@@ -171,7 +171,11 @@ extension homeViewController: UICollectionViewDelegate {
         
         guard let email = user.email else{return}
         let safeEmail = DatabaseManager.safeEmail(userEmail: email)
-        let workoutId = allWorkouts[indexPath.row].workoutId
+        let workoutName = allWorkouts[indexPath.row].workOutName
+        let workoutAuthor = allWorkouts[indexPath.row].userName
+        let workoutEmail = DatabaseManager.safeEmail(userEmail: workoutAuthor)
+        let workoutId = workoutEmail + "_" + workoutName
+        
         Database.database().reference().child("users/\(safeEmail)").child("finishedWorkouts").observeSingleEvent(of: .value, with: { snapshot in
             for case let child as DataSnapshot in snapshot.children {
                 let finishedWorkout = child.value as? [String:Any] ?? [:]

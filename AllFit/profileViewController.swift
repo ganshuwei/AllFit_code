@@ -141,9 +141,11 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         
         }else if sender.selectedSegmentIndex == 1{
             // Display the user created workout
+            displayWorkOuts = []
             getWorkOutList(targetNode: "createdWorkouts")
         }else if sender.selectedSegmentIndex == 2{
             // Display the user finished workout
+            
             getWorkOutList(targetNode: "finishedWorkouts")
         }
     }
