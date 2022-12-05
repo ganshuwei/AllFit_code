@@ -36,7 +36,7 @@ struct User{
 
 struct WorkOut {
     var workOutStar:Double
-    let workOutStarNum:Int
+    var workOutStarNum:Int
     let workOutImage:UIImage?
     let workOutName: String
     let workOutDifficulty:String

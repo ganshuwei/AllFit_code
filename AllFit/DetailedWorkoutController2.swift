@@ -23,6 +23,7 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     var wkoutDescription: String!
     var wkoutExercises: [Exercise] = []
     
+    @IBOutlet weak var checkFinished: UILabel!
     var currWorkout: WorkOut!
     
     @IBOutlet weak var detailedWorkoutName: UILabel!

@@ -117,6 +117,16 @@ class ratingController : UIViewController{
                         
                         //replace values in firebase data
                         Database.database().reference().child("workouts").child(workoutKey).updateChildValues(["workOutStar": newWorkoutRating,"workOutStarNum": currRatingCount+1])
+                        
+                        // Update home view workout ratting
+                        if let rootVC = self.navigationController?.viewControllers.first as? homeViewController {
+                            let workoutList = rootVC.allWorkouts
+                            if let index = workoutList.firstIndex(where: { $0.workoutId == workoutId }){
+                                rootVC.allWorkouts[index].workOutStar = newWorkoutRating
+                                rootVC.allWorkouts[index].workOutStarNum += 1
+                            }
+                        }
+                        self.navigationController?.popToRootViewController(animated: true)
                     }
                 }
             })

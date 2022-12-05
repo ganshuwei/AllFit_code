@@ -61,11 +61,7 @@ class playWorkoutController : UIViewController{
             currentExerciseTime=Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!
             exerciseTime.text=getTime(seconds: currentExerciseTime)
             
-//            //find and display total workout time
-//            for exercise in wkoutExercises{
-//                totalWorkoutTime += Int(exercise.exercise_repOrTimeValue)!
-//            }
-//            print("total workout time is ",totalWorkoutTime)
+
 //
             //display timer count down
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.update), userInfo: nil, repeats: true)
@@ -98,7 +94,7 @@ class playWorkoutController : UIViewController{
                     return
                 }
                 //the workout we are currently playing
-                if dict["workoutId"] as! String == self.wkoutId {
+                if let workoutId = dict["workoutId"] as? String, workoutId == self.wkoutId {
                     //get current exercise name
                     let currentExerciseName = self.wkoutExercises[self.exerciseIndex].exercise_name!
                     
@@ -253,8 +249,15 @@ class playWorkoutController : UIViewController{
         // Convert Date to String
         let dateString = dateFormatter.string(from: date)
         
+        guard let user = Auth.auth().currentUser else {return}
+        guard var firebaseEmail = user.email else {return}
+        firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
+        firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
+        guard let workoutName = wkoutName else {return}
+        let newId = firebaseEmail + "_" + workoutName
+        print("Finished workout ID")
         let justFinishedWorkout=[
-            "workoutId":wkoutId!,
+            "workoutId": newId,
             "totalTime": totalWorkoutTime,
             "date":dateString
         ] as [String : Any]
@@ -263,34 +266,28 @@ class playWorkoutController : UIViewController{
         //firebase: createdWorkouts, favoriteWorkouts, finishedWorkouts
         var ref: DatabaseReference!
         ref = Database.database().reference()
-        var firebaseEmail = Auth.auth().currentUser!.email!
-        firebaseEmail = firebaseEmail.replacingOccurrences(of: ".", with: "-")
-        firebaseEmail = firebaseEmail.replacingOccurrences(of: "@", with: "-")
         
-        if firebaseEmail != nil{
-            //see if there exists a list of finished workout
-            //if yes, append to list
-            //if no, create new list and append
-            if firebaseEmail != nil{
-                //push created workouts to user table
-                //get list of created workouts for this user
-                ref.child("users").child(firebaseEmail).observeSingleEvent(of: .value, with: {snapshot in
-                    //if user already as a list of created workouts, append to list
-                    if snapshot.hasChild("finishedWorkouts"){
-                        ref.child("users").child(firebaseEmail).child("finishedWorkouts").observeSingleEvent(of: .value, with: {snapshot in
-                            var finishedWorkoutsList = snapshot.value as? [[String:Any]]
-                            
-                            finishedWorkoutsList?.append(justFinishedWorkout)
-                            ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue(finishedWorkoutsList)
-                        })
-                    }
-                    //create list if there isn't
-                    else{
-                        ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue([justFinishedWorkout])
-                    }
+        //see if there exists a list of finished workout
+        //if yes, append to list
+        //if no, create new list and append
+
+        //push created workouts to user table
+        //get list of created workouts for this user
+        ref.child("users").child(firebaseEmail).observeSingleEvent(of: .value, with: {snapshot in
+            //if user already as a list of created workouts, append to list
+            if snapshot.hasChild("finishedWorkouts"){
+                ref.child("users").child(firebaseEmail).child("finishedWorkouts").observeSingleEvent(of: .value, with: {snapshot in
+                    var finishedWorkoutsList = snapshot.value as? [[String:Any]]
+                    
+                    finishedWorkoutsList?.append(justFinishedWorkout)
+                    ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue(finishedWorkoutsList)
                 })
             }
-        }
+            //create list if there isn't
+            else{
+                ref.child("users").child(firebaseEmail).child("finishedWorkouts").setValue([justFinishedWorkout])
+            }
+        })
         
         //compute time taken
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)

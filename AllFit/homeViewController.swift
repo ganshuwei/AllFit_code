@@ -12,6 +12,8 @@ class homeViewController: UIViewController {
     
     @IBOutlet weak var collection: UICollectionView!
     
+    var completionHandler: ((Int) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,28 +36,6 @@ class homeViewController: UIViewController {
             self.present(navigationController, animated: true, completion: nil)
         }
     }
-    
-    func getExerciseImage(imageUrl: String) {
-        var exerciseImage : UIImage?
-        StorageManager.share.fetchPicUrl(for: imageUrl, completion: {result in
-            switch result{
-            case .success(let url):
-                DispatchQueue.global().sync {
-                    // Fetch Image Data
-                    print("url is ", url)
-                    if let data = try? Data(contentsOf: url) {
-                        DispatchQueue.main.async {
-                            // Create Image and Update Image View
-                            exerciseImage = UIImage(data: data)
-                        }
-                    }
-                }
-            case .failure(let error):
-                print("Fail to get the exercise image: \(error)")
-            }
-        })
-    }
-    
     
     func fetchAllWorkOuts(){
         Database.database().reference().child("workouts").observeSingleEvent(of: .value, with: { snapshot in
@@ -180,10 +160,31 @@ extension homeViewController: UICollectionViewDelegateFlowLayout {
 
 extension homeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(allWorkouts[indexPath.row].workOutName)
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let detailedVC = storyboard.instantiateViewController(withIdentifier: "detailedWorkoutVC") as! DetailedWorkoutController2
+        
+        //Check whether finish this workout before
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        guard let email = user.email else{return}
+        let safeEmail = DatabaseManager.safeEmail(userEmail: email)
+        let workoutId = allWorkouts[indexPath.row].workoutId
+        Database.database().reference().child("users/\(safeEmail)").child("finishedWorkouts").observeSingleEvent(of: .value, with: { snapshot in
+            for case let child as DataSnapshot in snapshot.children {
+                let finishedWorkout = child.value as? [String:Any] ?? [:]
+
+                let finishedWorkoutId = finishedWorkout["workoutId"] as? String ?? ""
+                if(finishedWorkoutId == workoutId){
+                    detailedVC.checkFinished.text = "You have finished this workout before."
+                    detailedVC.checkFinished.textColor = .red
+                }
+            }
+      }) { error in
+        print(error.localizedDescription)
+      }
 
         //let detailedVC = DetailedWorkoutController()
         detailedVC.wkoutId = allWorkouts[indexPath.row].workoutId

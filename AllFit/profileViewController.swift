@@ -80,15 +80,12 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        displayWorkOuts = []
-        collectionView.reloadData()
         if control.selectedSegmentIndex == 0{
             // Display the user favourite workouts
+            displayWorkOuts = []
+            collectionView.reloadData()
             getWorkOutList(targetNode: "favWorkOuts")
         
-        }else if control.selectedSegmentIndex == 1{
-            // Display the user created workout
-            getWorkOutList(targetNode: "createdWorkouts")
         }
     }
     
@@ -145,6 +142,9 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         }else if sender.selectedSegmentIndex == 1{
             // Display the user created workout
             getWorkOutList(targetNode: "createdWorkouts")
+        }else if sender.selectedSegmentIndex == 2{
+            // Display the user finished workout
+            getWorkOutList(targetNode: "finishedWorkouts")
         }
     }
     
@@ -212,18 +212,30 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         }
         
         let safeEmail = user.safeEmail
-//        Database.database().reference().child("users").child("test-gmail-com").child("createdWorkouts").observeSingleEvent(of: .value, with: { snapshot in
         Database.database().reference().child("users/\(safeEmail)").child(targetNode).observeSingleEvent(of: .value, with: { snapshot in
 
             for case let child as DataSnapshot in snapshot.children {
-                guard let workoutId = child.value as? String else {
-                    print("Error")
-                    return
+                if(targetNode == "finishedWorkouts"){
+                    guard let workout = child.value as? [String : Any] else{
+                        return
+                    }
+                    let workoutId = workout["workoutId"] as? String ?? ""
+                    print("workoutID: \(workoutId)")
+                    
+                    //get workout info from workouts
+                    self.getWorkoutInfo(workoutID: workoutId)
+                    
+                }else{
+                    guard let workoutId = child.value as? String else {
+                        print("Error")
+                        return
+                    }
+                    print("workoutID: \(workoutId)")
+                    
+                    //get workout info from workouts
+                    self.getWorkoutInfo(workoutID: workoutId)
                 }
-                print("workoutID: \(workoutId)")
-                
-                //get workout info from workouts
-                self.getWorkoutInfo(workoutID: workoutId)
+
             }
       }) { error in
         print(error.localizedDescription)
@@ -244,7 +256,45 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
     
     // Open the workout detial page
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(displayWorkOuts[indexPath.row].workOutName)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let detailedVC = storyboard.instantiateViewController(withIdentifier: "detailedWorkoutVC") as! DetailedWorkoutController2
+        
+        //Check whether finish this workout before
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        guard let email = user.email else{return}
+        let safeEmail = DatabaseManager.safeEmail(userEmail: email)
+        let workoutId = displayWorkOuts[indexPath.row].workoutId
+        Database.database().reference().child("users/\(safeEmail)").child("finishedWorkouts").observeSingleEvent(of: .value, with: { snapshot in
+            for case let child as DataSnapshot in snapshot.children {
+                let finishedWorkout = child.value as? [String:Any] ?? [:]
+
+                let finishedWorkoutId = finishedWorkout["workoutId"] as? String ?? ""
+                if(finishedWorkoutId == workoutId){
+                    detailedVC.checkFinished.text = "You have finished this workout before."
+                    detailedVC.checkFinished.textColor = .red
+                }
+            }
+      }) { error in
+        print(error.localizedDescription)
+      }
+
+        //let detailedVC = DetailedWorkoutController()
+        detailedVC.wkoutId = displayWorkOuts[indexPath.row].workoutId
+        detailedVC.wkoutImage = displayWorkOuts[indexPath.row].workOutImage
+        detailedVC.wkoutName=displayWorkOuts[indexPath.row].workOutName
+        detailedVC.wkoutRating=displayWorkOuts[indexPath.row].workOutStar
+        detailedVC.wkoutRatingNum=displayWorkOuts[indexPath.row].workOutStarNum
+        detailedVC.wkoutExercises=displayWorkOuts[indexPath.row].workout_exercises
+        detailedVC.creatorName=displayWorkOuts[indexPath.row].userName
+        detailedVC.wkoutDifficulty=displayWorkOuts[indexPath.row].workOutDifficulty
+        detailedVC.wkoutDescription=displayWorkOuts[indexPath.row].workOutDescription
+        detailedVC.currWorkout = displayWorkOuts[indexPath.row]
+
+        //push nav controller
+        navigationController?.pushViewController(detailedVC, animated: true)
        
     }
 }
