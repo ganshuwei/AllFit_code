@@ -72,6 +72,8 @@ class editProfileViewController: UIViewController {
         curUser.profilePhoto = profilePhotoView.image
         curUser.bio = bioField.text ?? ""
         completionHandler?(curUser)
+        let tbc = self.tabBarController  as! MyTabBarController
+        tbc.curUser = curUser
         self.navigationController?.popViewController(animated: true)
     }
     

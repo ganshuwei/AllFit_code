@@ -16,6 +16,7 @@ class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
 //             //do your stuff
 //         }
 //    }
+    var curUser : User?
     // this is called *when* the tab item is selected (tapped)
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         // safely unwrap optionals

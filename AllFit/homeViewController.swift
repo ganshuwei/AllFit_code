@@ -137,6 +137,11 @@ extension homeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOutCollectionViewCell", for: indexPath) as! workOutCollectionViewCell
         print("all workouts is ",allWorkouts)
         cell.setUp(with: allWorkouts[indexPath.row])
+        let tbc = self.tabBarController  as! MyTabBarController
+        let curUser = tbc.curUser
+        if(self.allWorkouts[indexPath.row].userName == curUser?.userEmail){
+            cell.authorPhoto.image = curUser?.profilePhoto
+        }
         cell.completionHandler = { newImage in
             self.allWorkouts[indexPath.row].userPhoto = newImage
         }

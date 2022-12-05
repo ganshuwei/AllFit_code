@@ -113,7 +113,7 @@ class ratingController : UIViewController{
                         print("current rating count is ",currRatingCount )
 
                         //calculate and update rating
-                        var newWorkoutRating = (currRating + self.thisUserRating!) / (Double(currRatingCount)+1.0)
+                        var newWorkoutRating = (currRating * Double(currRatingCount) + self.thisUserRating!) / (Double(currRatingCount)+1.0)
                         newWorkoutRating = round(100 * newWorkoutRating) / 100
                         
                         //replace values in firebase data

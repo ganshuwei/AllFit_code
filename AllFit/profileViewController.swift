@@ -98,7 +98,6 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
                 self.usernameLabel.text =  newUser.username
                 self.bioLabel.text = newUser.bio
                 self.profilePhoto.image = newUser.profilePhoto
-                
             }
             self.navigationController?.pushViewController(editVC, animated: true)
         }
@@ -268,7 +267,11 @@ class profileViewController: UIViewController, UICollectionViewDelegate,UICollec
         
         guard let email = user.email else{return}
         let safeEmail = DatabaseManager.safeEmail(userEmail: email)
-        let workoutId = displayWorkOuts[indexPath.row].workoutId
+        let workoutName = displayWorkOuts[indexPath.row].workOutName
+        let workoutAuthor = displayWorkOuts[indexPath.row].userName
+        let workoutEmail = DatabaseManager.safeEmail(userEmail: workoutAuthor)
+        let workoutId = workoutEmail + "_" + workoutName
+        
         Database.database().reference().child("users/\(safeEmail)").child("finishedWorkouts").observeSingleEvent(of: .value, with: { snapshot in
             for case let child as DataSnapshot in snapshot.children {
                 let finishedWorkout = child.value as? [String:Any] ?? [:]
