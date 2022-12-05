@@ -62,6 +62,8 @@ class AnalyticalViewController: UIViewController {
 
     
     override func viewWillAppear(_ animated: Bool)  {
+        dayDict=[:]
+        yearDict=[:]
         fetchData()
     }
     

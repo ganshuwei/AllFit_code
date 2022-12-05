@@ -48,15 +48,7 @@ class CreateExerciseView: UIViewController{
     }
     
     @IBAction func submitExerciseClick(_ sender: Any) {
-        // Check exercise equiment select or empty
-        if(matBtn.tintColor == UIColor.systemGray5 && bikeBtn.tintColor == UIColor.systemGray5 && dumbellBtn.tintColor == UIColor.systemGray5){
-            let alert = UIAlertController(title: "Missing Equipment", message: "You must select at least one equipment.", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { action in
-                        })
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true)
-            return
-        }
+
         // Check the textField
         if let exerciseNameString = exerciseName.text, let repOrTimeValueString = repOrTimeValue.text{
             if(exerciseNameString.isEmpty || repOrTimeValueString.isEmpty){
@@ -109,6 +101,7 @@ class CreateExerciseView: UIViewController{
         print("exercise array is ",exerciseArray)
         
         exerciseArrayFirebase.append(firebaseExerciseInfo)
+        navigationController?.popViewController(animated: true)
 
         //go to previous view controller
     }

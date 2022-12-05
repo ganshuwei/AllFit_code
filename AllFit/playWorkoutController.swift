@@ -75,6 +75,9 @@ class playWorkoutController : UIViewController{
             workoutTime.isHidden = false
             exerciseTime.text=String(Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!) + " " + "repetitions"
             nextBtn.isHidden=false
+            
+            totalTimeTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(playWorkoutController.updateTotalTime), userInfo: nil, repeats: true)
+            
         }
         //display workout timer
         workoutTime.text = getTime(seconds: totalWorkoutTime)

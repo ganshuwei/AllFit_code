@@ -52,7 +52,7 @@ class editProfileViewController: UIViewController {
     
     @IBAction func submitAction(_ sender: UIButton) {
         guard var curUser = curUser else {return}
-        Database.database().reference().child("users").child(curUser.safeEmail).setValue(["username":userNameField.text!,"first_name":firstNameField.text!, "last_name": lastNameField.text!, "bio": bioField.text!, "birthday": BirthdayField.text!])
+        Database.database().reference().child("users").child(curUser.safeEmail).updateChildValues(["username":userNameField.text!,"first_name":firstNameField.text!, "last_name": lastNameField.text!, "bio": bioField.text!, "birthday": BirthdayField.text!])
         
         // Upload the user's new profile photo
         guard let image = profilePhotoView.image, let data = image.pngData() else{return}
