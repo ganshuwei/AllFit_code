@@ -23,8 +23,7 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     var wkoutDescription: String!
     var wkoutExercises: [Exercise] = []
     
-    @IBOutlet weak var checkFinished: UILabel!
-    var currWorkout: WorkOut!
+
     
     @IBOutlet weak var detailedWorkoutName: UILabel!
     @IBOutlet weak var detailedWorkoutImage: UIImageView!
@@ -32,10 +31,9 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     @IBOutlet weak var detailedRating: UILabel!
     @IBOutlet weak var detailedDifficulty: UILabel!
     @IBOutlet weak var detailedDescription: UILabel!
-    @IBOutlet weak var exerciseTable: UITableView!
+
+    @IBOutlet weak var startBtn: UIButton!
     
-    @IBOutlet weak var timeBasedLabel: UILabel!
-    @IBOutlet weak var repBasedLabel: UILabel!
     
     @IBOutlet weak var durationLabel: UILabel!
     
@@ -45,9 +43,13 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
     
     @IBOutlet weak var equipmentBackground: UIView!
     
+    @IBOutlet weak var repBasedLabel: UILabel!
+    @IBOutlet weak var timebasedlabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        startBtn.clipsToBounds = true
+        startBtn.layer.cornerRadius = 20
         detailedWorkoutName.text=wkoutName
         detailedWorkoutImage.image = wkoutImage
         detailedCreatorName.text = "by: "+creatorName
@@ -76,18 +78,18 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
 
         //if both are true
         if (repExercises == true && timedExercises == true) {
-            timeBasedLabel.isHidden=false
+            timebasedlabel.isHidden=false
             repBasedLabel.isHidden=false
         }
         //if rep workouts
         else if (repExercises == true && timedExercises == false) {
             repBasedLabel.isHidden=false
-            timeBasedLabel.isHidden=true
+            timebasedlabel.isHidden=true
 
         }
         else if (repExercises == false && timedExercises == true){
             repBasedLabel.isHidden=true
-            timeBasedLabel.isHidden=false
+            timebasedlabel.isHidden=false
             //compute total time
             var totalExerciseTime = 0
             for exercise in wkoutExercises {
@@ -95,7 +97,7 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
                 totalExerciseTime += exerciseTime
             }
             durationLabel.isHidden=false
-            durationLabel.text = String(totalExerciseTime)
+            durationLabel.text = String(totalExerciseTime)+"sec"
         }
         
         //equipment images
@@ -124,15 +126,15 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
         
         //display exercises in table
         //display them
-        setupTableView()
+        
     }
     //create table view
-    func setupTableView() {
-        print("in set up table view")
-        exerciseTable.dataSource = self
-        exerciseTable.delegate = self
-        exerciseTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    }
+//    func setupTableView() {
+//        print("in set up table view")
+//        exerciseTable.dataSource = self
+//        exerciseTable.delegate = self
+//        exerciseTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return wkoutExercises.count
     }
@@ -157,7 +159,7 @@ class DetailedWorkoutController2 : UIViewController,UIScrollViewDelegate, UITabl
         playWorkoutVC.wkoutExercises=wkoutExercises
         playWorkoutVC.wkoutRating=wkoutRating
         playWorkoutVC.wkoutRatingNum=wkoutRatingNum
-        playWorkoutVC.currentWorkout = currWorkout
+        //playWorkoutVC.currentWorkout = currWorkout
         
         navigationController?.pushViewController(playWorkoutVC, animated: true)
     }

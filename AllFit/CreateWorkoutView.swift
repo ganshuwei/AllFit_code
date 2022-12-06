@@ -17,6 +17,9 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var exerciseTable: UITableView!
     @IBOutlet weak var workoutDifficulty: UISegmentedControl!
     @IBOutlet weak var workoutDescription: UITextField!
+    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var showEView: UIView!
+    @IBOutlet weak var postBtn: UIButton!
     
     var workoutDifficultyString=""
     
@@ -24,6 +27,20 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         print("in workout load view")
+        workoutImage.clipsToBounds = true
+        workoutImage.layer.cornerRadius=10
+        infoView.layer.cornerRadius=10
+        infoView.layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
+        infoView.layer.shadowRadius = 5
+        infoView.layer.shadowColor = #colorLiteral(red: 0.7947373986, green: 0.7969929576, blue: 0.9504011273, alpha: 0.8013245033)
+        infoView.layer.shadowOpacity = 0.5
+        showEView.layer.cornerRadius=10
+        showEView.layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
+        showEView.layer.shadowRadius = 5
+        showEView.layer.shadowColor = #colorLiteral(red: 0.7947373986, green: 0.7969929576, blue: 0.9504011273, alpha: 0.8013245033)
+        showEView.layer.shadowOpacity = 0.5
+        postBtn.clipsToBounds = true
+        postBtn.layer.cornerRadius = 5
         exerciseTable.isEditing = true
         exerciseTable.allowsSelectionDuringEditing = true
         // Do any additional setup after loading the view.

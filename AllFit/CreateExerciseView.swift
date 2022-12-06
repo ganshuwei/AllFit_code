@@ -22,6 +22,7 @@ class CreateExerciseView: UIViewController{
     @IBOutlet weak var submitExercise: UIButton!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var repOrTimeValue: UITextField!
+    @IBOutlet weak var infoBgView: UIView!
     
     var equipmentList:[String] = []
     
@@ -30,9 +31,17 @@ class CreateExerciseView: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        exerciseNameLabel.clipsToBounds=true
+        exerciseNameLabel.layer.cornerRadius=5
         matBtn.tintColor=UIColor.systemGray5
         dumbellBtn.tintColor=UIColor.systemGray5
         bikeBtn.tintColor=UIColor.systemGray5
+        exerciseImage.clipsToBounds=true
+        exerciseImage.layer.cornerRadius=10
+        infoBgView.layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
+        infoBgView.layer.shadowRadius = 5
+        infoBgView.layer.shadowColor = #colorLiteral(red: 0.7947373986, green: 0.7969929576, blue: 0.9504011273, alpha: 0.8013245033)
+        infoBgView.layer.shadowOpacity = 0.5
         
     }
     @IBAction func exerciseTypeChangeAction(_ sender: Any) {
@@ -108,7 +117,7 @@ class CreateExerciseView: UIViewController{
     
     
     @IBAction func enterExerciseName(_ sender: Any) {
-        exerciseNameLabel.text = exerciseName.text
+        exerciseNameLabel.text = "  "+(exerciseName.text ?? "")+"  "
     }
     
     @IBAction func uploadExerciseImage(_ sender: Any) {
@@ -117,7 +126,7 @@ class CreateExerciseView: UIViewController{
     
     @IBAction func clickDumbell(_ sender: Any) {
         print("inside clickDumbell")
-        if dumbellBtn.tintColor == UIColor.systemBlue{
+        if dumbellBtn.tintColor == UIColor(named: "btn"){
             let indexDumbell = equipmentList.firstIndex(of: "dumbell")
             equipmentList.remove(at: indexDumbell!)
             dumbellBtn.tintColor=UIColor.systemGray5
@@ -125,14 +134,14 @@ class CreateExerciseView: UIViewController{
         }
         else if dumbellBtn.tintColor == UIColor.systemGray5{
             equipmentList.append("dumbell")
-            dumbellBtn.tintColor=UIColor.systemBlue
+            dumbellBtn.tintColor=UIColor(named: "btn")
             dumbellBtn.layer.cornerRadius=5
         }
     }
 
     @IBAction func matBtn(_ sender: Any) {
         print("inside matBtn")
-        if matBtn.tintColor == UIColor.systemBlue{
+        if matBtn.tintColor == UIColor(named: "btn"){
             let indexMat = equipmentList.firstIndex(of: "mat")
             equipmentList.remove(at: indexMat!)
             matBtn.tintColor=UIColor.systemGray5
@@ -140,13 +149,13 @@ class CreateExerciseView: UIViewController{
         }
         else if matBtn.tintColor == UIColor.systemGray5{
             equipmentList.append("mat")
-            matBtn.tintColor=UIColor.systemBlue
+            matBtn.tintColor=UIColor(named: "btn")
             matBtn.layer.cornerRadius=5
         }
     }
     @IBAction func bikeBtn(_ sender: Any) {
         print("inside bikeBtn")
-        if bikeBtn.tintColor == UIColor.systemBlue{
+        if bikeBtn.tintColor == UIColor(named: "btn"){
             let indexBike = equipmentList.firstIndex(of: "bike")
             equipmentList.remove(at: indexBike!)
             bikeBtn.tintColor=UIColor.systemGray5
@@ -154,7 +163,7 @@ class CreateExerciseView: UIViewController{
         }
         else if bikeBtn.tintColor == UIColor.systemGray5{
             equipmentList.append("bike")
-            bikeBtn.tintColor=UIColor.systemBlue
+            bikeBtn.tintColor=UIColor(named: "btn")
             bikeBtn.layer.cornerRadius=5
         }
     }

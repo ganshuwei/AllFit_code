@@ -151,11 +151,11 @@ extension homeViewController: UICollectionViewDataSource {
 
 extension homeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 194, height: 300)
+        return CGSize(width: 180, height: 290)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 1, bottom: 10, right: 24)
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -187,8 +187,8 @@ extension homeViewController: UICollectionViewDelegate {
 
                 let finishedWorkoutId = finishedWorkout["workoutId"] as? String ?? ""
                 if(finishedWorkoutId == workoutId){
-                    detailedVC.checkFinished.text = "You have finished this workout before."
-                    detailedVC.checkFinished.textColor = .red
+                    //detailedVC.checkFinished.text = "You have finished this workout before."
+                    //detailedVC.checkFinished.textColor = .red
                 }
             }
       }) { error in
@@ -205,7 +205,7 @@ extension homeViewController: UICollectionViewDelegate {
         detailedVC.creatorName=allWorkouts[indexPath.row].userName
         detailedVC.wkoutDifficulty=allWorkouts[indexPath.row].workOutDifficulty
         detailedVC.wkoutDescription=allWorkouts[indexPath.row].workOutDescription
-        detailedVC.currWorkout = allWorkouts[indexPath.row]
+        //detailedVC.currWorkout = allWorkouts[indexPath.row]
 
         //push nav controller
         navigationController?.pushViewController(detailedVC, animated: true)

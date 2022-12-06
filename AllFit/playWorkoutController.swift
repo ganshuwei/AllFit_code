@@ -59,7 +59,7 @@ class playWorkoutController : UIViewController{
         if exerciseType == "time"{
             print("exercise type is time")
             currentExerciseTime=Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!
-            exerciseTime.text=getTime(seconds: currentExerciseTime)
+            exerciseTime.text = String(currentExerciseTime) + exerciseTime.text!
             
 
 //
@@ -145,7 +145,7 @@ class playWorkoutController : UIViewController{
         
         if wkoutExercises[exerciseIndex].exercise_type == "time"{
             currentExerciseTime = Int(wkoutExercises[exerciseIndex].exercise_repOrTimeValue)!
-            exerciseTime.text=getTime(seconds: currentExerciseTime)
+            exerciseTime.text = String(currentExerciseTime) + (exerciseTime.text?.suffix(1) ?? "")
             exerciseTime.isHidden=false
             nextBtn.isHidden=false
             //have to recreate timer
@@ -180,7 +180,7 @@ class playWorkoutController : UIViewController{
     @objc func update(){
         if (currentExerciseTime > 0){
             currentExerciseTime-=1
-            exerciseTime.text = getTime(seconds: currentExerciseTime)
+            exerciseTime.text = String(currentExerciseTime) + (exerciseTime.text?.suffix(1) ?? "")
         }
         else if (currentExerciseTime == 0){
             print("timed exercise is over")

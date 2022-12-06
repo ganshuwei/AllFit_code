@@ -25,11 +25,15 @@ class ratingController : UIViewController{
     @IBOutlet weak var star3: UIButton!
     @IBOutlet weak var star4: UIButton!
     @IBOutlet weak var star5: UIButton!
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var trophyImage: UIImageView!
     
     @IBOutlet weak var submitOrSkipBtn: UIButton!
     
     override func viewDidLoad() {
         print("in rating view controller")
+        bgView.layer.cornerRadius = 10
+        trophyImage.layer.cornerRadius = 10
         super.viewDidLoad()
     }
     
@@ -113,6 +117,7 @@ class ratingController : UIViewController{
                         print("current rating count is ",currRatingCount )
 
                         //calculate and update rating
+                        guard let thisUserRating = self.thisUserRating else{return}
                         var newWorkoutRating = (currRating * Double(currRatingCount) + self.thisUserRating!) / (Double(currRatingCount)+1.0)
                         newWorkoutRating = round(100 * newWorkoutRating) / 100
                         
