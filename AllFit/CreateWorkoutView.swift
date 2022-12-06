@@ -174,6 +174,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
         })
         ref.child("workouts").child(workoutId).setValue(firebaseWorkoutInfo)
         exerciseArray = []
+        exerciseArrayFirebase = [[:]]
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let VC = storyboard.instantiateViewController(withIdentifier: "createWorkOutVC") as! CreateWorkoutView
         var vcs = self.navigationController!.viewControllers // get all vcs
@@ -197,6 +198,7 @@ class CreateWorkoutView: UIViewController, UITableViewDataSource, UITableViewDel
 
         }
         let deleteAction=UITableViewRowAction(style:.destructive,title:"Delete"){_,indexPath in
+                exerciseArrayFirebase.remove(at: indexPath.row + 1)
                 exerciseArray.remove(at: indexPath.row)
                 self.exerciseTable.deleteRows(at: [indexPath], with: .fade)
         }
